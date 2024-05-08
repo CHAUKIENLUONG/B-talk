@@ -1,0 +1,192 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+@*
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2>Create a new account.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.FullName" class="form-control" autocomplete="fullname" aria-required="true" placeholder="Gay Bowser" />
+                <label asp-for="Input.FullName">Full Name</label>
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.DateOfBirth" class="form-control" autocomplete="dateofbirth" aria-required="true" placeholder="01/01/2000" />
+                <label asp-for="Input.DateOfBirth">Date Of Birth</label>
+                <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.CMND" class="form-control" autocomplete="cmnd" aria-required="true" />
+                <label asp-for="Input.CMND">CCCD</label>
+                <span asp-validation-for="Input.CMND" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Address" class="form-control" autocomplete="address" aria-required="true" placeholder="123 Main Street, Anytown, USA" />
+                <label asp-for="Input.Address">Address</label>
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-control">
+                    <option disabled selected>Select Role</option>
+                </select>
+            </div>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        </form>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h3>Use another service to register.</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>
+ *@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - Btalk</title>
+    <link rel="shortcut icon" type="image/png" href="~/images/logo-2-no words.png" />
+    <link rel="stylesheet" href="~/Admin/css/styleslogin.min.css" />
+</head>
+
+<body>
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+        <div class="position-relative overflow-hidden min-vh-100 d-flex align-items-center justify-content-center">
+            <div class="d-flex align-items-center justify-content-center w-100">
+                <div class="row justify-content-center w-100">
+                    <div class="col-md-8 col-lg-6 col-xxl-3">
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <section>
+                                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                        <a href="~/Home/index" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                                            <img src="~/images/logo-2-no words.png" width="180" class="rounded-circle" alt="Btalk Logo">
+                                        </a>
+                                        <p class="text-center text-white">Where Every Frame Tells a Story</p>
+                                        <hr />
+                                        @* register *@
+                                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                                        <div class="form-floating mb-3 text-white">
+                                            <input asp-for="Input.FullName" class="form-control" style="color: white;" autocomplete="fullname" aria-required="true" placeholder="Gay Bowser" />
+                                            <label asp-for="Input.FullName ">Full Name</label>
+                                            <span asp-validation-for="Input.FullName" class="text-danger text-white"></span>
+                                        </div>
+                                        <div class="form-floating mb-3 text-white">
+                                            <input asp-for="Input.Email" class="form-control" style="color: white;" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                                            <label asp-for="Input.Email" class="form-label text-white">Email</label>
+                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-floating mb-3 text-white">
+                                            <input asp-for="Input.Password" class="form-control" style="color: white;" autocomplete="new-password" aria-required="true" placeholder="password" />
+                                            <label asp-for="Input.Password">Password</label>
+                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-floating mb-3 text-white">
+                                            <input asp-for="Input.ConfirmPassword" class="form-control" style="color: white;" autocomplete="new-password" aria-required="true" placeholder="password" />
+                                            <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-floating mb-3 text-white">
+                                            <input asp-for="Input.DateOfBirth" type="date" class="form-control" style="color: white !important;" autocomplete="dateofbirth" aria-required="true" placeholder="01/01/2000" />
+                                            <label asp-for="Input.DateOfBirth">Date Of Birth</label>
+                                            <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-floating mb-3 text-white">
+                                            <input asp-for="Input.CMND" class="form-control" style="color: white;" autocomplete="cmnd" aria-required="true" placeholder="058397984" />
+                                            <label asp-for="Input.CMND">CCCD</label>
+                                            <span asp-validation-for="Input.CMND" class="text-danger text-white"></span>
+                                        </div>
+                                        <div class="form-floating mb-3 text-white">
+                                            <input asp-for="Input.Address" class="form-control" style="color: white;" autocomplete="address" aria-required="true" placeholder="123 Main Street, Anytown, USA" />
+                                            <label asp-for="Input.Address">Address</label>
+                                            <span asp-validation-for="Input.Address" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-floating text-white" id="selectedRole">
+                                            <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-control text-white">
+@*                                                 <option disabled selected>Select Role</option>
+ *@                                            </select>
+                                        </div>
+                                        <div class="form-floating text-white">
+                                            <button id="registerSubmit" type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Register</button>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <p class="fs-4 mb-0 fw-bold text-white">Already a Btalk member?</p>
+                                            <a class="text-primary fw-bold ms-2" href="./Login">Login</a>
+                                        </div>
+                                    </form>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+@* 
+<script>
+    $(document).ready(function () {
+        $("#selectedRole").val("Customer"); // Replace with actual ID and value
+    });
+</script> *@

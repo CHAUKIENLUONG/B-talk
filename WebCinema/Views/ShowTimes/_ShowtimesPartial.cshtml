@@ -1,0 +1,13 @@
+﻿@model IEnumerable<WebCinema.Models.Showtime>
+
+
+    @foreach (var showtime in Model)
+    {
+        <div class="showtime-item">
+            <form asp-action="SelectShowtime" method="post">
+                <input type="hidden" name="movieId" value="@showtime.MovieId" />
+                <input type="hidden" name="showtimeId" value="@showtime.ShowId" />
+                <button type="submit">@showtime.Screentime.ScreenTime</button>
+            </form>
+        </div>
+    }

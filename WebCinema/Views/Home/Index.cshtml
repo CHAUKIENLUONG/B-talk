@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WebCinema.Models.Movie>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<link href="~/css/home.css" rel="stylesheet" />
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="container">
+        <div class="hero__slider owl-carousel">
+            @foreach (var movie in Model)
+            {
+                <div class="hero__items set-bg" data-setbg="@Url.Content(@* "~/images/" +  *@movie.Poster)">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hero__text">
+                                <div class="label">@movie.Genre.GenreName</div>
+                                <h2>@movie.MovieName</h2>
+                                <p>@movie.Description</p>
+                                <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId"><span>Chi Tiết</span> <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<a href="@Url.Action("Movie", "Movie")" >
+    <div class="container">
+        <h4>Phim Đang Chiếu</h4>
+    </div>
+</a>
+<div class="slider-wrapper">
+    <div class="slider-container">
+
+        <ul class="slider">
+            @foreach (var movie in Model)
+            {
+                <li>
+                    <a href="~/ShowTimes/ShowTimes">
+                        <img src="@Url.Content(@* "~/images/" +  *@movie.Poster)" />
+                    </a>
+
+                </li>
+            }
+        </ul>
+
+
+        <button class="prev">&#10094;</button> <!-- Biểu tượng mũi tên sang trái -->
+        <button class="next">&#10095;</button> <!-- Biểu tượng mũi tên sang phải -->
+    </div>
+</div>
+@* <!-- Hero Section End -->
+<div class="text-title">
+    <label>Rạp BTALK CINEMA:</label>
+</div>
+
+<div class="rap-gv-slider clearfix" style="display:block">
+    <div class="slider-left">
+        <div class="bx-wrapper" style="max-width: 100%;">
+            <div class="bx-viewport" aria-live="polite" style="width: 100%; overflow: hidden; position: relative; height: 332px;">
+                <div class="bxslider_rgv" style="width: 3215%; position: relative; transition-duration: 0s; transform: translate3d(-800px, 0px, 0px);">
+                    <a href="#" style="float: left; list-style: none; position: relative; width: 800px;" aria-hidden="true">
+                        <img src="https://cms.megagscinemas.vn//media/76665/screen-shot-2021-10-28-at-15-20-17.png?width=802&amp;height=333">
+                        <img src="https://cms.megagscinemas.vn//media/76664/screen-shot-2021-10-29-at-14-43-18.png?width=802&amp;height=333">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="notes-right">
+    </div>
+</div>
+ *@
+@* <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var slider = document.querySelector('.slider');
+        var slideWidth = slider.querySelector('li').offsetWidth * 3;
+
+        slider.style.width = slideWidth + 'px';
+
+        document.querySelector('.next').addEventListener('click', function () {
+            var nextMovies = slider.querySelectorAll('li:nth-child(-n+3)');
+            slider.style.transition = 'transform 0.5s ease';
+            slider.style.transform = 'translateX(-' + (slideWidth + 10) + 'px)'; // Thêm 10px để bù đắp cho margin-right
+            setTimeout(function () {
+                nextMovies.forEach(function (movie) {
+                    slider.appendChild(movie);
+                });
+                slider.style.transition = 'none';
+                slider.style.transform = 'translateX(0)';
+            }, 500);
+        });
+
+        document.querySelector('.prev').addEventListener('click', function () {
+            var prevMovies = [];
+            for (var i = 0; i < 3; i++) {
+                prevMovies.push(slider.lastElementChild);
+                slider.insertBefore(prevMovies[i], slider.firstElementChild);
+            }
+            slider.style.transition = 'none';
+            slider.style.transform = 'translateX(-' + (slideWidth + 10) + 'px)'; // Thêm 10px để bù đắp cho margin-right
+            setTimeout(function () {
+                prevMovies.forEach(function (movie) {
+                    slider.appendChild(movie);
+                });
+                slider.style.transition = 'transform 0.5s ease';
+                slider.style.transform = 'translateX(0)';
+            }, 0);
+        });
+    });
+</script> *@
+

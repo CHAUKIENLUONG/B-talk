@@ -1,0 +1,395 @@
+﻿@{
+    ViewData["Title"] = "FAQs";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<style>
+    /* CSS cho FAQs */
+    .introduce-right {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .faqs-center {
+        border: 0;
+        border-radius: 0;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 30pt;
+        color: aliceblue;
+        height: 50px;
+        line-height: 47px;
+        background: #5c5c5c;
+    }
+
+    .faqs-content {
+        margin-top: 20px;
+    }
+
+    .drawer-item {
+        margin-bottom: 10px;
+    }
+
+    .drawer-header {
+        display: flex;
+        background-color: grey;
+        color: #fff;
+        padding: 8px;
+        cursor: pointer;
+        min-height: 32px;
+        transition: 0.25s;
+        position: relative;
+        font-size: 1pt;
+    }
+
+
+
+        .drawer-header:hover {
+            background-color: #ddd;
+        }
+
+        .drawer-header.active {
+            background-color: #3c446c; /* Màu nền mới khi được nhấn */
+        }
+
+    .drawer-content {
+        padding: 10px;
+        display: none;
+        color: aliceblue;
+        background-color: grey;
+    }
+
+        .drawer-content ul {
+            margin: 0; /* Loại bỏ margin mặc định của ul */
+            padding: 0; /* Loại bỏ padding mặc định của ul */
+        }
+
+        .drawer-content li {
+            display: inline-block; /* Hiển thị các phần tử li theo chiều ngang */
+            margin-right: 10px; /* Khoảng cách giữa các phần tử li */
+        }
+
+    .drawer-header h1 {
+        color: #ff9d55;
+        font-size: 24px;
+        font-weight: 1000;
+        margin: 0;
+        margin-left: 50px;
+        width: 100%;
+    }
+
+    .drawer-header-icon {
+        float: left;
+        color: #3e3e3e;
+        font-size: 20px;
+        position: relative;
+        top: -7px;
+        -webkit-transform: rotate(-120deg);
+        -moz-transform: rotate(-120deg);
+        transform: rotate(-120deg);
+        color: #fff;
+    }
+
+    p {
+        color: aliceblue
+    }
+</style>
+
+
+
+
+<body>
+    <div class="introduce-right">
+        <!-- Vien fags -->
+        <div class="vien-faqs clearfix">
+            <div class="faqs-repeat">
+                <div class="faqs-center">
+                    <span style="text-transform:none">FAQs</span>
+                </div>
+            </div>
+        </div>
+        <!-- faqs Content -->
+        <div class="faqs-content">
+
+            <div class="drawer">
+                <!-- First Item -->
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Phim 2D là gì?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <div id="ui-id-11" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" style="display: block;">
+                            <p><span style="font-size: 12pt;">Phim 2D&nbsp;sử dụng các thiết bị tương tự như phim 3D Digital chỉ khác là không có hiệu ứng 3D. Đồng thời, bạn sẽ vẫn được tận hưởng những hình ảnh sống động và âm thanh tuyệt vời mà không cần dùng kính.</span></p>
+                            <p><span style="font-size: 12pt;">Điều này có nghĩa là bạn sẽ được thưởng thức hiệu ứng hình ảnh sáng hơn, sắc nét hơn của công nghệ 3D với âm thanh digital sống động.</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Phim 3D là gì?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p><span style="font-size: medium; font-family: arial, helvetica, sans-serif;">3D&nbsp;là chữ viết tắt của 3 Dimension, tiếng Việt có nghĩa là 3 chiều: Các phim ảnh thông thường hoặc những hình ảnh trên Tivi, máy tính là những phim hoặc những hình ảnh 2 chiều vì màn ảnh chỉ có 2 chiều là chiều rộng và chiều đứng (không có chiều sâu).</span></p>
+                        <p><span style="font-size: medium; font-family: arial, helvetica, sans-serif;">Không gian ta đang sống là không gian 3 chiều. Loại phim 3D là loại phim dùng kỹ thuật hiện đại làm cho người xem cảm nhận được chiều sâu không gian của nhân vật, của phong cảnh thật như không gian ta đang sống, khán giả cảm thấy như đang sống thực trong phim.&nbsp;</span></p>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Suất chiếu Sneak shows là gì?</h1>
+                    </div><div class="drawer-content">
+                        <p>Sneak Shows là các suất chiếu đặc biệt, phim sẽ được chiếu sớm hơn ngày khởi chiếu. Rạp BTALK CINEMA sẽ áp dụng giá vé riêng cho các suất chiếu Sneak shows.</p>
+                    </div>
+                </div>
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Có thể mua vé bằng cách nào?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>Có thể đặt vé online trên website bằng cách chọn xuất chiếu và tiến hành các bước chọn ghế và thanh toán như hiển thị trên website.</p>
+                        <p>Hoặc đến mua trực tiếp tại Rạp BTALK Cinema</p>
+                        <p><span style="color: #ff0000;"><strong>Lưu ý:</strong></span></p>
+                        <ul>
+                            <li>Khách hàng phải Đăng ký làm Thành Viên của BTALK Cinema thì mới có thể tiến hành các bước mua vé trực tuyến.</li>
+                            <li>Các loại thẻ thanh toán nội địa hay quốc tê quý khách sử dụng phải được đăng ký Internet Banking.</li>
+                            <li>Thẻ thanh toán quốc tế (Visa, Master) phải được phát hành tại Việt Nam&nbsp;</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">
+                            ▼
+                        </div>
+                        <h1>Rạp có ưu đãi giá vé cho trẻ em/người cao tuổi không?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <div id="ui-id-37" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" style="display: block;">
+                            <p>BTALK CINEMA áp dụng giá vé ưu đãi dành cho trẻ em/người cao tuổi trong cả tuần. Chi tiết xin xem bảng giá vé hoặc liên hệ quầy vé.</p>
+                            <p>Bên cạnh đó, trẻ em dưới 1 mét khi đến xem phim tại Mega GS sẽ được miễn phí vé hoàn toàn. Bé sẽ ngồi chung ghế với bố mẹ khi xem phim.</p>
+                            <p><span style="color: #ff0000;"><strong>Lưu ý:</strong></span></p>
+                            <ul>
+                                <li>Vé trẻ em: áp dụng cho trẻ em cao dưới 1.3 mét.</li>
+                                <li>Vé người cao tuổi: áp dụng…. CMND khi mua vé. Mỗi CMND chỉ áp dụng cho 1 vé / người sử dụng.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Rạp có ưu đãi giá vé gì cho học sinh/sinh viên?</h1>
+                    </div><div class="drawer-content">
+                        <p>Đối tượng là học sinh/sinh viên sẽ được hưởng giá vé ưu đãi trong cả tuần, đồng giá với trẻ em/người cao tuổi. Chi tiết xin xem bảng giá vé hoặc liên hệ quầy vé.</p>
+                        <p><span style="color: #ff0000;"><strong>Lưu ý:</strong>&nbsp;</span></p>
+                        <ul>
+                            <li>HS-SV vui lòng có mặt trực tiếp tại quầy vé với thẻ HS-SV còn hạn sử dụng để hưởng các quyền lợi của mình.</li>
+                            <li>Mỗi thẻ HS-SV chỉ áp dụng cho 1 vé / HS-SV sử dụng.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Thức ăn bên ngoài có được mang vào rạp hay không?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <div id="ui-id-35" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" style="display: block;">
+                            <p>Để đảm bảo vệ sinh và an toàn thực phẩm, chỉ thức ăn và đồ uống được mua tại BTALK CINEMA mới được đem vào rạp chiếu phim.</p>
+                            <p>Ngoài ra, bạn cũng không được hút thuốc, dùng kẹo cao su, không quay phim, chụp hình, không nghe hoặc gọi điện thoại, không nói chuyện và làm ồn trong rạp chiếu phim.</p>
+                            <p>Tất cả những qui định trên để đảm bảo các bạn có thể thưởng thức phim một cách trọn vẹn và tuyệt vời nhất.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Có phải gửi balo/ túi xách/ vật dụng cồng kềnh trước khi vào rạp hay không?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>Đối với các loại balo/túi xách lớn/ vật dụng cồng kềnh thì nhân viên sẽ yêu cầu bạn phải gửi tại quầy chăm sóc khách hàng. Gửi balo/túi xách/vật dụng cồng kềnh là để khi xảy ra sự cố, việc thoát hiểm cho khách sẽ diễn ra dễ dàng và an toàn hơn.</p>
+                        <p>Đối với các loại balo/túi xách nhỏ thì nhân viên sẽ không yêu cầu phải gửi.</p>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Gửi balo/túi xách/ vật dụng cồng kềnh tại quầy có đảm bảo hay không?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>Khi gửi balo/ túi xách và vật dụng cồng kềnh, nhân viên sẽ xé một phiếu có hai liên, một liên có dây để móc vào balo của khách, liên còn lại sẽ được đưa cho khách hàng giữ. Trên hai liên sẽ có mã số giống nhau để đối chiếu khi khách đến nhận balo tại quầy. Nên sẽ không có chuyện lấy nhầm cặp xách.</p>
+                        <p>Tại các quầy giữ <span>balo/ túi xách và vật dụng cồng kềnh</span> của khách đều có Camera giám sát, nên việc thất lạc hoặc mất mác đồ đạc của khách hàng sẽ được BQL rạp xử lý rất triệt để nhằm không để sự cố có thể xảy ra.</p>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>BTALK CINEMA phát hành những loại thẻ thành viên nào?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>BTALK chỉ phát hành một loại thẻ thành viên duy nhất là BTALK + (BTALK Plus) cho tất cả các thành viên.</p>
+                    </div>
+                </div>
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Làm sao để đăng ký thẻ thành viên BTALK + ?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>Rất đơn giản! Bạn có thể đăng ký làm thành viên tại website www.btalkcinema.vn hoặc đến đăng ký tại hệ thống rạp BTALK CINEMA nhé :)</p>
+                    </div>
+                </div>
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Làm sao để nhận thẻ BTALK + ?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <ol>
+                            <li><span style="font-size: 12pt;">Đăng ký Thành viên tại website btalkcinema.vn.</span></li>
+                            <li><span style="font-size: 12pt;">Đến hệ thống rạp BTALK CINEMA, cung cấp số điện thoại hoặc họ tên để nhận thẻ và tích lũy/đổi điểm khi giao dịch tại BTALK CINEMA.</span></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Cách thức tính điểm cho thẻ BTALK + là gì?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p><span style="font-size: 12pt; font-family: arial,helvetica,sans-serif;">Mỗi giao dịch thực hiện tại cụm Rạp BTALK CINEMA (mua vé phim, bắp, nước…) hoặc tại website: www.btalkcinema.vn, khách hàng sẽ tích điểm (BTALK Đồng) để đổi vé xem phim, thức uống hoặc combo tương ứng. Điểm được tích vào thẻ sẽ được tính dựa trên hóa đơn mua vé, bắp, nước; các bạn sẽ được tích 5% trên tổng hóa đơn vào thẻ BTALK +.<br></span></p>
+                        <p><span style="font-size: 12pt; font-family: arial,helvetica,sans-serif;"><strong><em><span style="text-decoration: underline;">Lưu ý:</span></em></strong> tỉ lệ điểm tích lũy được tính dựa trên giá trị thanh toán trước thuế.</span></p>
+                        <p><span style="font-size: 12pt; font-family: arial,helvetica,sans-serif;"><span style="text-decoration: underline;"><em><strong>Ví dụ:</strong></em></span> Khách hàng thanh toán hóa đơn 100.000 VND thì được tích 5% (số tiền chi tiêu trước thuế GTGT) tức 4.762 BTALK đồng tương ứng 4.76 điểm cho giao dịch vé (Thuế GTGT của vé là 5%) &amp; 4.545 BTALK đồng tương ứng 4.55 điểm cho giao dịch thức ăn (Thuế GTGT của thức ăn là 10%).</span></p>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Quy định về điểm thưởng của thẻ BTALK + là gì?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p><span style="font-size: 12pt; font-family: arial,helvetica,sans-serif;">Số điểm thưởng tích lũy được, sẽ có giá trị sử dụng trong vòng 1 năm, kể từ giao dịch được nhận điểm thưởng (điểm thưởng sẽ được ghi nhận trong vòng 24h kể từ thời điểm giao dịch thành công).</span></p>
+                        <p><span style="font-size: 12pt; font-family: arial,helvetica,sans-serif;">Khách hàng có thể dùng điểm để thanh toán giao dịch ngay khi có điểm, không giới hạn mức tối thiểu.</span></p>
+                        <p><span style="font-size: 12pt; font-family: arial,helvetica,sans-serif;">1 BTALK Đồng tương đượng 1,000 Đồng khi thanh toán tại quầy.&nbsp;</span></p>
+                        <p><span style="font-size: 12pt; font-family: arial,helvetica,sans-serif;">Ví dụ: Cho giao dịch 100,000 VND, khách hàng có thể:</span></p>
+                        <p><span style="font-size: 12pt; font-family: arial,helvetica,sans-serif;">1.Thanh toán 80,000 VND + 20 BTALK Đồng</span></p>
+                        <p><span style="font-size: 12pt; font-family: arial,helvetica,sans-serif;">2.Hoặc không thanh toán tiền mặt mà đổi bằng 100,000 BTALK Đồng</span></p>
+                        <p><span style="color: #ff0000;"><strong>Lưu ý: BTALK Đồng không có giá trị quy đổi thành tiền mặt.</strong></span></p>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Điều kiện để nhận ưu đãi vào ngày sinh nhật của thành viên BTALK + là gì?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>Để được hưởng ưu đãi vào ngày sinh nhật thì thành viên BTALK + phải là thành viên từ 1 năm trở lên.</p>
+                        <p>Thành viên chỉ được nhận ưu đãi vào tuần có ngày sinh nhật của thành viên.<br><br>Ví dụ: sinh nhật vào ngày thứ 4, thì thành viên có thể nhận ưu đãi từ thứ 2 đến chủ nhật tuần đó.</p>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Các điều kiện để đặt vé trực tuyến thành công là gì?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>Quý khách cần tuân thủ các điều kiện sau:</p>
+                        <ol>
+                            <li>Đã đăng ký làm Thành Viên BTALK+ và nhận email xác thực làm Thành viên.</li>
+                            <li>Địa chỉ email và số điện thoại mà Quý khách đăng ký hoàn toàn chính xác vì Quý khách sẽ nhận được email và sms thông báo Mã đặt chỗ và các thông tin liên quan đến xuất chiếu đã đặt vé.</li>
+                            <li>Thẻ thanh toán nội địa hoặc quốc tế phải được phát hành tại Việt Nam.</li>
+                            <li>Số dư hoặc hạn mức tín dụng của thẻ thanh toán còn đủ để giao dịch.</li>
+                            <li>Quý khách thực hiện giao dịch trong khoảng thời gian hiển thị còn lại trên website (trong các bước Chọn Ghế và Thanh Toán).&nbsp;</li>
+                            <li>Không đóng Trình duyệt (Brower - Chrome, Safari, Firefox, Explorer, Edge, Cốc Cốc...) trước khi nhận được thông báo giao dịch đã thành công.</li>
+                        </ol>
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>Các lưu ý khi đặt vé trực tuyến.</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>Trong vòng 30 phút kể từ lúc đặt vé thành công (đã nhận email và tin nhắn sms) nêu Quý khách không có bất kỳ phản hồi nào thì xem như không có khiếu nại phát sinh sau này.</p>
+                        <p>Vé đã được thanh toán trực tuyến thành công không được hoàn tiền/ đổi với bất kỳ lý do gì. &nbsp;</p>
+                    </div>
+                </div>
+
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">
+                            ▼
+
+                        </div>
+                        <h1>Vé trẻ em / người cao tuổi &amp; vé HS-SV có thể mua bằng hình thức thanh toán online không?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>Ngoại trừ vé người lớn được thanh toán bằng hình thức thanh toán vé online. Các trường hợp vé trẻ em / người cao tuổi &amp; vé HS-SV cần có mặt trực tiếp tại quầy để tiến hành mua vé &amp; hưởng các quyền lợi như rạp đã quy định.</p>
+                    </div>
+                </div>
+                <div class="drawer-item">
+                    <div class="drawer-header">
+                        <div class="drawer-header-icon">▼</div>
+                        <h1>BTALK Day là ngày nào? Giá vé?</h1>
+                    </div>
+                    <div class="drawer-content">
+                        <p>Thứ 4 là ngày BTALK Day của Cụm Rạp BTALK CINEMA.</p>
+                        <p>Giá vé BTALK Day tham khảo tại&nbsp;https://www.btalkcinema.vn/rap/</p>
+                    </div>
+                </div>
+                </di>
+
+            </div>
+
+        </div>
+</body>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const drawerHeaders = document.querySelectorAll('.drawer-header');
+
+        drawerHeaders.forEach(header => {
+            header.addEventListener('click', function () {
+                const content = this.nextElementSibling;
+                const isOpen = content.style.display === 'block';
+
+                // Đảo ngược trạng thái của drawer-content
+                content.style.display = isOpen ? 'none' : 'block';
+
+                // Thay đổi hướng mũi tên dựa trên trạng thái của drawer-content
+                const icons = this.querySelectorAll('.drawer-header-icon');
+                icons.forEach(icon => {
+                    icon.textContent = isOpen ? '▼' : '▲';
+                });
+
+                // Thêm hoặc xóa lớp active khi nhấn vào drawer-header
+                this.classList.toggle('active');
+            });
+        });
+    });
+
+
+
+
+
+
+</script>

@@ -1,0 +1,27 @@
+﻿.footer {
+    background-color: #3a406d; /* Màu nền của footer */
+    padding: 0px 0; /* Khoảng cách giữa nội dung và viền của footer */
+
+}
+
+.container {
+    display: flex;
+    justify-content: space-between; /* Căn các phần tử trong container ra xa nhau */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.footer__logo img {
+    max-width: 100%; /* Đảm bảo logo không vượt quá kích thước của phần tử cha */
+    height: auto; /* Đảm bảo tỷ lệ khung hình được giữ nguyên */
+}
+
+.footer h5 {
+    margin: 0; /* Loại bỏ margin mặc định */
+    margin-bottom: 10px; /* Khoảng cách giữa các đoạn văn bản */
+    font-size: 18px; /* Kích thước chữ */
+    color: #ff9d55;
+}
+
+    .footer h5:last-child {
+        margin-bottom: 0; /* Loại bỏ khoảng cách dưới cùng */
+    }

@@ -1,0 +1,180 @@
+﻿@model WebCinema.ViewModels.BookingSeatViewModel
+
+@{
+    ViewData["Title"] = "BookingSeat";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+    // Get the date part of ShowtimeDate
+}
+<link href="~/css/booking.css" rel="stylesheet" />
+<div class="content-item">
+    <div class="item-left">
+        <h3><span class="span_number">1</span><span></span><span>CHỌN VỊ TRÍ</span></h3>
+        <div class="content-select-ticket" style="margin">
+            <div id="divLegend" align="center">
+                <div class="Legend-item">
+                    <span>
+                        <img src="~/images/seat/seat_ischosen.png">
+                        &nbsp;
+                        <span class="Legend">Ghế của bạn</span>
+                    </span>
+                    <span>
+                        <img src="~/images/seat/seat_empty.png">
+                        &nbsp;
+                        <span class="Legend">Ghế Trống</span>
+                    </span>
+                    <span>
+                        <img src="~/images/seat/seat_booked.png">
+                        &nbsp;
+                        <span class="Legend">Đã Đặt</span>
+                    </span>
+                </div>
+                <div class="Seating-Screen">
+                    <img src="~/images/seat/SeatScreen.png" style="width: 90%">
+                </div>
+                <div class="Seats">
+                    <table>
+                        @for (char col = 'A'; col <= 'E'; col++)
+                        {
+                            <tr>
+                                @for (int row = 1; row <= 8; row++)
+                                {
+                                    <td>
+                                        @* Generate seat ID *@
+                                        @{
+                                            var seatId = $"{Model.Showtime.Room.RoomId}_{col}{row}";
+                                            var isBooked = Model.BookedSeats.Contains(seatId);
+                                        }
+                                        <p class="seat" data-seat-id="@seatId" @(isBooked ? "style='pointer-events: none;'" : "")>
+                                            <span class="seat-text" style="color: black;">@($"{col}{row}")</span>
+                                            @if (isBooked)
+                                            {
+                                                <img class="seat-pic" src="~/images/seat/seat_booked.png" alt="Booked Seat" style="display: block; margin: 0 auto;" />
+                                            }
+                                            else
+                                            {
+                                                <img class="seat-pic" src="~/images/seat/seat_empty.png" alt="Available Seat" style="display: block; margin: 0 auto;" />
+                                            }
+                                        </p>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <h3><span class="span_number">2</span><span>CHỌN ĐỒ ĂN &amp; THỨC UỐNG</span><span style="font-size: 20px;"> (tùy chọn)</span></h3>
+        <div class="combo-select">
+            <div class="combo-box">
+                <div class="combo" data-combo-id="1">
+                    <img src="https://cms.megagscinemas.vn//media/76070/combo-share.png" alt="">
+                    <div class="combo-info">
+                        <h4>Combo Bắp và Coca</h4>
+                        <div class="combo-number">
+                            <i class="fa fa-minus-circle decrease"></i>
+                            <span><input type="text" value="0" class="Qlty" readonly=""></span>
+                            <i class="fa fa-plus-circle increase"></i>
+                            <span class="combo-price">80000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combo" data-combo-id="2">
+                    <img src="https://cms.megagscinemas.vn//media/76090/popcorn-caramel-40oz.png" alt="">
+                    <div class="combo-info">
+                        <h4>Bắp Caramel</h4>
+                        <div class="combo-number">
+                            <i class="fa fa-minus-circle decrease"></i>
+                            <span><input type="text" value="0" class="Qlty" readonly=""></span>
+                            <i class="fa fa-plus-circle increase"></i>
+                            <span class="combo-price">45000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combo" data-combo-id="3">
+                    <img src="https://i.pngimg.me/thumb/f/720/m2i8A0G6N4H7i8K9.jpg" alt="">
+                    <div class="combo-info">
+                        <h4>Coca</h4>
+                        <div class="combo-number">
+                            <i class="fa fa-minus-circle decrease"></i>
+                            <span><input type="text" value="0" class="Qlty" readonly=""></span>
+                            <i class="fa fa-plus-circle increase"></i>
+                            <span class="combo-price">40000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item-right">
+        <div class="section-item">
+            <div class="box-ticket-info">
+                <div class="movie-info">
+                    <div class="movie-info-item">
+                        <h3>@Model.Movie.MovieName</h3>
+                        <p>BTalk Cinema</p>
+                        <p>@Model.Showtime.ShowtimeDate.ToShortDateString() - @Model.Screentime.ScreenTime</p>
+                        <p>@Model.Showtime.Room.RoomName</p>
+                    </div>
+                    <div class="movie-image">
+                        <img src=@Url.Content("~/images/Baking-Bad.png") />
+                    </div>
+                </div>
+                <div class="box-tickets">
+                    <h5>Số vé:</h5>
+                    <table class="table">
+                        <tbody id="ticketTableBody">
+                            <!-- Table rows will be dynamically added here -->
+                        </tbody>
+                    </table>
+                    <h3 class="select-drink">CHỌN ĐỒ ĂN &amp; THỨC UỐNG</h3>
+                    <table class="table">
+                        <tbody id="comboTableBody">
+                            <!-- Table rows will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <form id="paymentForm" asp-action="BookingSeat" asp-controller="Ticket">
+                <div class="box-info-pay">
+                    <div class="head-title">
+                        <h3>THÔNG TIN THANH TOÁN</h3>
+                        <span class="span_number">3</span>
+                    </div>
+                    <div class="box-input">
+                        <div class="show-error err">
+                            <span></span>
+                        </div>
+                            <input name="FullName" type="text" id="FullName" placeholder="Họ và Tên">
+                        @Html.ValidationMessageFor(model => model.FullName)
+                            <input name="Email" type="text" id="Email" placeholder="Email">
+                        @Html.ValidationMessageFor(model => model.Email)
+                            <input name="PhoneNumber" type="text" id="PhoneNumber" placeholder="Số điện thoại">
+                        @Html.ValidationMessageFor(model => model.PhoneNumber)
+                    </div>
+                </div>
+                <div class="box-pay">
+                    <span>
+                        <span class="img-loading" style="position: absolute; top: 45%">
+                            <img src="~/images//loading.gif" style="width: 25px" alt="loading" />
+                        </span>                   
+                            <!-- Hidden input fields to capture selected seat IDs and combo IDs -->
+                            <input type="hidden" id="movieName" name="movieName" value="@Model.Movie.MovieName" />
+                            <input type="hidden" id="roomName" name="roomName" value="@Model.Showtime.Room.RoomName" />
+                            <input type="hidden" id="screenTime" name="screenTime" value="@Model.Screentime.ScreenTime" />
+                            <input type="hidden" id="showId" name="showId" value="@Model.Showtime.ShowId" />
+                            <input type="hidden" id="purchaseDate" name="purchaseDate" value="@DateTime.Now" />
+                            <input type="hidden" id="showDate" name="showDate" value="@Model.Showtime.ShowtimeDate" />
+                            <input type="hidden" id="selectedSeats" name="selectedSeats" />
+                            <input type="hidden" id="selectedCombos" name="selectedCombos" />
+                            <input type="hidden" id="totalMoney" name="totalMoney" />
+                            <input id="paymentButton" type="submit" name="payment" value="Thanh Toán" />
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/booking.js"></script>

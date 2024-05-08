@@ -1,0 +1,136 @@
+﻿@model IEnumerable<WebCinema.Models.Movie>
+
+@{
+    ViewData["Title"] = "LichChieu";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+    DateTime currentDate = DateTime.Today;
+    DateTime selectedDate = ViewBag.SelectedDate;
+}
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<body>
+    <!--Body begin-->
+    <link href="~/css/showtimes.css" rel="stylesheet" />
+
+    <div class="Title-span shar" style="font-weight: bold">
+        <a href="/">
+            <span>Trang Chủ</span>
+
+        </a>
+        >
+        <label>
+            <span id="ShowTimes.cshtml">Lịch Chiếu</span>
+            <span id="sublink"></span>
+        </label>
+    </div>
+    <div class="banner">
+        <span>Lịch Chiếu</span>
+    </div>
+
+    <!--Combo box-->
+    <div class="box-selected">
+        <div class="date-selector">
+            @for (int i = 0; i <= 3; i++)
+            {
+                DateTime date = currentDate.AddDays(i);
+                string cssClass = (i == 0) ? "selected" : "";
+                <a href="#" class="date @cssClass">@date.ToShortDateString()</a>
+            }
+        </div>
+    </div>
+    <div class="product-list">
+        <!--Add Film-->
+        @foreach (var movie in Model.Where(m => m.Showtimes.Any(s => s.ShowtimeDate.Date == selectedDate.Date)))
+        {
+
+            <div class="list-items">
+
+                <div class="item-left">
+                    <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
+                        <h4>@movie.MovieName</h4>
+                        <p>
+                            <td>
+                                @if (!string.IsNullOrEmpty(movie.Poster))
+                                {
+
+                                    var imagePath = Url.Content(movie.Poster); // Use Url.Content
+                                    <a href="@movie.Trailer" class="trailer-link">
+                                        <img src="@imagePath" alt="Movie Poster" style="max-width: 200px;" />
+                                    </a>
+                                }
+                            </td>
+                        </p>
+                    </a>
+                </div>
+
+                <div class="item-right">
+                    <div class="span_time">
+                        <span>
+                            <i class="fas fa-clock"></i><span>Thời lượng:</span>@movie.MovieLength
+                        </span>
+                        <span>
+                            <i class="fas fa-tags"></i><span>Thể loại:</span>@movie.Genre.GenreName
+                        </span>
+                        <span>
+                            <i class="fas fa-calendar"></i><span>Khởi chiếu:</span>@movie.ReleaseDate
+                        </span>
+                    </div>
+                    <div class="showTimeCustom ">
+                        <p>@movie.Description</p>
+                        <div class="type_movie">
+                            
+                            <a class="active">
+                                <span class="ganre">2D</span>
+                                <span class="viet_sub">Phụ đề / sub</span>
+                            </a>
+                        </div>
+
+                        <div class="showtime-buttons">
+                            <div class="showtime-buttons-container">
+                                <h5>Lịch Chiếu: </h5>
+
+                                @foreach (var showtime in movie.Showtimes.Where(s => s.MovieId == movie.MovieId && s.ShowtimeDate.Date == selectedDate.Date))
+                                {
+                                    <form asp-action="SelectShowtime" method="post" style="display: inline;">
+                                        <input type="hidden" name="movieId" value="@showtime.MovieId" />
+                                        <input type="hidden" name="showtimeId" value="@showtime.ShowId" />
+                                        <button type="submit"> @showtime.Screentime.ScreenTime </button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                }
+            </div>
+            }
+    </body>
+
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Your JavaScript code -->
+    <script>
+        $('.date').click(function () {
+            $('.date').removeClass('selected');
+            $(this).addClass('selected');
+            var selectedDate = $(this).text();
+
+            // AJAX call to fetch showtimes for the selected date
+            $.ajax({
+                url: '/ShowTimes/GetShowtimes', // Adjust the URL as needed
+                method: 'GET',
+                data: { selectedDate: selectedDate },
+                success: function (response) {
+                    // Update the showtimes section with the response
+                    $('.showtime-buttons').html(response);
+                },
+                error: function (error) {
+                    console.error('Error fetching showtimes:', error);
+                }
+            });
+        });
+    </script>

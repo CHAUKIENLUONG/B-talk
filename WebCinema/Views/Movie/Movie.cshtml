@@ -1,0 +1,179 @@
+﻿@model IEnumerable<WebCinema.Models.Movie>
+@{
+    ViewData["Title"] = "Phim";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+
+    <link rel="stylesheet" href="~/css/Movie.css">
+    // Lọc phim đang chiếu
+    var phimDangChieu = Model.Where(movie => movie.MovieState.Contains("Đang Chiếu")).ToList();
+
+    // Lọc phim sắp chiếu
+    var phimSapChieu = Model.Where(movie => movie.MovieState.Contains("Sắp Chiếu")).ToList();
+}
+<!-- Phim -->
+<body>
+    <link href="~/css/Phim.css" rel="stylesheet" />
+
+    <div class="Title-span shar" style="font-weight: bold">
+        <a href="/">
+            <span>Trang Chủ</span>
+
+        </a>
+        >
+        <label>
+            <span id="Phim.cshtml">Phim</span>
+            <span id="sublink"></span>
+        </label>
+    </div>
+    <div class="Wrapper-main">
+        <div id="btalk-contents">
+            <div class="tab-movie">
+                <ul class="tab-movie-item nav nav-tabs justify-content-center" style="width:auto">
+                    @if (phimDangChieu != null)
+                    {
+                        <li class="active li-pdc">
+                            <a class="movie-custom-tab" data-toggle="tab" href="#movie-dc-all" aria-expanded="true">
+                                <span class="span-tab-all">Phim Đang Chiếu</span>
+                            </a>
+                        </li>
+                    }
+                    @if (phimSapChieu != null)
+                    {
+                        <li class="active">
+                            <a class="movie-custom-tab li-psc" data-toggle="tab" href="#movie-sc-all" aria-expanded="false">
+                                <span class="span-tab-all">Phim Sắp Chiếu</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <!-- Tab Contents Movies -->
+                <div class="tab-content tab-content-custom">
+                    <!-- Phim Hot -->
+                    <div id="movie-dc-all" class="tab-pane fade active in" style="min-height: 218px">
+
+                        <div class="movie-hot clearfix">
+                            <!-- Phim1 -->
+                            @foreach (var movie in Model.Where(m => m.MovieState.Contains("Đang Chiếu")))
+                            {
+                                <div class="list-items">
+                                    <div class="item-left">
+                                        <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
+                                            <div class="episode-all" >
+                                                @if (!string.IsNullOrEmpty(movie.Poster))
+                                                {
+                                                    @*
+                                            var basePath = "/images";
+                                            var fileName = product.Poster;
+                                            var imagePath = basePath + "/" + fileName; *@
+                                                    var imagePath = Url.Content(movie.Poster); // Use Url.Content
+
+                                                    <img src="@imagePath" alt="Movie Poster" />
+                                                }
+                                            </div>
+                                        </a>
+
+                                    </div>
+
+                                    <div class="item-right">
+                                        <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
+                                            <h4 class="movie-color">@movie.MovieName</h4>
+                                            
+                                        </a>
+                                        <p class="icon-clock">thời lượng: <span>@movie.MovieLength</span></p>
+                                        <p class="icon-type">Thể Loại: <span>@movie.Genre.GenreName</span></p>
+                                        <p class="icon-calendar">Khởi Chiếu: <span>@movie.ReleaseDate.ToShortDateString()</span></p>
+                                        <a class="active">
+                                                <span class="ganre">2D</span>
+                                                <span class="viet_sub">Phụ đề / sub</span>
+                                            </a>                                       
+                                        <div class="movie-tool">
+                                            <div class="imdb">
+                                                <div data-imdb-id="1133" class="score" imdb=""></div>
+                                                <span>IMDB</span>
+                                            </div>
+                                            <div class="trailer">
+                                                <a class="open-popup-youtube" href="@movie.Trailer">
+                                                    <div style="display: flex; align-items: center;">
+                                                        <i class="fa fa-play"></i>
+                                                        <div style="margin-left: 5px;">Trailer</div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                            
+                    </div>
+                    <div id="movie-sc-all" class="tab-pane fade" style="min-height: 218px">
+                            
+                            <div class="movie-hot clearfix">
+                                <!-- Phim1 -->
+                            @foreach (var movie in Model.Where(m => m.MovieState.Contains("Sắp Chiếu")))
+                            {
+                                <div class="list-items">
+                                    <div class="item-left">
+                                        <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
+                                            <div class="episode-all">
+                                                @if (!string.IsNullOrEmpty(movie.Poster))
+                                                {
+                                                    @*
+                                            var basePath = "/images";
+                                            var fileName = product.Poster;
+                                            var imagePath = basePath + "/" + fileName; *@
+                                                    var imagePath = Url.Content(movie.Poster); // Use Url.Content
+
+                                                    <img src="@imagePath" alt="Movie Poster" />
+                                                }
+                                            </div>
+                                        </a>
+
+                                    </div>
+
+                                    <div class="item-right">
+                                        <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
+                                            <h4 class="movie-color">@movie.MovieName</h4>
+                                            
+                                        </a>
+                                        <p class="icon-clock">thời lượng: <span>@movie.MovieLength</span></p>
+                                        <p class="icon-type">Thể Loại: <span>@movie.Genre.GenreName</span></p>
+                                        <p class="icon-calendar">Khởi Chiếu: <span>@movie.ReleaseDate.ToShortDateString()</span></p>
+                                        <a class="active">
+                                            <span class="ganre">2D</span>
+                                            <span class="viet_sub">Phụ đề / sub</span>
+                                        </a>
+                                        <div class="movie-tool">
+                                            <div class="imdb">
+                                                <div data-imdb-id="1133" class="score" imdb=""></div>
+                                                <span>IMDB</span>
+                                            </div>
+                                            <div class="trailer">
+                                                <a class="open-popup-youtube" href="@movie.Trailer">
+                                                    <div style="display: flex; align-items: center;">
+                                                        <i class="fa fa-play"></i>
+                                                        <div style="margin-left: 5px;">Trailer</div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </div>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- Footer Section Begin -->
+    <script>
+        window.onload = function () {
+            var tabPDC = document.querySelector('.li-pdc a');
+            tabPDC.click(); // Kích hoạt sự kiện click trên tab "Phim Đang Chiếu"
+        };
+    </script>
+
+</body>

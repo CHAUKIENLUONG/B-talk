@@ -1,0 +1,62 @@
+﻿.header {
+    background-color: #3a406d; /* Màu nền */
+    border-bottom: 1px solid #ccc; /* Viền dưới */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between; /* Phần tử con được căn cách xa nhau */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.header__logo {
+    margin-right: 20px; /* Khoảng cách giữa hình ảnh và phần còn lại của header */
+    
+}
+
+.header__nav {
+   
+    flex-grow: 1; /* Phần tử này sẽ mở rộng để lấp đầy không gian còn trống */
+    text-align: center; /* Căn giữa nội dung trong phần header__nav */
+}
+
+.header__right {
+    margin-left: auto; /* Đẩy phần tử này về phía bên phải */
+}
+
+.header__menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .header__menu ul li {
+        display: inline-block; /* Hiển thị các mục cùng hàng */
+        margin-right: 20px; /* Khoảng cách giữa các mục */
+    }
+
+        .header__menu ul li:last-child {
+            margin-right: 0; /* Loại bỏ khoảng cách cho mục cuối cùng */
+            font-size: 30px;
+        }
+
+        .header__menu ul li a {
+            font-size: 30px;
+            text-decoration: none;
+            color: #ff9d55; /* Màu chữ */
+        }
+.header__right {
+    color: #ff9d55;
+}
+        .header__menu ul li.active a {
+            font-weight: bold; /* In đậm cho mục hiện tại */
+        }
+
+.header__right a {
+    margin-left: 10px; /* Khoảng cách giữa các phần tử */
+    color: #333; /* Màu chữ */
+}
+
+    .header__right a:hover {
+        color: #000; /* Màu chữ khi rê chuột vào */
+    }

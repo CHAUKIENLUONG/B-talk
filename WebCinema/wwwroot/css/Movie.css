@@ -1,0 +1,120 @@
+﻿body {
+}
+.tab-movie-item {
+    display: flex; /* Sử dụng flexbox */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    width: auto; /* Chiều rộng tự động */
+}
+
+.list-items {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ddd; /* Đổi màu viền nếu cần */
+    border-radius: 5px;
+    overflow: hidden;
+    float: left;
+}
+.item-left {
+    flex: 0 0 30%; /* Điều chỉnh kích thước của phần trái */
+    position: relative;
+}
+
+.movie-hot:after {
+    width: 50%; /* Phim chiếm 50% chiều rộng */
+}
+@media (max-width: 768px) {
+    .movie-hot {
+        width: 100%; /* Phim sẽ chiếm toàn bộ chiều rộng trên thiết bị nhỏ hơn */
+    }
+}
+.btalk-contents {
+    width: 80%;
+    /*height: 40px;*/
+    font-size: 25px;
+    display: flex; /* Sử dụng flexbox để các hộp nằm cùng hàng */
+    align-items: center;
+    justify-content: center;
+    pae margin: auto;
+}
+.tab-movie-item {
+    width: 100%;
+    height: 60px; /* Chiều cao banner */
+    background-color: #f2f2f2; /* Màu nền xám nhạt */
+    display: flex; /* Cho phép bố trí nội dung theo hàng ngang */
+    align-items: center; /* Căn chỉnh nội dung theo chiều dọc */
+    justify-content: center; /* Căn chỉnh nội dung theo chiều ngang */
+}
+
+.movie-custom-tab span {
+    color: #000; /* Màu chữ */
+}
+
+/* Màu chữ và nền khi nút được chọn */
+.movie-custom-tab.active span {
+    color: #fff; /* Màu chữ khi nút được chọn */
+    background-color: #007bff; /* Màu nền khi nút được chọn */
+    margin-right: 10px; /* Điều chỉnh khoảng cách giữa các phần tử */
+    padding: 5px 10px; /* Điều chỉnh độ lớn của khung */
+    border: 1px solid #ccc; /* Điều chỉnh viền của khung */
+    border-radius: 5px; /* Điều chỉnh góc cong của khung */
+}
+
+/* Màu chữ và nền khi trỏ chuột vào nút */
+.movie-custom-tab:hover span {
+    color: #fff; /* Màu chữ khi trỏ chuột vào */
+    background-color: #007bff; /* Màu nền khi trỏ chuột vào */
+}
+
+
+.item-left img {
+    width: 60%; /* Chiều rộng poster */
+    height: 90%; /* Chiều cao poster */
+    margin: 0 auto; /* Căn giữa poster */
+   
+}
+
+    
+/* Thiết kế phần tử con */
+.episode-all {
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    color: #fff; /* Màu chữ của phần tử */
+    padding: 3px;
+}
+
+.icon-clock,
+.icon-type,
+.icon-calendar {
+    margin-bottom: 5px;
+}
+
+.movie-2d a {
+    display: inline-block;
+    margin-right: 10px; /* Điều chỉnh khoảng cách giữa các phần tử */
+    padding: 5px 10px; /* Điều chỉnh độ lớn của khung */
+    border: 1px solid #ccc; /* Điều chỉnh viền của khung */
+    border-radius: 5px; /* Điều chỉnh góc cong của khung */
+    text-decoration: none; /* Loại bỏ gạch chân cho liên kết */
+    color: #333; /* Màu chữ của liên kết */
+}
+
+    .movie-2d a:hover {
+        background-color: #f0f0f0; /* Đổi màu nền khi di chuột qua */
+    }
+
+
+
+.movie-color {
+    color: #333; /* Màu chữ mặc định */
+    transition: color 0.3s ease; /* Hiệu ứng chuyển đổi màu */
+}
+
+    .movie-color:hover {
+        color: #ff0000; /* Màu chữ khi trỏ tới */
+    }
+
+

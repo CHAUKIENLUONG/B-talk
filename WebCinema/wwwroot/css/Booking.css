@@ -1,0 +1,489 @@
+﻿body {
+    color: #f0f0f0
+}
+
+h3{
+    color: #f0f0f0
+}
+
+h5 {
+    color: #f0f0f0
+}
+
+p{
+    color: #f0f0f0
+}
+
+.content-item {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+    .content-item .item-left {
+        display: flex;
+        flex-grow: 8;
+        flex-direction: column;
+    }
+
+.Seating-Screen {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+        .content-item .item-left h3 {
+            font-family: 'UTMNeutra';
+            font-size: 24px;
+            color: #333;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 0;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 45px;
+            line-height: 35px
+        }
+
+            .content-item .item-left h3 .span_number {
+                font-family: 'Open Sans',sans-serif;
+                width: 35px;
+                height: 35px;
+                background: #f89303;
+                color: #fff;
+                text-align: center;
+                font-weight: 700;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                border: 3px solid #fff;
+                position: absolute;
+                left: 0;
+                line-height: 29px
+            }
+
+        .content-item .item-left .combo-select {
+            display: flex;
+            justify-content: center; /* Centers the combo-box horizontally */
+        }
+
+            .content-item .item-left .combo-select .combo-box {
+                display: flex;
+                flex-wrap: wrap; /* Allows combos to wrap to the next line if necessary */
+            }
+
+                .content-item .item-left .combo-select .combo-box .combo {
+                    display: flex;
+                    align-items: center;
+                    margin: 10px;
+                }
+
+                    .content-item .item-left .combo-select .combo-box .combo img {
+                        width: 50px; /* Adjust the width of the image as needed */
+                        height: auto;
+                        margin-right: 10px;
+                    }
+
+                    .content-item .item-left .combo-select .combo-box .combo .combo-info {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                        .content-item .item-left .combo-select .combo-box .combo .combo-info h4 {
+                            margin: 0;
+                        }
+
+                    .content-item .item-left .combo-select .combo-box .combo .combo-name .combo-number {
+                        display: flex;
+                        align-items: center; /* Align items vertically */
+                    }
+
+                        .content-item .item-left .combo-select .combo-box .combo .combo-name .combo-number .fa {
+                            font-size: 20px; /* Adjust the font size of plus and minus icons */
+                        }
+
+                    .content-item .item-left .combo-select .combo-box .combo .combo-name .Qlty {
+                        width: 30px; /* Adjust the width of the input field */
+                        height: 40px; /* Adjust the height of the input field */
+                        text-align: center; /* Center align text in the input field */
+                        margin: 0 10px; /* Add margin between the input field and icons */
+                    }
+
+                    .content-item .item-left .combo-select .combo-box .combo .combo-name .combo-price {
+                        margin-left: auto; /* Align the combo price to the right */
+                    }
+
+
+.content-item .item-right {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    max-width: 400px
+}
+
+/* Adjust the styling of validation messages */
+.field-validation-error {
+    font-size: smaller;
+    color: yellow;
+    margin-top: 2px; /* Adjust spacing as needed */
+}
+
+        .content-item .item-right .section-item {
+            background: #3a406d;
+        }
+
+        .content-item .item-right .head-title {
+            background-color: rgba(255,255,255,.7);
+            padding: 8px 0;
+            padding-left: 32px;
+            text-align: left;
+            position: relative;
+            margin-top: 20px
+        }
+
+            .content-item .item-right .head-title h3 {
+                font-family: 'UTMNeutra';
+                font-size: 16px;
+                color: #444;
+                text-transform: uppercase;
+                font-weight: 700;
+                margin: 0
+            }
+
+            .content-item .item-right .head-title .span_number {
+                font-family: 'Open Sans',sans-serif;
+                font-size: 24px;
+                width: 35px;
+                height: 35px;
+                background: #f89303;
+                color: #fff;
+                text-align: center;
+                font-weight: 700;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                border: 3px solid #fff;
+                position: absolute;
+                top: -8px;
+                left: -10px;
+                line-height: 29px
+            }
+
+        .content-item .item-right .section-item .box-ticket-info .movie-info {
+            display: flex;
+            justify-content: space-between
+        }
+
+            .content-item .item-right .section-item .box-ticket-info .movie-info .movie-info-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding-top: 10px;
+                padding-left: 10px
+            }
+
+            .content-item .item-right .section-item .box-ticket-info .movie-info .movie-image img {
+                display: flex;
+                align-self: flex-end;
+                width: 120px;
+                height: auto;
+                margin-top: 10px;
+                margin-right: 10px;
+            }
+
+        .content-item .item-right .section-item .box-ticket-info .box-tickets {
+            padding-top: 5px
+        }
+
+            .content-item .item-right .section-item .box-ticket-info .box-tickets h5 {
+                margin-top: 0;
+                padding-left: 10px;
+                color: #ffd455
+            }
+
+            .content-item .item-right .section-item .box-ticket-info .box-tickets table {
+                width: 100%;
+                color: white
+            }
+
+.align-right {
+    text-align: right
+}
+
+.content-item .item-right .section-item .box-ticket-info .box-tickets table tr td {
+    padding: 5px 0
+}
+
+.content-item .item-right .section-item .box-ticket-info .box-tickets table tr .td-first {
+    text-align: right;
+    color: #ffd455
+}
+
+.content-item .item-right .section-item .box-ticket-info .box-tickets .select-drink {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative
+}
+
+.content-item .item-right .section-item .box-ticket-info .box-tickets table .tr_first {
+    border-bottom: 1px solid rgba(255,255,255,.15)
+}
+
+    .content-item .item-right .section-item .box-ticket-info .box-tickets table .tr_first td {
+        text-align: center;
+        padding: 5px 0
+    }
+
+.content-item .item-right .section-item .box-ticket-info .box-tickets table .tr_second td {
+    padding-top: 15px;
+    padding-bottom: 0
+}
+
+.content-item .item-right .section-item .box-ticket-info .box-tickets table .total-text- {
+    color: #ffd455
+}
+
+.content-item .item-right .section-item .box-ticket-info .box-tickets table .total-numb {
+    font-size: 24px;
+    font-weight: 700
+}
+
+.content-item .item-right .section-item .box-info-pay .box-input {
+    padding: 10px 15px
+}
+
+    .content-item .item-right .section-item .box-info-pay .box-input input[type="text"] {
+        background-color: rgba(255,255,255,.2);
+        font-size: 12px;
+        border: 0;
+        width: 100%;
+        margin-bottom: 5px;
+        padding: 8px 10px;
+        outline: none
+    }
+
+        .content-item .item-right .section-item .box-info-pay .box-input input[type="text"]::-webkit-input-placeholder {
+            color: #fff
+        }
+
+        .content-item .item-right .section-item .box-info-pay .box-input input[type="text"]:-moz-placeholder {
+            color: #fff
+        }
+
+        .content-item .item-right .section-item .box-info-pay .box-input input[type="text"]::-moz-placeholder {
+            color: #fff
+        }
+
+        .content-item .item-right .section-item .box-info-pay .box-input input[type="text"]:-ms-input-placeholder {
+            color: #fff
+        }
+
+/*.content-item .box-method-pay .box-card {
+        padding: 10px 15px
+    }
+
+        .content-item .box-method-pay .box-card > ul {
+            padding: 0;
+            list-style: none
+        }
+
+            .content-item .box-method-pay .box-card > ul > li {
+                position: relative;
+                padding: 5px 0
+            }
+
+                .content-item .box-method-pay .box-card > ul > li label {
+                    position: relative;
+                    margin-bottom: 0
+                }
+
+        .content-item .box-method-pay .box-card input[type="radio"] {
+            display: none
+        }
+
+            .content-item .box-method-pay .box-card input[type="radio"] + label span {
+                background: #fff;
+                width: 18px;
+                height: 18px;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                position: absolute;
+                top: 0;
+                left: 0
+            }
+
+            .content-item .box-method-pay .box-card input[type="radio"]:checked + label span:after {
+                content: "";
+                width: 10px;
+                height: 10px;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                position: absolute;
+                background: #ffd455;
+                left: 4px;
+                top: 4px
+            }
+
+            .content-item .box-method-pay .box-card input[type="radio"]:checked + label b {
+                color: #ffd455;
+                line-height: 19px
+            }
+
+        .content-item .box-method-pay .box-card label b {
+            font-size: 12px;
+            position: relative;
+            padding-left: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            display: block
+        }
+
+        .content-item .box-method-pay .box-card > ul > li .booking-debit-card, .bookingOnline .box-method-pay .box-card > ul > li .booking-atm-card {
+            padding: 15px;
+            background: #d6d6d6;
+            position: absolute;
+            right: 260px;
+            bottom: 0;
+            -webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+            -moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+            box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+            visibility: hidden;
+            opacity: 0;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out
+        }
+
+        .content-item .box-method-pay .box-card > ul > li:hover .booking-debit-card, .bookingOnline .box-method-pay .box-card > ul > li:hover .booking-atm-card {
+            visibility: visible;
+            opacity: 1
+        }
+
+        .content-item .box-method-pay .box-card .check-agree {
+            padding: 5px 0
+        }
+
+        .bookingOnline .box-method-pay .box-card .check-agree label {
+            position: relative;
+            margin-bottom: 0
+        }
+
+.content-item .box-method-pay .box-card .check-agree input[type="checkbox"] {
+    display: none
+}
+
+    .content-item .box-method-pay .box-card .check-agree input[type="checkbox"] + label span {
+        background: #fff;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 0;
+        left: 0
+    }
+
+    .content-item .box-method-pay .box-card .check-agree input[type="checkbox"]:checked + label span:after {
+        content: "";
+        background: url(../Images/home/icon-checked-yel.png) no-repeat;
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background-size: 15px;
+        left: 1px;
+        top: 2px
+    }
+
+.content-item .box-method-pay .box-card .check-agree label b {
+    font-size: 12px;
+    position: relative;
+    padding-left: 25px;
+    font-weight: 400;
+    cursor: pointer;
+    display: block
+}
+
+.content-item .box-method-pay .box-card .check-agree a {
+    color: #ffd555
+}*/
+
+.content-item .item-right .section-item .box-pay {
+    margin-top: 20px
+}
+
+    .content-item .item-right .section-item .box-pay span {
+        width: 150px;
+        height: 46px;
+        float: right;
+        position: relative;
+        margin-top: -10px
+    }
+
+    .content-item .item-right .section-item .box-pay input[type="submit"] /*, .content-item .item-right .box-pay input[type="button"]*/ {
+        width: 150px;
+        height: 46px;
+        font-size: 16px;
+        background: #ffcf29;
+        border: 0;
+        color: #3e3e3e;
+        font-weight: 700;
+        outline: none;
+        text-align: left
+    }
+
+    .content-item .item-right .section-item .box-pay input[type="submit"] {
+        padding-left: 23px
+    }
+
+        .content-item .item-right .section-item .box-pay input[type="submit"]:hover, /*.content-item .item-right .box-pay input[type="button"]:hover*/ {
+            background: #FFBE00
+        }
+
+/*.div-icombo {
+    margin-bottom: 20px;
+}
+
+.icombo-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.box-item {
+    width: 48%;
+}
+
+.img-icombo img {
+    width: 50%;
+}
+
+.info-icombo {
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.scroll-pane1 {
+    height: 455px;
+    overflow: hidden;
+}
+
+.jspContainer {
+    width: auto;
+}
+
+.jspPane {
+    width: 100%;
+}
+*/
+.img-loading {
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 30%;
+    display: none;
+}

@@ -1,0 +1,190 @@
+﻿body {
+}
+/* Định dạng menu dropdown */
+.booking-fixed {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.box-selected {
+    display: flex; /* Sử dụng flexbox để căn chỉnh ngang */
+    justify-content: center; /* Căn các phần tử con vào giữa */
+    position: relative;
+}
+
+/* Định dạng cho phần date-selector và selected-box */
+.date-selector,
+.selected-box {
+    display: flex; /* Sử dụng flexbox */
+    align-items: center; /* Căn phần tử vào trung tâm theo chiều dọc */
+}
+
+    /* Định dạng cho các liên kết ngày */
+    .date-selector .date {
+        display: block;
+        padding: 10px 20px;
+        color: white;
+        text-decoration: none;
+        background-color: grey; 
+    }
+
+    /* Định dạng cho liên kết được chọn */
+    .date-selector .selected {
+        font-weight: bold;
+    }
+
+    /* Định dạng cho dropdown */
+    .date-selector .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: grey; 
+        padding: 10px;
+        z-index: 1;
+    }
+
+    /* Hiển thị dropdown khi hover */
+    .date-selector:hover .dropdown {
+        display: block;
+    }
+
+label {
+    margin-bottom: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+}
+
+    select:focus {
+        outline: none;
+        border-color: #2ecc71;
+    }
+
+/*.box-selected .box-selected-1 {
+        color: #ffd800;*/ /* Màu chữ */
+/*background-color: #00ffff;*/ /* Màu nền */
+/*padding: 10px;*/ /* Khoảng cách giữa lề và nội dung */
+/*border-radius: 5px;*/ /* Bo tròn viền */
+/*}*/
+
+/* Điều chỉnh các phần tử menu dropdown tùy chọn nếu cần */
+.header__menu {
+    position: relative; /* Đảm bảo phần tử dropdown xuất hiện chính xác */
+}
+
+    .header__menu:hover .dropdown {
+        display: block; /* Hiển thị dropdown khi hover trên phần tử menu */
+    }
+
+.banner {
+    width: 100%;
+    height: 60px; /* Chiều cao banner */
+    background-color: #f2f2f2; /* Màu nền xám nhạt */
+    display: flex; /* Cho phép bố trí nội dung theo hàng ngang */
+    align-items: center; /* Căn chỉnh nội dung theo chiều dọc */
+    justify-content: center; /* Căn chỉnh nội dung theo chiều ngang */
+}
+
+    /* Tiêu đề */
+    .banner span {
+        color: #333; /* Màu chữ đen */
+        font-size: 40px; /* Kích thước chữ */
+        font-weight: bold; /* Chữ in đậm */
+        margin: 0; /* Xóa khoảng cách mặc định */
+    }
+
+.box-selected {
+    font-weight: 100;
+}
+
+.box-selected {
+    margin: 0 auto;
+    color: red;
+    width: 402px;
+}
+
+.product-list {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto
+}
+
+.list-items {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 10px;
+    h4
+
+{
+    font-size: 30px;
+    color: #ff0000; /* Đỏ */
+}
+
+h5 {
+    color: brown;
+}
+
+
+.item-left img {
+    width: 200px; /* Chiều rộng poster */
+    height: 200px; /* Chiều cao poster */
+    margin: 0 auto; /* Căn giữa poster */
+    border: 1px solid #ccc; /* Viền poster */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Bóng đổ poster */
+}
+
+
+/*.rating .star::before {
+    content: "\f005 ";*/ /* Icon ngôi sao rỗng - Font Awesome */
+/*margin-right: 5px;
+}
+
+.play-button::before {
+    content: "\f04b ";*/ /* Icon play - Font Awesome */
+/*font-size: 24px;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}*/
+
+
+
+.item-right . {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.showtime-buttons {
+    display: flex; /* Sử dụng Flexbox */
+    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+    margin-top: 10px; /* Để tạo khoảng cách giữa các hàng */
+}
+
+.showtime-buttons-container {
+    display: flex; /* Sử dụng Flexbox để chứa các nút */
+}
+
+    .showtime-buttons-container form {
+        margin-right: 10px; /* Để tạo khoảng cách giữa các nút */
+    }
+
+.movie-image {
+    width: 100%;
+    height: auto;
+}
