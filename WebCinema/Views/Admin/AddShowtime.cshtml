@@ -27,7 +27,7 @@
             <!-- Sidebar scroll-->
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="./Index" class="text-nowrap logo-img">
+                    <a href="/" class="text-nowrap logo-img">
                         <img src="~/Admin/images/logos/Logo.png" width="80" class="rounded-circle" alt="" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -164,6 +164,28 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function () {
+            // Xử lý sự kiện khi trường nhập ngày thay đổi giá trị
+            $('#ShowtimeDate').change(function () {
+                // Lấy giá trị ngày được chọn
+                var selectedDate = $(this).val();
+
+                // Gửi yêu cầu AJAX để cập nhật ngày được chọn trên máy chủ
+                $.ajax({
+                    url: '/Admin/UpdateSelectedDate',
+                    type: 'POST',
+                    data: { selectedDate: selectedDate },
+                    success: function (response) {
+                        // Xử lý phản hồi từ máy chủ nếu cần
+                    },
+                    error: function (xhr, status, error) {
+                        // Xử lý lỗi nếu có
+                    }
+                });
+            });
+        });
+    </script>
     <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
     <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Admin/js/sidebarmenu.js"></script>

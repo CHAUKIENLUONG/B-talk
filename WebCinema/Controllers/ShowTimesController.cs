@@ -53,7 +53,7 @@ namespace WebCinema.Controllers
         {
             return RedirectToAction("BookingSeat", "Ticket", new { movieId = movieId, showtimeId = showtimeId });
         }
-        
+
 
         //public async Task<IActionResult> Index()
         //{
@@ -139,6 +139,18 @@ namespace WebCinema.Controllers
         //        await _categoryRepository.DeleteAsync(id);
         //    }
         //    return RedirectToAction(nameof(Index));
+        //}
+        //public IActionResult LichChieu()
+        //{
+        //    // Lấy ngày hiện tại
+        //    DateTime currentDate = DateTime.Today;
+
+        //    // Gán ngày hiện tại cho ViewBag.SelectedDate
+        //    ViewBag.SelectedDate = currentDate;
+
+        //    // Lấy dữ liệu phim từ cơ sở dữ liệu và trả về View
+        //    var movies = Repositories.GetMovies(); // Thay _yourMovieRepository bằng repository của bạn
+        //    return View(movies);
         //}
     }
 

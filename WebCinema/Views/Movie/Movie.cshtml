@@ -58,7 +58,7 @@
                                 <div class="list-items">
                                     <div class="item-left">
                                         <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
-                                            <div class="episode-all" >
+                                            <div class="episode-all">
                                                 @if (!string.IsNullOrEmpty(movie.Poster))
                                                 {
                                                     @*
@@ -77,39 +77,35 @@
                                     <div class="item-right">
                                         <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
                                             <h4 class="movie-color">@movie.MovieName</h4>
-                                            
+
                                         </a>
                                         <p class="icon-clock">thời lượng: <span>@movie.MovieLength</span></p>
                                         <p class="icon-type">Thể Loại: <span>@movie.Genre.GenreName</span></p>
                                         <p class="icon-calendar">Khởi Chiếu: <span>@movie.ReleaseDate.ToShortDateString()</span></p>
                                         <a class="active">
-                                                <span class="ganre">2D</span>
-                                                <span class="viet_sub">Phụ đề / sub</span>
-                                            </a>                                       
+                                            <span class="ganre">2D</span>
+                                            <span class="viet_sub">Phụ đề / sub</span>
+                                        </a>
                                         <div class="movie-tool">
                                             <div class="imdb">
                                                 <div data-imdb-id="1133" class="score" imdb=""></div>
                                                 <span>IMDB</span>
                                             </div>
                                             <div class="trailer">
-                                                <a class="open-popup-youtube" href="@movie.Trailer">
-                                                    <div style="display: flex; align-items: center;">
-                                                        <i class="fa fa-play"></i>
-                                                        <div style="margin-left: 5px;">Trailer</div>
-                                                    </div>
-                                                </a>
+                                                <iframe src="https://www.youtube.com/embed/jS4aFq5-91M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                }
-                            </div>
-                            
+                            }
+                        </div>
+
                     </div>
                     <div id="movie-sc-all" class="tab-pane fade" style="min-height: 218px">
-                            
-                            <div class="movie-hot clearfix">
-                                <!-- Phim1 -->
+
+                        <div class="movie-hot clearfix">
+                            <!-- Phim1 -->
                             @foreach (var movie in Model.Where(m => m.MovieState.Contains("Sắp Chiếu")))
                             {
                                 <div class="list-items">
@@ -134,7 +130,7 @@
                                     <div class="item-right">
                                         <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
                                             <h4 class="movie-color">@movie.MovieName</h4>
-                                            
+
                                         </a>
                                         <p class="icon-clock">thời lượng: <span>@movie.MovieLength</span></p>
                                         <p class="icon-type">Thể Loại: <span>@movie.Genre.GenreName</span></p>
@@ -159,8 +155,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                }
-                            </div>                          
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

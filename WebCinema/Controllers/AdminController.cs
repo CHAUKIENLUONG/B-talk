@@ -15,7 +15,13 @@ namespace WebCinema.Controllers
         private readonly IShowtimeRepo _showtimeRepo;
         private readonly IScreentimeRepo _screentimeRepo;
         private readonly IRoomRepo _roomRepo;
+        public IActionResult UpdateSelectedDate(string selectedDate)
+        {
+            // Xử lý logic để cập nhật ngày được chọn ở đây
+            // Ví dụ: có thể lưu selectedDate vào session hoặc ViewBag
 
+            return Ok(); // Trả về mã thành công (200)
+        }
 
 
         public AdminController(IMovieRepo movieRepo, IGenreRepo genreRepo, 
