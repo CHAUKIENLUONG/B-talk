@@ -1,25 +1,42 @@
-﻿// your_script.js
+﻿document.addEventListener("DOMContentLoaded", () => {
+    const name = document.getElementById("name");
+    const email = document.getElementById("email");
+    const message = document.getElementById("message");
+    const submit = document.getElementById("submit");
 
-(function () {
-    emailjs.init("NKaEqYATtE-LtFLAr"); // Replace 'user_youruserid' with your user ID from EmailJS
-
-    document.getElementById('contact-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        // this is the ID of your form
-        const formData = {
-            name: this.name.value,
-            email: this.email.value,
-            message: this.message.value
+    submit.addEventListener("click", (e) => {
+        e.preventDefault(); // Ensure default form submission is prevented
+        const data = {
+            name: name.value,
+            email: email.value,
+            message: message.value,
         };
-
-        // Change 'your_service_id', 'your_template_id', and 'user_youruserid' with your own values
-        emailjs.send('service_fn650ah', 'template_1i3mtov', formData)
-            .then(function (response) {
-                console.log('Success!', response.status, response.text);
-                alert('Your message has been sent successfully!');
-            }, function (error) {
-                console.error('Failed...', error);
-                alert('Oops! Something went wrong. Please try again later.');
-            });
+        if (!data.name || !data.email || !data.message) {
+            alert("Vui lòng điền đầy đủ thông tin.");
+        } else if (!data.email.includes('@')) {
+            alert("Phải là địa chỉ Email!");
+        } else {
+            postGoogle(data);
+        }
     });
-})();
+
+    async function postGoogle(data) {
+        const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSdiWqXbxQHFeaKlp7nT5DyyVtPoVgRiEwoDHZYwqePxI7YJXQ/formResponse";
+        const formData = new FormData();
+        formData.append("entry.877646087", data.name);
+        formData.append("entry.1667317933", data.email);
+        formData.append("entry.1983709190", data.message);
+
+        try {
+            await fetch(formURL, {
+                method: "POST",
+                body: formData,
+                mode: "no-cors"
+            });
+            alert("Thông tin liên hệ đã được gửi.");
+        } catch (error) {
+            alert("Có lỗi xảy ra khi gửi thông tin.");
+            console.error("Error:", error);
+        }
+    }
+});
