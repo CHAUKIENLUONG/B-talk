@@ -21,11 +21,11 @@
     });
 
     async function postGoogle(data) {
-        const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSdiWqXbxQHFeaKlp7nT5DyyVtPoVgRiEwoDHZYwqePxI7YJXQ/formResponse";
+        const formURL = "https://docs.google.com/forms/d/e/1FAIpQLScPw_wcIqIfz7gqf6ULil8VD9yPft8N573hSK_R3c69uN8cDA/formResponse";
         const formData = new FormData();
-        formData.append("entry.877646087", data.name);
-        formData.append("entry.1667317933", data.email);
-        formData.append("entry.1983709190", data.message);
+        formData.append("entry.1094708025", data.name);
+        formData.append("entry.706364320", data.email);
+        formData.append("entry.228466318", data.message);
 
         try {
             await fetch(formURL, {
