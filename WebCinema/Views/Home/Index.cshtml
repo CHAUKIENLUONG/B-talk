@@ -3,6 +3,7 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
+<meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;">
 <link href="~/css/home.css" rel="stylesheet" />
 <!-- Hero Section Begin -->
 <section class="hero">
@@ -33,15 +34,16 @@
 </a>
 <div class="slider-wrapper">
     <div class="slider-container">
-
         <ul class="slider">
             @foreach (var movie in Model)
             {
                 <li>
                     <a href="~/ShowTimes/ShowTimes">
                         <img src="@Url.Content(@* "~/images/" +  *@movie.Poster)" />
+                        <div class="overlay"></div>
+                        <!-- Truyền mã lượt phát từ mỗi bộ phim -->
+                        <div class="view-trailer" data-trailer="@movie.Trailer">Xem Trailer</div>
                     </a>
-
                 </li>
             }
         </ul>
@@ -51,6 +53,17 @@
         <button class="next">&#10095;</button> <!-- Biểu tượng mũi tên sang phải -->
     </div>
 </div>
+
+<!-- Popup modal -->
+<div id="trailerModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <iframe id="trailerIframe" width="599" height="530" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</div>
+
+
+
 @* <!-- Hero Section End -->
 <div class="text-title">
     <label>Rạp BTALK CINEMA:</label>
@@ -112,3 +125,5 @@
     });
 </script> *@
 
+<link href="~/css/trailer.css" rel="stylesheet" />
+<script src="~/js/trailer.js"></script>
