@@ -178,11 +178,15 @@
                                                     <textarea asp-for="Trailer" class="form-control"></textarea>
                                                     <span asp-validation-for="Trailer" class="text-danger"></span>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label asp-for="MovieState"></label>
-                                                    <textarea asp-for="MovieState" class="form-control"></textarea>
-                                                    <span asp-validation-for="MovieState" class="text-danger"></span>
-                                                </div>
+                                        <div class="form-group">
+                                            <label asp-for="MovieState"></label>
+                                            <select asp-for="MovieState" class="form-control">
+                                                <option value="">--Chọn trạng thái phim--</option>
+                                                <option value="NowShowing">Đang chiếu</option>
+                                                <option value="ComingSoon">Sắp chiếu</option>
+                                            </select>
+                                            <span asp-validation-for="MovieState" class="text-danger"></span>
+                                        </div>
 
                                                 <div class="form-group">
                                                     <label asp-for="Poster">Movie Poster</label>

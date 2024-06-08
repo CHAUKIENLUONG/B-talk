@@ -12,8 +12,7 @@
 }
 <!-- Phim -->
 <body>
-    <link href="~/css/Phim.css" rel="stylesheet" />
-
+    <link href="~/css/movie.css" rel="stylesheet" />
     <div class="Title-span shar" style="font-weight: bold">
         <a href="/">
             <span>Trang Chủ</span>
@@ -86,15 +85,13 @@
                                             <span class="ganre">2D</span>
                                             <span class="viet_sub">Phụ đề / sub</span>
                                         </a>
-                                        <div class="movie-tool">
-                                            <div class="imdb">
-                                                <div data-imdb-id="1133" class="score" imdb=""></div>
-                                                <span>IMDB</span>
-                                            </div>
-                                            <div class="trailer">
-                                                <iframe src="https://www.youtube.com/embed/jS4aFq5-91M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-                                            </div>
+                                        <div class="trailer">
+                                            <a class="open-popup-youtube" href="@movie.Trailer" target="_blank">
+                                                <div class="trailer-button">
+                                                    <i class="fa fa-play"></i>
+                                                    <span>Watch Trailer</span>
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -145,10 +142,10 @@
                                                 <span>IMDB</span>
                                             </div>
                                             <div class="trailer">
-                                                <a class="open-popup-youtube" href="@movie.Trailer">
-                                                    <div style="display: flex; align-items: center;">
+                                                <a class="open-popup-youtube" href="@movie.Trailer" target="_blank">
+                                                    <div class="trailer-button">
                                                         <i class="fa fa-play"></i>
-                                                        <div style="margin-left: 5px;">Trailer</div>
+                                                        <span>Watch Trailer</span>
                                                     </div>
                                                 </a>
                                             </div>
