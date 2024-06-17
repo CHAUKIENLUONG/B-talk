@@ -25,3 +25,23 @@
     .footer h5:last-child {
         margin-bottom: 0; /* Loại bỏ khoảng cách dưới cùng */
     }
+
+.footer-copyright-area {
+    background-color: #343a40; /* Dark background for footer */
+    padding-top: 30px; /* Top padding */
+    padding-bottom: 30px; /* Bottom padding */
+}
+
+.copyright-text {
+    color: white; /* Text color */
+    margin: 0; /* Remove default margin */
+    text-align: center; /* Center-align the text */
+}
+
+@media (max-width: 767.98px) {
+    .footer-copyright-area {
+        padding-top: 20px; /* Adjust top padding for smaller screens */
+        padding-bottom: 20px; /* Adjust bottom padding for smaller screens */
+    }
+}
+

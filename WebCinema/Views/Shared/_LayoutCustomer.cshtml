@@ -1,5 +1,9 @@
 ﻿<!DOCTYPE html>
 
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 <html>
 <head>
 
@@ -10,123 +14,386 @@
     <meta name="keywords" content="Anime, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;">
-
-
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+
+    <!-- ===== Meta Tags - Description for Search Engine purposes ===== -->
+    <meta name="description" content="Movify - Movies, Series & Cinema HTML Template">
+    <meta name="keywords" content="movies, series, online streaming, html template, cinema html template">
+    <meta name="author" content="GnoDesign">
+
+    <!-- Image Logo-->
     <link rel="shortcut icon" href="~/images/logo-2-no words.png" type="image/x-icon">
     <link rel="icon" sizes="192x192" href="~/images/logo-2-no words.png">
     <link rel="icon" sizes="128x128" href="~/images/logo-2-no words.png">
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="~/css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="~/css/style.css" type="text/css">
-    <link href="~/css/footer.css" rel="stylesheet" />
-    <link href="~/css/header.css" rel="stylesheet" />
+    <!-- Css-2 Styles -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/revolution/css/settings.css" rel="stylesheet" />
+    <link href="~/assets/revolution/css/layers.css" rel="stylesheet" />
+    <link href="~/assets/revolution/css/navigation.css" rel="stylesheet" />
+    <link href="~/assets/css/magnific-popup.css" rel="stylesheet" />
+    <link href="~/assets/css/jquery.mmenu.css" rel="stylesheet" />
+    <link href="~/assets/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/assets/css/responsive.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet" />
 
     @* <link rel="stylesheet" href="~/css/booking.css" type="text/css"/> *@
 </head>
+
 <body>
-    <div>
-        <!-- Header Section Begin -->
-        <header class="header">
-            <div class="container">
 
-                <div class="col-lg-2">
-                    <div class="header__logo">
-                        <a href="/">
-                            <img src="/images/Logo.png" alt="">
+    <!-- =============== START OF RESPONSIVE - MAIN NAV =============== -->
+    <nav id="main-mobile-nav"></nav>
+    <!-- =============== END OF RESPONSIVE - MAIN NAV =============== -->
+    <!-- Header Section Begin -->
+    <!-- Insert the class "sticky" in the header if you want a sticky header -->
+    <header class="header header-fixed header-transparent">
+        <div class="container-fluid">
 
-                        </a>
+            <nav class="navbar navbar-expand-lg">
 
-                    </div>
+                <a class="navbar-brand" href="/">
+                    <!-- INSERT YOUR WHITE LOGO HERE -->
+                    <img src="~/images/logo-no-bg.png" alt="white logo" width="150" class="logo-white" />
+                </a>
+
+                <button id="mobile-nav-toggler" class="hamburger hamburger--collapse" type="button">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </button>
+
+                <div class="navbar-collapse" id="main-nav">
+
+                    <!-- ====== Start of Main Menu ====== -->
+                    <ul class="navbar-nav mx-auto" id="main-menu">
+                        <!-- Menu Item -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/ShowTimes/ShowTimes" style="font-size: 24px;  color: aliceblue;">LỊCH CHIẾU</a>
+                        </li>
+
+                        <!-- Menu Item -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Movie/Movie" style="font-size: 24px;  color: aliceblue;">PHIM</a>
+                        </li>
+
+                        <!-- Menu Item -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/FAQs/FAQs" style="font-size: 24px;  color: aliceblue;">FAQs</a>
+                        </li>
+
+                        <!-- Menu Item -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Contact/Contact" style="font-size: 24px; color:aliceblue">Contact</a>
+                        </li>
+
+                    </ul>
+                    <!-- ====== End of Main Menu ====== -->
+                    <!-- ====== Start of Extra Nav ====== -->
+                    <ul class="navbar-nav extra-nav">
+                        <!-- Menu Item -->
+                        <li class="nav-item m-auto">
+                            <a <partial name="_LoginPartial" > </a>
+                        </li>
+                    </ul>
+                    <!-- ====== End of Extra Nav ====== -->
+
                 </div>
-                <div class="col-lg-8">
-                    <div class="header__nav">
-                        <nav class="header__menu mobile-menu">
-                            <ul>
-                                <li><a href="~/ShowTimes/ShowTimes">LỊCH CHIẾU</a></li>
-                                <li><a href="~/Movie/Movie">PHIM</a></li>
-                                <li><a href="~/FAQs/FAQs">FAQs</a></li>
-                                <li><a href="~/Contact/Contact">Contact</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="header__right">
-                        <partial name="_LoginPartial" />
-                    </div>
-                </div>
-            </div>
-
+                <!-- ====== End of #main-nav ====== -->
+            </nav>
+            <!-- ====== End of Navbar ====== -->
             <div id="mobile-menu-wrap"></div>
-    </div>
+        </div>
     </header>
+
     <!-- Header End -->
-    <div style="margin-bottom: 100px;">
-        @RenderBody()
-    </div>
+    <!-- =============== START OF SLIDER REVOLUTION SECTION =============== -->
+    <section id="slider" class="full-slider">
+        <div class="rev-slider-wrapper fullscreen-container overlay-gradient">
+            <div id="fullscreen-slider" class="rev_slider fullscreenbanner" style="display:none" data-version="5.4.1">
+                <ul>
 
-
-    </div>
-
-    <!-- Js Plugins -->
-    <script src="~/js/jquery-3.3.1.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/player.js"></script>
-    <script src="~/js/jquery.nice-select.min.js"></script>
-    <script src="~/js/mixitup.min.js"></script>
-    <script src="~/js/jquery.slicknav.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
-    <script src="~/js/main.js"></script>
-</body>
-
-<!-- Footer Section Begin -->
-<footer class="footer">
-    <div class="page-up">
-        <a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
-    </div>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-3">
-                <div class="footer__logo">
-                    <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="footer__contact-info">
-                    <h5>Địa chỉ:.../Email:Btalk@megags.vn</h5>
-                    <h5>Số ĐKKD: 0312667335 - Ngày cấp: 20/07/2017 (Đăng ký thay đổi lần 12) / Nơi cấp: Sở kế hoạch và đầu tư thành phố Hồ Chí Minh</h5>
-                    <h5>Copyright ©2018 BTALK Cinemas. All rights reserved.</h5>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <ul class="footer__social-icons">
-                    <li>
-                        <a href="https://www.facebook.com/chau.kienluong.5" target="_blank">
-                            <img src="~/images/icons/facebook.png" alt="Facebook Logo" style="width: 24px; height: 24px;">
-                        </a>
+                    <!-- ===== SLIDE NR. 1 ===== -->
+                    <li data-transition="fade">
+                        <!-- MAIN IMAGE -->
+                        <img src="assets/images/slider/slider1.jpg"
+                             alt="Image"
+                             title="slider-bg"
+                             data-bgposition="center center"
+                             data-bgfit="cover"
+                             data-bgrepeat="no-repeat"
+                             data-bgparallax="10"
+                             class="rev-slidebg"
+                             data-no-retina="">
+                        <!-- LAYER NR. 1 -->
+                        <div class="tp-caption tp-resizeme"
+                             data-x="center"
+                             data-hoffset=""
+                             data-y="middle"
+                             data-voffset="['-30','-30','-30','-30']"
+                             data-responsive_offset="on"
+                             data-fontsize="['60','50','40','30']"
+                             data-lineheight="['60','50','40','30']"
+                             data-whitespace="nowrap"
+                             data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                             style="z-index: 5; color: #fff; font-weight: 900;">
+                            START STREAMING NOW
+                        </div>
                     </li>
-                    <br />
-                    <li>
-                        <a href="https://www.youtube.com/channel/UCucxsZEPBQ48THLJtPkJ52g" target="_blank">
-                            <img src="~/images/icons/youtube.png" alt="Facebook Logo" style="width: 24px; height: 24px;">
-                        </a>
+
+                    <!-- ===== SLIDE NR. 2 ===== -->
+                    <li data-transition="fade"
+                        data-slotamount="7"
+                        data-easein="default"
+                        data-easeout="default"
+                        data-masterspeed="2000">
+                        <!-- MAIN IMAGE -->
+                        <img src="assets/images/slider/slider2.jpg"
+                             alt="Image"
+                             title="slider-bg"
+                             data-bgposition="center top"
+                             data-bgfit="cover"
+                             data-bgrepeat="no-repeat"
+                             data-bgparallax="10"
+                             class="rev-slidebg"
+                             data-no-retina="">
+                        <!-- LAYER NR. 1 -->
+                        <div class="tp-caption tp-resizeme"
+                             data-x="center"
+                             data-hoffset=""
+                             data-y="middle"
+                             data-voffset="['-30','-30','-30','-30']"
+                             data-responsive_offset="on"
+                             data-fontsize="['60','50','40','30']"
+                             data-lineheight="['60','50','40','30']"
+                             data-whitespace="nowrap"
+                             data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                             style="z-index: 5; color: #fff; font-weight: 900;">
+                            ULTRA HD RESOLUTION
+                        </div>
                     </li>
+
+                    <!-- ===== SLIDE NR. 3 ===== -->
+                    <li data-transition="fade"
+                        data-slotamount="7"
+                        data-easein="default"
+                        data-easeout="default"
+                        data-masterspeed="2000">
+                        <!-- MAIN IMAGE -->
+                        <img src="assets/images/slider/slider3.jpg"
+                             alt="Image"
+                             data-bgposition="center top"
+                             data-bgfit="cover"
+                             data-bgrepeat="no-repeat"
+                             data-bgparallax="3"
+                             class="rev-slidebg"
+                             data-no-retina>
+                        <!-- LAYER NR. 1 -->
+                        <div class="tp-caption tp-resizeme"
+                             data-x="center"
+                             data-hoffset=""
+                             data-y="middle"
+                             data-voffset="['-30','-30','-30','-30']"
+                             data-responsive_offset="on"
+                             data-fontsize="['60','50','40','30']"
+                             data-lineheight="['60','50','40','30']"
+                             data-whitespace="nowrap"
+                             data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                             style="z-index: 5; color: #fff; font-weight: 900;">
+                            LATEST MOVIES & SERIES
+                        </div>
+                    </li>
+
                 </ul>
             </div>
         </div>
-    </div>
-</footer>
-<!-- Footer Section End -->
+    </section>
+        <!-- ===== END OF REV SLIDER WRAPPER ===== -->
+
+        <div style="margin-bottom: 100px;">
+            @RenderBody()
+        </div>
+
+        <footer class="footer1 bg-dark">
+
+            <!-- ===== START OF FOOTER WIDGET AREA ===== -->
+            <div class="footer-widget-area ptb100">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Start of Widget 1 -->
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <!-- INSERT YOUR LOGO HERE -->
+                            <img src="~/images/logo-no-bg.png" />
+                        </div>
+                        <!-- End of Widget 1 -->
+                        <!-- Start of Widget 2 -->
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="widget widget-links">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="widget-title">SĐT</h4>
+                                    </div>
+                                </div>
+                                <ul class="general-listing">
+                                    <li><a> 0901234567</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End of Widget 2 -->
+                        <!-- Start of Widget 3 -->
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="widget widget-blog">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="widget-title">ĐỊA CHỈ</h4>
+                                    </div>
+                                </div>
+                                <ul class="blog-posts">
+                                    <li><a>Phân khu đào tạo E1, Khu Công Nghệ cao TP.HCM, Phường Hiệp Phú, TP. Thủ Đức, TP.HCM</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End of Widget 3 -->
+                        <!-- Start of Widget 4 -->
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="widget widget-social">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="widget-title">follow us</h4>
+                                    </div>
+                                </div>
+
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, ducimus, atque.</p>
+
+                                <!-- Start of Social Buttons -->
+                                <ul class="social-btns">
+                                    <!-- Social Media -->
+                                    <li>
+                                        <a href="#" class="social-btn-roll facebook">
+                                            <div class="social-btn-roll-icons">
+                                                <i class="social-btn-roll-icon fa fa-facebook"></i>
+                                                <i class="social-btn-roll-icon fa fa-facebook"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <!-- Social Media -->
+                                    <li>
+                                        <a href="#" class="social-btn-roll twitter">
+                                            <div class="social-btn-roll-icons">
+                                                <i class="social-btn-roll-icon fa fa-twitter"></i>
+                                                <i class="social-btn-roll-icon fa fa-twitter"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <!-- Social Media -->
+                                    <li>
+                                        <a href="#" class="social-btn-roll google-plus">
+                                            <div class="social-btn-roll-icons">
+                                                <i class="social-btn-roll-icon fa fa-google-plus"></i>
+                                                <i class="social-btn-roll-icon fa fa-google-plus"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <!-- Social Media -->
+                                    <li>
+                                        <a href="#" class="social-btn-roll instagram">
+                                            <div class="social-btn-roll-icons">
+                                                <i class="social-btn-roll-icon fa fa-instagram"></i>
+                                                <i class="social-btn-roll-icon fa fa-instagram"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- End of Social Buttons -->
+
+                            </div>
+                        </div>
+                        <!-- End of Widget 4 -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- ===== END OF FOOTER WIDGET AREA ===== -->
+            <!-- ===== START OF FOOTER COPYRIGHT AREA ===== -->
+            <div class="footer-copyright-area ptb30">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex">
+                                <div class="links">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item"><a href="#">Privacy & Cookies</a></li>
+                                        <li class="list-inline-item"><a href="#">Terms & Conditions</a></li>
+                                        <li class="list-inline-item"><a href="#">Legal Disclaimer</a></li>
+                                        <li class="list-inline-item"><a href="#">Community</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="copyright ml-auto">All Rights Reserved by <a href="#">Movify</a>.</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===== END OF FOOTER COPYRIGHT AREA ===== -->
+
+        </footer>
+        <!-- =============== END OF FOOTER =============== -->
+        <!-- Footer Section End -->
+        <!-- Js Plugins -->
+        <script src="~/assets/js/bootstrap.min.js"></script>
+        <script src="~/assets/js/custom.js"></script>
+        <script src="~/assets/js/headroom.js"></script>
+        <script src="~/assets/js/imagesloaded.pkgd.min.js"></script>
+        <script src="~/assets/js/isotope.pkgd.min.js"></script>
+        <script src="~/assets/js/jquery-3.2.1.min.js"></script>
+        <script src="~/assets/js/jquery.ajaxchimp.js"></script>
+        <script src="~/assets/js/jquery.countdown.min.js"></script>
+        <script src="~/assets/js/jquery.countto.min.js"></script>
+        <script src="~/assets/js/jquery.inview.min.js"></script>
+        <script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+        <script src="~/assets/js/jquery.mmenu.js"></script>
+        <script src="~/assets/js/owl.carousel.min.js"></script>
+
+        <!-- Js-2 Plugins -->
+        <script src="~/assets/js/bootstrap.min.js"></script>
+        <script src="~/assets/js/custom.js"></script>
+        <script src="~/assets/js/headroom.js"></script>
+        <script src="~/assets/js/imagesloaded.pkgd.min.js"></script>
+        <script src="~/assets/js/isotope.pkgd.min.js"></script>
+        <script src="~/assets/js/jquery-3.2.1.min.js"></script>
+        <script src="~/assets/js/jquery.ajaxchimp.js"></script>
+        <script src="~/assets/js/jquery.countdown.min.js"></script>
+        <script src="~/assets/js/jquery.countto.min.js"></script>
+        <script src="~/assets/js/jquery.inview.min.js"></script>
+        <script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+        <script src="~/assets/js/jquery.mmenu.js"></script>
+        <script src="~/assets/js/owl.carousel.min.js"></script>
+        <!-- ===== Slider Revolution core JavaScript files ===== -->
+        <script src="~/assets/revolution/js/jquery.themepunch.revolution.min.js"></script>
+        <script src="~/assets/revolution/js/jquery.themepunch.tools.min.js"></script>
+
+        <!-- ===== Slider Revolution extension scripts ===== -->
+        <script src="~/assets/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+        <script src="~/assets/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+        <script src="~/assets/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+        <script src="~/assets/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+        <script src="~/assets/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+        <script src="~/assets/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+        <script src="~/assets/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+        <script src="~/assets/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+        <script src="~/assets/revolution/js/extensions/revolution.extension.video.min.js"></script>
+</body>
+
+
 </html>

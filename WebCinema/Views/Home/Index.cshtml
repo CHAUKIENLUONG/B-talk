@@ -3,7 +3,9 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
-<meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;">
+<meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;"> <!-- ===== Google Fonts ===== -->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+<link href="~/css/style.css" rel="stylesheet" />
 <link href="~/css/home.css" rel="stylesheet" />
 <!-- Hero Section Begin -->
 <section class="hero">
@@ -59,6 +61,7 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <iframe id="trailerIframe" width="599" height="530" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
     </div>
 </div>
 
@@ -125,5 +128,14 @@
     });
 </script>
 
+<!-- Js Plugins -->
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/player.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/mixitup.min.js"></script>
+<script src="~/js/jquery.slicknav.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="~/js/main.js"></script>
 <link href="~/css/trailer.css" rel="stylesheet" />
 <script src="~/js/trailer.js"></script>

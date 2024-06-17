@@ -2,9 +2,12 @@
 
 @{
     ViewData["Title"] = "BookingSeat";
-    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
     // Get the date part of ShowtimeDate
 }
+<!-- Image Logo-->
+<link rel="shortcut icon" href="~/images/logo-2-no words.png" type="image/x-icon">
+<link rel="icon" sizes="192x192" href="~/images/logo-2-no words.png">
+<link rel="icon" sizes="128x128" href="~/images/logo-2-no words.png">
 <link href="~/css/booking.css" rel="stylesheet" />
 <div class="content-item">
     <div class="item-left">
@@ -15,17 +18,17 @@
                     <span>
                         <img src="~/images/seat/seat_ischosen.png">
                         &nbsp;
-                        <span class="Legend">Ghế của bạn</span>
+                        <span class="Legend" style="color:black">Ghế của bạn</span>
                     </span>
                     <span>
                         <img src="~/images/seat/seat_empty.png">
                         &nbsp;
-                        <span class="Legend">Ghế Trống</span>
+                        <span class="Legend" style="color:black">Ghế Trống</span>
                     </span>
                     <span>
                         <img src="~/images/seat/seat_booked.png">
                         &nbsp;
-                        <span class="Legend">Đã Đặt</span>
+                        <span class="Legend" style="color:black">Đã Đặt</span>
                     </span>
                 </div>
                 <div class="Seating-Screen">
@@ -72,10 +75,10 @@
                     <div class="combo-info">
                         <h4>Combo Bắp và Coca</h4>
                         <div class="combo-number">
-                            <i class="fa fa-minus-circle decrease"></i>
+                            <i class="fa fa-minus-circle decrease" style="color: black;"></i>
                             <span><input type="text" value="0" class="Qlty" readonly=""></span>
-                            <i class="fa fa-plus-circle increase"></i>
-                            <span class="combo-price">80000</span>
+                            <i class="fa fa-plus-circle increase" style="color: black;"></i>
+                            <span class="combo-price" style="color: black;">80000</span>
                         </div>
                     </div>
                 </div>
@@ -84,10 +87,10 @@
                     <div class="combo-info">
                         <h4>Bắp Caramel</h4>
                         <div class="combo-number">
-                            <i class="fa fa-minus-circle decrease"></i>
+                            <i class="fa fa-minus-circle decrease" style="color: black;"></i>
                             <span><input type="text" value="0" class="Qlty" readonly=""></span>
-                            <i class="fa fa-plus-circle increase"></i>
-                            <span class="combo-price">45000</span>
+                            <i class="fa fa-plus-circle increase" style="color: black;"></i>
+                            <span class="combo-price" style="color: black;">45000</span>
                         </div>
                     </div>
                 </div>
@@ -96,10 +99,10 @@
                     <div class="combo-info">
                         <h4>Coca</h4>
                         <div class="combo-number">
-                            <i class="fa fa-minus-circle decrease"></i>
+                            <i class="fa fa-minus-circle decrease" style="color: black;"></i>
                             <span><input type="text" value="0" class="Qlty" readonly=""></span>
-                            <i class="fa fa-plus-circle increase"></i>
-                            <span class="combo-price">40000</span>
+                            <i class="fa fa-plus-circle increase" style="color: black;"></i>
+                            <span class="combo-price" style="color: black;">40000</span>
                         </div>
                     </div>
                 </div>
@@ -145,11 +148,12 @@
                         <div class="show-error err">
                             <span></span>
                         </div>
-                            <input name="FullName" type="text" id="FullName" placeholder="Họ và Tên">
+                        <input name="FullName" type="text" id="FullName" placeholder="Họ và Tên" style="color: white;">
+
                         @Html.ValidationMessageFor(model => model.FullName)
-                            <input name="Email" type="text" id="Email" placeholder="Email">
+                        <input name="Email" type="text" id="Email" placeholder="Email" style="color: white;">
                         @Html.ValidationMessageFor(model => model.Email)
-                            <input name="PhoneNumber" type="text" id="PhoneNumber" placeholder="Số điện thoại">
+                        <input name="PhoneNumber" type="text" id="PhoneNumber" placeholder="Số điện thoại" style="color: white;">
                         @Html.ValidationMessageFor(model => model.PhoneNumber)
                     </div>
                 </div>

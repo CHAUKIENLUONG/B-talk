@@ -2,7 +2,32 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+ <!-- Css-2 Styles -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/revolution/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="assets/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="assets/revolution/css/navigation.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mmenu.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.min.css">
 
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+<style>
+    /* CSS for the login link */
+    .login-link {
+        color: white; /* Change text color to white */
+        border: 2px solid white; /* Add a white border */
+        padding: 5px 10px; /* Add padding for better appearance */
+        border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+        display: inline-block; /* Ensure the border wraps around the content */
+    }
+
+        /* Ensure the icon-user class also gets the white color */
+        .login-link .icon-user {
+            color: white; /* Change icon color to white */
+        }
+</style>
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
@@ -20,8 +45,11 @@ else
     @* <li class="nav-item">
             <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register"><span class="icon_search"></span></a>
     </li> *@
-    <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login"><span class="icon_profile"></span></a>
+        <li class="nav-item">
+            <a class="nav-link text-dark login-link" id="login" asp-area="Identity" asp-page="/Account/Login">
+                <span class="icon-user">login</span>
+            </a>
+
     </li>
 }
 </ul>

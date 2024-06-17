@@ -86,7 +86,8 @@
                                             <span class="viet_sub">Phụ đề / sub</span>
                                         </a>
                                         <div class="trailer">
-                                            <a class="open-popup-youtube" href="@movie.Trailer" target="_blank">
+                                            <!-- Thêm một ID duy nhất để xác định popup cho từng phim -->
+                                            <a class="open-popup-youtube" href="#" data-trailer="@movie.Trailer">
                                                 <div class="trailer-button">
                                                     <i class="fa fa-play"></i>
                                                     <span>Watch Trailer</span>
@@ -97,7 +98,6 @@
                                 </div>
                             }
                         </div>
-
                     </div>
                     <div id="movie-sc-all" class="tab-pane fade" style="min-height: 218px">
 
@@ -142,12 +142,16 @@
                                                 <span>IMDB</span>
                                             </div>
                                             <div class="trailer">
-                                                <a class="open-popup-youtube" href="@movie.Trailer" target="_blank">
-                                                    <div class="trailer-button">
-                                                        <i class="fa fa-play"></i>
-                                                        <span>Watch Trailer</span>
-                                                    </div>
-                                                </a>
+                                                <div class="container">
+                                                    <button id="watch-trailer-btn">Watch Trailer</button>
+                                                </div>
+                                            </div>
+                                            <!-- Popup container -->
+                                            <div id="popup-container">
+                                                <div class="popup-content">
+                                                    <iframe id="trailer-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                                                    <button id="close-btn">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -159,8 +163,7 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
+
     <!-- Footer Section Begin -->
     <script>
         window.onload = function () {
@@ -168,5 +171,10 @@
             tabPDC.click(); // Kích hoạt sự kiện click trên tab "Phim Đang Chiếu"
         };
     </script>
-
+    <script src="~/js/movie.js"></script>
 </body>
+<div id="popup-container">
+    <div class="popup-content">
+        <iframe id="trailer-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
