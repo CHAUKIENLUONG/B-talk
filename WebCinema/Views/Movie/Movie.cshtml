@@ -142,16 +142,13 @@
                                                 <span>IMDB</span>
                                             </div>
                                             <div class="trailer">
-                                                <div class="container">
-                                                    <button id="watch-trailer-btn">Watch Trailer</button>
-                                                </div>
-                                            </div>
-                                            <!-- Popup container -->
-                                            <div id="popup-container">
-                                                <div class="popup-content">
-                                                    <iframe id="trailer-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-                                                    <button id="close-btn">Close</button>
-                                                </div>
+                                                <!-- Thêm một ID duy nhất để xác định popup cho từng phim -->
+                                                <a class="open-popup-youtube" href="#" data-trailer="@movie.Trailer">
+                                                    <div class="trailer-button">
+                                                        <i class="fa fa-play"></i>
+                                                        <span>Watch Trailer</span>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -173,6 +170,7 @@
     </script>
     <script src="~/js/movie.js"></script>
 </body>
+<!-- Popup container -->
 <div id="popup-container">
     <div class="popup-content">
         <iframe id="trailer-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
