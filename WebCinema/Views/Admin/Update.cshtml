@@ -168,15 +168,42 @@
                                             <textarea asp-for="Trailer" class="form-control"></textarea>
                                             <span asp-validation-for="Trailer" class="text-danger"></span>
                                         </div>
+                                        @*                                                 <div class="form-group">
+                                        <label asp-for="MovieState"></label>
+                                        <textarea asp-for="MovieState" class="form-control"></textarea>
+                                        <span asp-validation-for="MovieState" class="text-danger"></span>
+                                        </div> *@
                                         <div class="form-group">
-                                            <label asp-for="MovieState"></label>
-                                            <select asp-for="MovieState" class="form-control">
-                                                <option value="">--Chọn trạng thái phim--</option>
-                                                <option value="NowShowing">Đang chiếu</option>
-                                                <option value="ComingSoon">Sắp chiếu</option>
-                                            </select>
+                                            <label asp-for="MovieState">Movie State</label>
+                                            <div>
+                                                <button type="button" class="btn btn-primary" onclick="setMovieState('1', this)">Đang Chiếu</button>
+                                                <button type="button" class="btn btn-secondary" onclick="setMovieState('2', this)">Sắp Chiếu</button>
+                                            </div>
+                                            <input type="hidden" asp-for="MovieState" id="MovieState" />
                                             <span asp-validation-for="MovieState" class="text-danger"></span>
                                         </div>
+
+                                        <style>
+                                            .active {
+                                                background-color: blue !important;
+                                                color: white !important;
+                                            }
+                                        </style>
+
+                                        <script>
+                                            function setMovieState(state, button) {
+                                                document.getElementById('MovieState').value = state;
+
+                                                // Remove 'active' class from all buttons
+                                                var buttons = document.querySelectorAll('.btn');
+                                                buttons.forEach(function (btn) {
+                                                    btn.classList.remove('active');
+                                                });
+
+                                                // Add 'active' class to the clicked button
+                                                button.classList.add('active');
+                                            }
+                                        </script>
 
                                         <div class="form-group">
                                             <label asp-for="Poster">Movie Poster</label>

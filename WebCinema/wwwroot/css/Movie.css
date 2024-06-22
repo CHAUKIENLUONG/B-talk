@@ -138,4 +138,106 @@
         margin-right: 5px; /* Khoảng cách giữa biểu tượng và văn bản */
     }
 
+.modal {
+    display: none; /* Ẩn modal theo mặc định */
+    position: fixed; /* Giữ modal cố định */
+    z-index: 1; /* Đảm bảo modal nằm trên các nội dung khác */
+    left: 0;
+    top: 0;
+    width: 100%; /* Chiều rộng của modal */
+    height: 100%; /* Chiều cao của modal */
+    overflow: auto; /* Cho phép cuộn nếu nội dung quá nhiều */
+    background-color: rgb(0, 0, 0); /* Màu nền */
+    background-color: rgba(0, 0, 0, 0.4); /* Màu nền với độ mờ */
+    display: flex; /* Sử dụng flexbox để căn giữa */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
 
+/* Modal content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 600px; /* Chiều rộng của modal */
+    max-width: 90%; /* Chiều rộng tối đa của modal */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+#trailerIframe {
+    width: 100%; /* Đặt chiều rộng iframe bằng 100% của modal-content */
+    max-width: 600px; /* Đảm bảo iframe không vượt quá 600px */
+    height: auto; /* Đặt chiều cao tự động */
+    aspect-ratio: 16/9; /* Giữ tỉ lệ 16:9 cho video */
+}
+/* Modal container */
+.modal {
+    display: none; /* Ẩn modal theo mặc định */
+    position: fixed; /* Giữ modal cố định */
+    z-index: 1; /* Đảm bảo modal nằm trên các nội dung khác */
+    left: 0;
+    top: 0;
+    width: 100%; /* Chiều rộng của modal */
+    height: 100%; /* Chiều cao của modal */
+    overflow: hi; /* Cho phép cuộn nếu nội dung quá nhiều */
+    background-color: rgb(0, 0, 0); /* Màu nền */
+    background-color: rgba(0, 0, 0, 0.4); /* Màu nền với độ mờ */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+/* Modal content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 600px; /* Chiều rộng của modal */
+    max-width: 90%; /* Chiều rộng tối đa của modal */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+
+#trailerIframe {
+    width: 100%; /* Đặt chiều rộng iframe bằng 100% của modal-content */
+    max-width: 600px; /* Đảm bảo iframe không vượt quá 600px */
+    height: auto; /* Đặt chiều cao tự động */
+    aspect-ratio: 16/9; /* Giữ tỉ lệ 16:9 cho video */
+}
+
+/* Đóng dấu X */
+.close {
+    color: #aaa;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+/* Animation */
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}

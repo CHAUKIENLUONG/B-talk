@@ -2,12 +2,9 @@
 
 @{
     ViewData["Title"] = "BookingSeat";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
     // Get the date part of ShowtimeDate
 }
-<!-- Image Logo-->
-<link rel="shortcut icon" href="~/images/logo-2-no words.png" type="image/x-icon">
-<link rel="icon" sizes="192x192" href="~/images/logo-2-no words.png">
-<link rel="icon" sizes="128x128" href="~/images/logo-2-no words.png">
 <link href="~/css/booking.css" rel="stylesheet" />
 <div class="content-item">
     <div class="item-left">
@@ -18,17 +15,17 @@
                     <span>
                         <img src="~/images/seat/seat_ischosen.png">
                         &nbsp;
-                        <span class="Legend" style="color:black">Ghế của bạn</span>
+                        <span class="Legend">Ghế của bạn</span>
                     </span>
                     <span>
                         <img src="~/images/seat/seat_empty.png">
                         &nbsp;
-                        <span class="Legend" style="color:black">Ghế Trống</span>
+                        <span class="Legend">Ghế Trống</span>
                     </span>
                     <span>
                         <img src="~/images/seat/seat_booked.png">
                         &nbsp;
-                        <span class="Legend" style="color:black">Đã Đặt</span>
+                        <span class="Legend">Đã Đặt</span>
                     </span>
                 </div>
                 <div class="Seating-Screen">
@@ -75,10 +72,10 @@
                     <div class="combo-info">
                         <h4>Combo Bắp và Coca</h4>
                         <div class="combo-number">
-                            <i class="fa fa-minus-circle decrease" style="color: black;"></i>
+                            <i class="fa fa-minus-circle decrease"></i>
                             <span><input type="text" value="0" class="Qlty" readonly=""></span>
-                            <i class="fa fa-plus-circle increase" style="color: black;"></i>
-                            <span class="combo-price" style="color: black;">80000</span>
+                            <i class="fa fa-plus-circle increase"></i>
+                            <span class="combo-price">80000</span>
                         </div>
                     </div>
                 </div>
@@ -87,10 +84,10 @@
                     <div class="combo-info">
                         <h4>Bắp Caramel</h4>
                         <div class="combo-number">
-                            <i class="fa fa-minus-circle decrease" style="color: black;"></i>
+                            <i class="fa fa-minus-circle decrease"></i>
                             <span><input type="text" value="0" class="Qlty" readonly=""></span>
-                            <i class="fa fa-plus-circle increase" style="color: black;"></i>
-                            <span class="combo-price" style="color: black;">45000</span>
+                            <i class="fa fa-plus-circle increase"></i>
+                            <span class="combo-price">45000</span>
                         </div>
                     </div>
                 </div>
@@ -99,10 +96,10 @@
                     <div class="combo-info">
                         <h4>Coca</h4>
                         <div class="combo-number">
-                            <i class="fa fa-minus-circle decrease" style="color: black;"></i>
+                            <i class="fa fa-minus-circle decrease"></i>
                             <span><input type="text" value="0" class="Qlty" readonly=""></span>
-                            <i class="fa fa-plus-circle increase" style="color: black;"></i>
-                            <span class="combo-price" style="color: black;">40000</span>
+                            <i class="fa fa-plus-circle increase"></i>
+                            <span class="combo-price">40000</span>
                         </div>
                     </div>
                 </div>
@@ -148,12 +145,11 @@
                         <div class="show-error err">
                             <span></span>
                         </div>
-                        <input name="FullName" type="text" id="FullName" placeholder="Họ và Tên" style="color: white;">
-
+                        <input name="FullName" type="text" id="FullName" placeholder="Họ và Tên">
                         @Html.ValidationMessageFor(model => model.FullName)
-                        <input name="Email" type="text" id="Email" placeholder="Email" style="color: white;">
+                        <input name="Email" type="text" id="Email" placeholder="Email">
                         @Html.ValidationMessageFor(model => model.Email)
-                        <input name="PhoneNumber" type="text" id="PhoneNumber" placeholder="Số điện thoại" style="color: white;">
+                        <input name="PhoneNumber" type="text" id="PhoneNumber" placeholder="Số điện thoại">
                         @Html.ValidationMessageFor(model => model.PhoneNumber)
                     </div>
                 </div>
@@ -161,18 +157,18 @@
                     <span>
                         <span class="img-loading" style="position: absolute; top: 45%">
                             <img src="~/images//loading.gif" style="width: 25px" alt="loading" />
-                        </span>                   
-                            <!-- Hidden input fields to capture selected seat IDs and combo IDs -->
-                            <input type="hidden" id="movieName" name="movieName" value="@Model.Movie.MovieName" />
-                            <input type="hidden" id="roomName" name="roomName" value="@Model.Showtime.Room.RoomName" />
-                            <input type="hidden" id="screenTime" name="screenTime" value="@Model.Screentime.ScreenTime" />
-                            <input type="hidden" id="showId" name="showId" value="@Model.Showtime.ShowId" />
-                            <input type="hidden" id="purchaseDate" name="purchaseDate" value="@DateTime.Now" />
-                            <input type="hidden" id="showDate" name="showDate" value="@Model.Showtime.ShowtimeDate" />
-                            <input type="hidden" id="selectedSeats" name="selectedSeats" />
-                            <input type="hidden" id="selectedCombos" name="selectedCombos" />
-                            <input type="hidden" id="totalMoney" name="totalMoney" />
-                            <input id="paymentButton" type="submit" name="payment" value="Thanh Toán" />
+                        </span>
+                        <!-- Hidden input fields to capture selected seat IDs and combo IDs -->
+                        <input type="hidden" id="movieName" name="movieName" value="@Model.Movie.MovieName" />
+                        <input type="hidden" id="roomName" name="roomName" value="@Model.Showtime.Room.RoomName" />
+                        <input type="hidden" id="screenTime" name="screenTime" value="@Model.Screentime.ScreenTime" />
+                        <input type="hidden" id="showId" name="showId" value="@Model.Showtime.ShowId" />
+                        <input type="hidden" id="purchaseDate" name="purchaseDate" value="@DateTime.Now" />
+                        <input type="hidden" id="showDate" name="showDate" value="@Model.Showtime.ShowtimeDate" />
+                        <input type="hidden" id="selectedSeats" name="selectedSeats" />
+                        <input type="hidden" id="selectedCombos" name="selectedCombos" />
+                        <input type="hidden" id="totalMoney" name="totalMoney" />
+                        <input id="paymentButton" type="submit" name="payment" value="Thanh Toán" />
                     </span>
                 </div>
             </form>

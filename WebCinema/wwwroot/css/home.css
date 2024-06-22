@@ -261,16 +261,16 @@ ul.bxslider {
 }
 
 h4 {
-    background-color: gray; /* Màu cam */
-    padding: 5px; /* Khoảng cách lề bên trong phần tử */
-    margin: 10px; /* Loại bỏ margin mặc định của phần tử h4 */
-    float: left; /* Căn phần tử bên trái */
-    transition: transform 0.3s ease; /* Hiệu ứng chuyển đổi cho phần tử */
+
+    padding: 5px;  Khoảng cách lề bên trong phần tử 
+    margin: 10px;  Loại bỏ margin mặc định của phần tử h4 
+    float: left;  Căn phần tử bên trái 
+    transition: transform 0.3s ease;  Hiệu ứng chuyển đổi cho phần tử 
     color:white;
 }
 
-    /* Hover effect */
+     Hover effect 
     h4:hover {
-        transform: scale(1.1); /* Nổi to lên khi di chuột qua */
+        transform: scale(1.1);  Nổi to lên khi di chuột qua 
         background-color:orange;
     }
