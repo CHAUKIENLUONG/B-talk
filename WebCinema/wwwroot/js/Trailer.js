@@ -16,7 +16,7 @@
                 trailer = "https://www.youtube.com/embed/" + trailer;
             }
             iframe.src = trailer;
-            modal.style.display = 'block';
+            modal.style.display = 'flex';// Hiển thị modal
         });
     });
 
