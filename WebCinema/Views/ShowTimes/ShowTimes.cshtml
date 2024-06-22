@@ -33,8 +33,7 @@
             {
                 DateTime date = currentDate.AddDays(i);
                 string cssClass = (date.Date == selectedDate.Date) ? "selected" : "";
-                string formattedDate = $"{date:dd-MM-yyyy}";
-                <a href="#" class="date @cssClass" data-date="@formattedDate">@date.ToShortDateString()</a>
+                <a href="#" class="date @cssClass" data-date="@date.ToString("yyyy-MM-dd")">@date.ToShortDateString()</a>
             }
         </div>
     </div>

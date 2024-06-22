@@ -5,10 +5,10 @@
 
     <link rel="stylesheet" href="~/css/Movie.css">
     // Lọc phim đang chiếu
-    var phimDangChieu = Model.Where(movie => movie.MovieState.Contains("1")).ToList();
+    var phimDangChieu = Model.Where(movie => movie.MovieState.Contains("Đang Chiếu")).ToList();
 
     // Lọc phim sắp chiếu
-    var phimSapChieu = Model.Where(movie => movie.MovieState.Contains("2")).ToList();
+    var phimSapChieu = Model.Where(movie => movie.MovieState.Contains("Sắp Chiếu")).ToList();
 }
 <!-- Phim -->
 <body>

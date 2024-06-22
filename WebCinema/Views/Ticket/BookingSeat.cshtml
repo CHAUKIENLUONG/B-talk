@@ -120,7 +120,7 @@
                         <p>@Model.Showtime.Room.RoomName</p>
                     </div>
                     <div class="movie-image">
-                        <img src=@Url.Content("~/images/Baking-Bad.png") />
+                        <img src=@Url.Content(@Model.Movie.Poster) />
                     </div>
                 </div>
                 <div class="box-tickets">
@@ -182,3 +182,50 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/js/booking.js"></script>
+<script>
+    $(document).ready(function () {
+        var seatIds = @Html.Raw(Json.Serialize(Model.BookedSeats));
+
+        $('.seat').each(function () {
+            var seatId = $(this).data('seat-id');
+            if (seatIds.includes(seatId)) {
+                $(this).css('pointer-events', 'none');
+            }
+        });
+
+        var selectedSeats = [];
+        var selectedCombos = [];
+
+        var dateLinks = document.querySelectorAll('.date');
+
+        // Lặp qua từng liên kết ngày và thêm sự kiện click
+        dateLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+                // Loại bỏ lớp 'selected' từ tất cả các liên kết ngày
+                dateLinks.forEach(function (dateLink) {
+                    dateLink.classList.remove('selected');
+                });
+
+                // Thêm lớp 'selected' cho liên kết ngày được click
+                this.classList.add('selected');
+
+                // Lấy ngày từ thuộc tính dữ liệu 'data-date'
+                var selectedDate = this.getAttribute('data-date');
+
+                // Cập nhật query string trong URL với ngày được chọn
+                var currentUrl = window.location.href;
+                var newUrl;
+                if (currentUrl.indexOf('?') !== -1) {
+                    newUrl = currentUrl.split('?')[0] + '?selectedDate=' + selectedDate;
+                } else {
+                    newUrl = currentUrl + '?selectedDate=' + selectedDate;
+                }
+
+                // Làm mới trang với URL mới
+                window.location.href = newUrl;
+            });
+        });
+    });
+</script>  

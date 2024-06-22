@@ -132,15 +132,15 @@
                     </a>
                     <p class="text-center text-black">Where Every Frame Tells a Story</p>
                     <div class="small-dialog-headline">
-                        <h4 class="text-center">Sign Up</h4>
+                        <h4 class="text-center">Đăng Ký</h4>
                     </div>
                     <hr />
                     @* register *@
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     <div class="form-group">
-                        <label asp-for="Input.FullName ">Full Name</label>
+                        <label asp-for="Input.FullName ">Họ Tên</label>
                         <span asp-validation-for="Input.FullName"></span>
-                        <input asp-for="Input.FullName" id="movify_user_login" class="form-control" autocomplete="fullname" aria-required="true" placeholder="Your Name" />
+                        <input asp-for="Input.FullName" id="movify_user_login" class="form-control" autocomplete="fullname" aria-required="true" placeholder="Họ Tên" />
 
                     </div>
                     <div class="form-group">
@@ -150,19 +150,19 @@
 
                     </div>
                     <div class="form-group">
-                        <label asp-for="Input.Password">Password</label>
+                        <label asp-for="Input.Password">Mật Khẩu</label>
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
-                        <input asp-for="Input.Password" class="form-control" id="movify_password" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <input asp-for="Input.Password" class="form-control" id="movify_password" autocomplete="new-password" aria-required="true" placeholder="Mật Khẩu" />
 
                     </div>
                     <div class="form-group">
-                        <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                        <label asp-for="Input.ConfirmPassword">Ghi lại Mật Khẩu</label>
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Mật Khẩu" />
 
                     </div>
                     <div class="form-group">
-                        <label asp-for="Input.DateOfBirth">Date Of Birth</label>
+                        <label asp-for="Input.DateOfBirth">Ngày Sinh</label>
                         <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
                         <input asp-for="Input.DateOfBirth" type="date" class="form-control" autocomplete="dateofbirth" aria-required="true" placeholder="01/01/2000" />
 
@@ -174,7 +174,7 @@
 
                     </div>
                     <div class="form-group">
-                        <label asp-for="Input.Address">Address</label>
+                        <label asp-for="Input.Address">Địa Chỉ</label>
                         <span asp-validation-for="Input.Address" class="text-danger"></span>
                         <input asp-for="Input.Address" class="form-control" autocomplete="address" aria-required="true" placeholder="123 Main Street, Anytown, USA" />
                     </div>
@@ -188,11 +188,11 @@
                     </div>
                     <div></div>
                     <div class="form-group">
-                        <button id="registerSubmit" type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Register</button>
+                        <button id="registerSubmit" type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Đăng Ký</button>
                     </div>
                     <div class="d-flex align-items-center justify-content-center">
                         <p class="fs-4 mb-0 fw-bold text-balck">Already a Btalk member?</p>
-                        <a class="text-primary fw-bold ms-2" href="./Login">Login</a>
+                        <a class="text-primary fw-bold ms-2" href="./Login">Đăng Nhập</a>
                     </div>
                 </form>
             </section>
