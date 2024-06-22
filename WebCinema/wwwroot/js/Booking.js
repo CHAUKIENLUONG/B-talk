@@ -1,4 +1,4 @@
-﻿/*// Global variable to store total money
+﻿// Global variable to store total money
 var totalMoney = 0;
 var totalTicketMoney = 0;
 var selectedSeats = []; // Array to store selected seat IDs
@@ -142,75 +142,3 @@ function updateTable() {
 
 // Initial table update
 updateTable();
-*/
-
-$(document).ready(function () {
-    var selectedSeats = []; // Mảng lưu các ghế được chọn
-    var totalMoney = 0; // Tổng tiền thanh toán cho ghế
-    var selectedCombos = []; // Mảng lưu các combo được chọn
-    var totalComboMoney = 0; // Tổng tiền thanh toán cho combo
-
-    // Xử lý sự kiện khi người dùng chọn ghế
-    $('.seat').click(function () {
-        var seatId = $(this).data('seat-id');
-        var seatPrice = parseInt($(this).find('.seat-price').text());
-
-        // Kiểm tra xem ghế đã được chọn chưa
-        if (!$(this).hasClass('selected')) {
-            // Thêm ghế vào mảng selectedSeats
-            selectedSeats.push(seatId);
-            totalMoney += seatPrice;
-            $(this).addClass('selected');
-        } else {
-            // Nếu đã chọn rồi, hủy bỏ chọn
-            var index = selectedSeats.indexOf(seatId);
-            if (index > -1) {
-                selectedSeats.splice(index, 1);
-                totalMoney -= seatPrice;
-            }
-            $(this).removeClass('selected');
-        }
-
-        // Cập nhật giá trị cho trường hidden selectedSeats và totalMoney
-        $('#selectedSeats').val(selectedSeats.join(',')); // Chuyển mảng thành chuỗi
-        $('#totalMoney').val(totalMoney);
-    });
-
-    // Xử lý sự kiện khi người dùng ấn nút thanh toán cho ghế
-    $('#paymentButton').click(function () {
-        // Validate dữ liệu ở đây nếu cần thiết
-        // Gửi form đi
-        $('#paymentForm').submit();
-    });
-
-    // Xử lý sự kiện khi người dùng ấn nút thanh toán cho combo
-    $('#comboPaymentButton').click(function () {
-        selectedCombos = []; // Reset mảng các combo được chọn
-        totalComboMoney = 0; // Reset tổng tiền thanh toán cho combo
-
-        // Lặp qua các combo để lấy thông tin
-        $('.combo').each(function () {
-            var comboId = $(this).data('combo-id');
-            var comboPrice = parseInt($(this).find('.combo-price').text());
-            var quantity = parseInt($(this).find('.Qlty').val());
-
-            // Kiểm tra xem combo có được chọn không
-            if (quantity > 0) {
-                var comboTotalPrice = comboPrice * quantity;
-                selectedCombos.push({
-                    comboId: comboId,
-                    quantity: quantity
-                });
-                totalComboMoney += comboTotalPrice;
-            }
-        });
-
-        // Cập nhật giá trị cho trường hidden selectedCombos và totalComboMoney
-        $('#selectedCombos').val(JSON.stringify(selectedCombos)); // Chuyển mảng thành JSON string
-        $('#totalComboMoney').val(totalComboMoney);
-
-        // Validate dữ liệu ở đây nếu cần thiết
-        // Gửi form đi
-        $('#comboPaymentForm').submit();
-    });
-});

@@ -2,7 +2,7 @@
     color: #f0f0f0
 }
 
-h3{
+h3 {
     color: #f0f0f0
 }
 
@@ -10,7 +10,7 @@ h5 {
     color: #f0f0f0
 }
 
-p{
+p {
     color: #f0f0f0
 }
 
@@ -32,86 +32,86 @@ p{
     margin-bottom: 20px;
 }
 
-        .content-item .item-left h3 {
-            font-family: 'UTMNeutra';
-            font-size: 24px;
-            color: #333;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-top: 0;
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 45px;
-            line-height: 35px
-        }
+.content-item .item-left h3 {
+    font-family: 'UTMNeutra';
+    font-size: 24px;
+    color: #333;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 45px;
+    line-height: 35px
+}
 
-            .content-item .item-left h3 .span_number {
-                font-family: 'Open Sans',sans-serif;
-                width: 35px;
-                height: 35px;
-                background: #f89303;
-                color: #fff;
-                text-align: center;
-                font-weight: 700;
-                -webkit-border-radius: 50%;
-                -moz-border-radius: 50%;
-                border-radius: 50%;
-                border: 3px solid #fff;
-                position: absolute;
-                left: 0;
-                line-height: 29px
-            }
+    .content-item .item-left h3 .span_number {
+        font-family: 'Open Sans',sans-serif;
+        width: 35px;
+        height: 35px;
+        background: #f89303;
+        color: #fff;
+        text-align: center;
+        font-weight: 700;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        position: absolute;
+        left: 0;
+        line-height: 29px
+    }
 
-        .content-item .item-left .combo-select {
+.content-item .item-left .combo-select {
+    display: flex;
+    justify-content: center; /* Centers the combo-box horizontally */
+}
+
+    .content-item .item-left .combo-select .combo-box {
+        display: flex;
+        flex-wrap: wrap; /* Allows combos to wrap to the next line if necessary */
+    }
+
+        .content-item .item-left .combo-select .combo-box .combo {
             display: flex;
-            justify-content: center; /* Centers the combo-box horizontally */
+            align-items: center;
+            margin: 10px;
         }
 
-            .content-item .item-left .combo-select .combo-box {
-                display: flex;
-                flex-wrap: wrap; /* Allows combos to wrap to the next line if necessary */
+            .content-item .item-left .combo-select .combo-box .combo img {
+                width: 50px; /* Adjust the width of the image as needed */
+                height: auto;
+                margin-right: 10px;
             }
 
-                .content-item .item-left .combo-select .combo-box .combo {
-                    display: flex;
-                    align-items: center;
-                    margin: 10px;
+            .content-item .item-left .combo-select .combo-box .combo .combo-info {
+                display: flex;
+                flex-direction: column;
+            }
+
+                .content-item .item-left .combo-select .combo-box .combo .combo-info h4 {
+                    margin: 0;
                 }
 
-                    .content-item .item-left .combo-select .combo-box .combo img {
-                        width: 50px; /* Adjust the width of the image as needed */
-                        height: auto;
-                        margin-right: 10px;
-                    }
+            .content-item .item-left .combo-select .combo-box .combo .combo-name .combo-number {
+                display: flex;
+                align-items: center; /* Align items vertically */
+            }
 
-                    .content-item .item-left .combo-select .combo-box .combo .combo-info {
-                        display: flex;
-                        flex-direction: column;
-                    }
+                .content-item .item-left .combo-select .combo-box .combo .combo-name .combo-number .fa {
+                    font-size: 20px; /* Adjust the font size of plus and minus icons */
+                }
 
-                        .content-item .item-left .combo-select .combo-box .combo .combo-info h4 {
-                            margin: 0;
-                        }
+            .content-item .item-left .combo-select .combo-box .combo .combo-name .Qlty {
+                width: 30px; /* Adjust the width of the input field */
+                height: 40px; /* Adjust the height of the input field */
+                text-align: center; /* Center align text in the input field */
+                margin: 0 10px; /* Add margin between the input field and icons */
+            }
 
-                    .content-item .item-left .combo-select .combo-box .combo .combo-name .combo-number {
-                        display: flex;
-                        align-items: center; /* Align items vertically */
-                    }
-
-                        .content-item .item-left .combo-select .combo-box .combo .combo-name .combo-number .fa {
-                            font-size: 20px; /* Adjust the font size of plus and minus icons */
-                        }
-
-                    .content-item .item-left .combo-select .combo-box .combo .combo-name .Qlty {
-                        width: 30px; /* Adjust the width of the input field */
-                        height: 40px; /* Adjust the height of the input field */
-                        text-align: center; /* Center align text in the input field */
-                        margin: 0 10px; /* Add margin between the input field and icons */
-                    }
-
-                    .content-item .item-left .combo-select .combo-box .combo .combo-name .combo-price {
-                        margin-left: auto; /* Align the combo price to the right */
-                    }
+            .content-item .item-left .combo-select .combo-box .combo .combo-name .combo-price {
+                margin-left: auto; /* Align the combo price to the right */
+            }
 
 
 .content-item .item-right {
@@ -128,83 +128,83 @@ p{
     margin-top: 2px; /* Adjust spacing as needed */
 }
 
-        .content-item .item-right .section-item {
-            background: #3a406d;
-        }
+.content-item .item-right .section-item {
+    background: #3a406d;
+}
 
-        .content-item .item-right .head-title {
-            background-color: rgba(255,255,255,.7);
-            padding: 8px 0;
-            padding-left: 32px;
-            text-align: left;
-            position: relative;
-            margin-top: 20px
-        }
+.content-item .item-right .head-title {
+    background-color: rgba(255,255,255,.7);
+    padding: 8px 0;
+    padding-left: 32px;
+    text-align: left;
+    position: relative;
+    margin-top: 20px
+}
 
-            .content-item .item-right .head-title h3 {
-                font-family: 'UTMNeutra';
-                font-size: 16px;
-                color: #444;
-                text-transform: uppercase;
-                font-weight: 700;
-                margin: 0
-            }
+    .content-item .item-right .head-title h3 {
+        font-family: 'UTMNeutra';
+        font-size: 16px;
+        color: #444;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin: 0
+    }
 
-            .content-item .item-right .head-title .span_number {
-                font-family: 'Open Sans',sans-serif;
-                font-size: 24px;
-                width: 35px;
-                height: 35px;
-                background: #f89303;
-                color: #fff;
-                text-align: center;
-                font-weight: 700;
-                -webkit-border-radius: 50%;
-                -moz-border-radius: 50%;
-                border-radius: 50%;
-                border: 3px solid #fff;
-                position: absolute;
-                top: -8px;
-                left: -10px;
-                line-height: 29px
-            }
+    .content-item .item-right .head-title .span_number {
+        font-family: 'Open Sans',sans-serif;
+        font-size: 24px;
+        width: 35px;
+        height: 35px;
+        background: #f89303;
+        color: #fff;
+        text-align: center;
+        font-weight: 700;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        position: absolute;
+        top: -8px;
+        left: -10px;
+        line-height: 29px
+    }
 
-        .content-item .item-right .section-item .box-ticket-info .movie-info {
-            display: flex;
-            justify-content: space-between
-        }
+.content-item .item-right .section-item .box-ticket-info .movie-info {
+    display: flex;
+    justify-content: space-between
+}
 
-            .content-item .item-right .section-item .box-ticket-info .movie-info .movie-info-item {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                padding-top: 10px;
-                padding-left: 10px
-            }
+    .content-item .item-right .section-item .box-ticket-info .movie-info .movie-info-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-top: 10px;
+        padding-left: 10px
+    }
 
-            .content-item .item-right .section-item .box-ticket-info .movie-info .movie-image img {
-                display: flex;
-                align-self: flex-end;
-                width: 120px;
-                height: auto;
-                margin-top: 10px;
-                margin-right: 10px;
-            }
+    .content-item .item-right .section-item .box-ticket-info .movie-info .movie-image img {
+        display: flex;
+        align-self: flex-end;
+        width: 120px;
+        height: auto;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
 
-        .content-item .item-right .section-item .box-ticket-info .box-tickets {
-            padding-top: 5px
-        }
+.content-item .item-right .section-item .box-ticket-info .box-tickets {
+    padding-top: 5px
+}
 
-            .content-item .item-right .section-item .box-ticket-info .box-tickets h5 {
-                margin-top: 0;
-                padding-left: 10px;
-                color: #ffd455
-            }
+    .content-item .item-right .section-item .box-ticket-info .box-tickets h5 {
+        margin-top: 0;
+        padding-left: 10px;
+        color: #ffd455
+    }
 
-            .content-item .item-right .section-item .box-ticket-info .box-tickets table {
-                width: 100%;
-                color: white
-            }
+    .content-item .item-right .section-item .box-ticket-info .box-tickets table {
+        width: 100%;
+        color: white
+    }
 
 .align-right {
     text-align: right
