@@ -12,7 +12,7 @@
 }
 <!-- Phim -->
 <body>
-    <link href="~/css/movie.css" rel="stylesheet" />
+    <link href="~/css/Movie.css" rel="stylesheet" />
     <div class="Title-span shar" style="font-weight: bold">
         <a href="/">
             <span>Trang Chủ</span>
@@ -87,8 +87,8 @@
                                         </a>
                                         <div class="trailer">
                                             <!-- Thêm một ID duy nhất để xác định popup cho từng phim -->
-                                            <a class="open-popup-youtube" href="#" data-trailer="@movie.Trailer">
-                                                <div class="trailer-button">
+                                            <a class="open-popup-youtube" href="#" >
+                                                <div class="trailer-button" data-trailer="@movie.Trailer">
                                                     <i class="fa fa-play"></i>
                                                     <span>Watch Trailer</span>
                                                 </div>
@@ -143,8 +143,8 @@
                                             </div>
                                             <div class="trailer">
                                                 <!-- Thêm một ID duy nhất để xác định popup cho từng phim -->
-                                                <a class="open-popup-youtube" href="#" data-trailer="@movie.Trailer">
-                                                    <div class="trailer-button">
+                                                <a class="open-popup-youtube" href="#">
+                                                    <div class="trailer-button" data-trailer="@movie.Trailer">
                                                         <i class="fa fa-play"></i>
                                                         <span>Watch Trailer</span>
                                                     </div>
@@ -171,8 +171,10 @@
     <script src="~/js/movie.js"></script>
 </body>
 <!-- Popup container -->
-<div id="popup-container">
-    <div class="popup-content">
-        <iframe id="trailer-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+<div id="trailerModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <iframe id="trailerIframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
     </div>
 </div>
