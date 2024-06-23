@@ -67,18 +67,12 @@ ul.bxslider {
     position: relative;
     width: 100%;
     overflow: hidden;
+    margin-top: 20px;
 }
 
 .slider-wrapper {
     width: 80%;
     margin: auto;
-}
-
-.slider-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    margin-top: 20px;
 }
 
 .slider {
@@ -87,17 +81,28 @@ ul.bxslider {
     padding: 0;
     transition: transform 0.5s ease;
     margin: 0;
-    padding: 0;
 }
 
     .slider li {
         flex: 0 0 calc((100% - 30px) / 4);
-        margin-right: 10px; 
+        margin-right: 10px;
     }
 
-    .slider img {
-        width: 100%;
-        height: auto;
+        .slider li img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .slider li img {
+            object-fit: cover; /* Ensures images are scaled to fit their container */
+            height: 250px; /* Set a consistent height */
+        }
+
+    .slider li {
+        background: #f0f0f0; /* Optional: Adds a background color to the list item to ensure padding shows */
+        padding: 5px; /* Optional: Adds padding inside the list item to create spacing around images */
+        box-sizing: border-box; /* Ensures padding is included in the width calculation */
     }
 
 .prev,
