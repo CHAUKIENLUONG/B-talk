@@ -251,6 +251,30 @@
     <script src="~/Admin/libs/apexcharts/dist/apexcharts.min.js"></script>
     <script src="~/Admin/libs/simplebar/dist/simplebar.js"></script>
     <script src="~/Admin/js/dashboard.js"></script>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var trailerInput = document.querySelector('textarea[name="Trailer"]');
+            var trailerURL = trailerInput.value;
+
+            if (trailerURL.startsWith("https://www.youtube.com/watch?v=")) {
+                let videoId = trailerURL.split("v=")[1];
+                trailerURL = "https://www.youtube.com/embed/" + videoId;
+            } else if (!trailerURL.startsWith("https://www.youtube.com/embed/")) {
+                trailerURL = "https://www.youtube.com/embed/" + trailerURL;
+            }
+
+            trailerInput.value = trailerURL;
+        });
+
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById("EndDate").setAttribute('min', today);
+        });
+    </script>
 </body>
 </html>
 
