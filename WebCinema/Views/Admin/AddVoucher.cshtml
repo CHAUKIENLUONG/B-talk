@@ -1,0 +1,96 @@
+﻿@model WebCinema.Models.Voucher
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    bool isEditMode = Model != null && Model.Id > 0;
+    bool isDeleteMode = ViewData["Action"]?.ToString() == "DeleteVoucher";
+}
+@{
+    ViewData["Title"] = "Add Voucher";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>- Admin</title>
+    <link rel="shortcut icon" type="image/png" href="~/Admin/images/logos/Logo.png" />
+    <link rel="stylesheet" href="~/Admin/css/styles.min.css" />
+</head>
+
+<body>
+    <!--  Body Wrapper -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+        <!--  Movies  -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 d-flex align-items-strech">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                                <div class="mb-3 mb-sm-0">
+                                    <h5 class="card-title fw-semibold">Add a Voucher</h5>
+
+                                    <form asp-action="AddVoucher" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label asp-for="Code"></label>
+                                            <input asp-for="Code" class="form-control" />
+                                            <span asp-validation-for="Code" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label asp-for="Description"></label>
+                                            <textarea asp-for="Description" class="form-control"></textarea>
+
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="ReleaseDate"></label>
+                                            <input type="date" asp-for="ReleaseDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="EndDate"></label>
+                                            <input type="date" asp-for="EndDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                        </div>
+
+                                        
+                                        <button type="submit" class="btn btn-primary">Add</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* <script>
+        document.querySelector('form').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Ngăn không cho form tự động submit và reload trang
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Voucher added successfully!');
+                window.location.href = '/Admin/IndexVoucher'; // Chuyển trang sau khi thêm thành công
+            } else {
+                alert('Failed to add voucher. Please try again.');
+            }
+        });</script> *@
+    <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/js/sidebarmenu.js"></script>
+    <script src="~/Admin/js/app.min.js"></script>
+    <script src="~/Admin/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="~/Admin/libs/simplebar/dist/simplebar.js"></script>
+</body>

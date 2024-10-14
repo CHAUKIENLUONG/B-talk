@@ -4,93 +4,99 @@
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
 <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;"> <!-- ===== Google Fonts ===== -->
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
 <link href="~/css/style.css" rel="stylesheet" />
 <link href="~/css/home.css" rel="stylesheet" />
 <link href="~/css/trailer.css" rel="stylesheet" />
-<!-- Hero Section Begin -->
-<section class="hero">
-    <div class="container">
-        <div class="hero__slider owl-carousel">
-            @foreach (var movie in Model)
-            {
-                <div class="hero__items set-bg" data-setbg="@Url.Content(@* "~/images/" +  *@movie.Poster)">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="hero__text">
-                                <div class="label">@movie.Genre.GenreName</div>
-                                <h2>@movie.MovieName</h2>
-                                <p>@movie.Description</p>
-                                <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId"><span>Chi Tiết</span> <i class="fa fa-angle-right"></i></a>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v21.0"></script>
+<body>
+    <!-- Hero Section Begin -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__slider owl-carousel">
+                @foreach (var movie in Model)
+                {
+                    <div class="hero__items set-bg" data-setbg="@Url.Content(@* "~/images/" +  *@movie.Poster)">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="hero__text">
+                                    <div class="label">@movie.Genre.GenreName</div>
+                                    <h2>@movie.MovieName</h2>
+                                    <p>@movie.Description</p>
+                                    <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId"><span>Chi Tiết</span> <i class="fa fa-angle-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
-    </div>
-</section>
-<a href="@Url.Action("Movie", "Movie")" >
-    <div class="container">
-        <h4>Phim Đang Chiếu</h4>
-    </div>
-</a>
-<div class="slider-wrapper">
-    <div class="slider-container">
-        <ul class="slider">
-            @foreach (var movie in Model)
-            {
-                <li>
-                    <a href="~/ShowTimes/ShowTimes">
-                        <img src="@Url.Content(@* "~/images/" +  *@movie.Poster)" />
-                        <div class="overlay"></div>
-                        <!-- Truyền mã lượt phát từ mỗi bộ phim -->
-                        <div class="view-trailer" data-trailer="@movie.Trailer">Xem Trailer</div>
-                    </a>
-                </li>
-            }
-        </ul>
-
-
-        <button class="prev">&#10094;</button> <!-- Biểu tượng mũi tên sang trái -->
-        <button class="next">&#10095;</button> <!-- Biểu tượng mũi tên sang phải -->
-    </div>
-</div>
-
-<!-- Popup modal -->
-<div id="trailerModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <iframe id="trailerIframe"  src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-    </div>
-</div>
-
-
-
-<!-- Hero Section End -->
-@* <div class="text-title">
-    <label>Rạp BTALK CINEMA:</label>
-</div>
-
-<div class="rap-gv-slider clearfix" style="display:block">
-    <div class="slider-left">
-        <div class="bx-wrapper" style="max-width: 100%;">
-            <div class="bx-viewport" aria-live="polite" style="width: 100%; overflow: hidden; position: relative; height: 332px;">
-                <div class="bxslider_rgv" style="width: 3215%; position: relative; transition-duration: 0s; transform: translate3d(-800px, 0px, 0px);">
-                    <a href="#" style="float: left; list-style: none; position: relative; width: 800px;" aria-hidden="true">
-                        <img src="https://cms.megagscinemas.vn//media/76665/screen-shot-2021-10-28-at-15-20-17.png?width=802&amp;height=333">
-                        <img src="https://cms.megagscinemas.vn//media/76664/screen-shot-2021-10-29-at-14-43-18.png?width=802&amp;height=333">
-                    </a>
-                </div>
+                }
             </div>
         </div>
+    </section>
+    <a href="@Url.Action("Movie", "Movie")">
+        <div class="container">
+            <h4>Phim Đang Chiếu</h4>
+        </div>
+    </a>
+    <div class="slider-wrapper">
+        <div class="slider-container">
+            <ul class="slider">
+                @foreach (var movie in Model)
+                {
+                    <li>
+                        <a href="~/ShowTimes/ShowTimes">
+                            <img src="@Url.Content(@* "~/images/" +  *@movie.Poster)" />
+                            <div class="overlay"></div>
+                            <!-- Truyền mã lượt phát từ mỗi bộ phim -->
+                            <div class="view-trailer" data-trailer="@movie.Trailer">Xem Trailer</div>
+                        </a>
+                    </li>
+                }
+            </ul>
+
+
+            <button class="prev">&#10094;</button> <!-- Biểu tượng mũi tên sang trái -->
+            <button class="next">&#10095;</button> <!-- Biểu tượng mũi tên sang phải -->
+        </div>
+    </div>
+
+    <!-- Popup modal -->
+    <div id="trailerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe id="trailerIframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+        </div>
+    </div>
+
+    <section class="map">
+        <h2>Vị Trí Của Chúng Tôi</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.423012616185!2d106.78291497577662!3d10.855395707730619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527c3debb5aad%3A0x5fb58956eb4194d0!2zxJDhuqFpIEjhu41jIEh1dGVjaCBLaHUgRQ!5e0!3m2!1svi!2s!4v1728815230408!5m2!1svi!2s"
+                width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+    <!-- Hero Section End -->
+    @* <div class="text-title">
+    <label>Rạp BTALK CINEMA:</label>
+    </div>
+
+    <div class="rap-gv-slider clearfix" style="display:block">
+    <div class="slider-left">
+    <div class="bx-wrapper" style="max-width: 100%;">
+    <div class="bx-viewport" aria-live="polite" style="width: 100%; overflow: hidden; position: relative; height: 332px;">
+    <div class="bxslider_rgv" style="width: 3215%; position: relative; transition-duration: 0s; transform: translate3d(-800px, 0px, 0px);">
+    <a href="#" style="float: left; list-style: none; position: relative; width: 800px;" aria-hidden="true">
+    <img src="https://cms.megagscinemas.vn//media/76665/screen-shot-2021-10-28-at-15-20-17.png?width=802&amp;height=333">
+    <img src="https://cms.megagscinemas.vn//media/76664/screen-shot-2021-10-29-at-14-43-18.png?width=802&amp;height=333">
+    </a>
+    </div>
+    </div>
+    </div>
     </div>
     <div class="notes-right">
     </div>
-</div> *@
- 
- <script>
+    </div> *@
+</body>
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         var slider = document.querySelector('.slider');
         var slideWidth = slider.querySelector('li').offsetWidth * 3;
@@ -128,6 +134,7 @@
         });
     });
 </script>
+
 
 <!-- Js Plugins -->
 <script src="~/js/jquery-3.3.1.min.js"></script>

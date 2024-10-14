@@ -89,6 +89,10 @@ INSERT INTO Rooms(RoomId,RoomName,TotalSeat) VALUES('PC7',N'Phòng 07',40)
 INSERT INTO Rooms(RoomId,RoomName,TotalSeat) VALUES('PC8',N'Phòng 08',40)
 SELECT * FROM Rooms
 
+
+INSERT INTO Vouchers(Code,Description,ReleaseDate,EndDate,ImagePath) VALUES('12',N'khong biet thiet','10/14/2024','10/17/2024','~/images/Shrek-3.png')
+SELECT * FROM Vouchers
+
 INSERT INTO Seats(SeatId,RoomId) VALUES('PC1_A1','PC1')
 INSERT INTO Seats(SeatId,RoomId) VALUES('PC1_A2','PC1')
 INSERT INTO Seats(SeatId,RoomId) VALUES('PC1_A3','PC1')

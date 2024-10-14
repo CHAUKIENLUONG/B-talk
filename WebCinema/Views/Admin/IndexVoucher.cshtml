@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebCinema.Models.Movie>
+﻿@model IEnumerable<WebCinema.Models.Voucher>
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 
@@ -12,18 +12,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Index</title>
+    <title>IndexVoucher</title>
     <link rel="shortcut icon" type="image/png" href="~/Admin/images/logos/Logo.png" />
     <link rel="stylesheet" href="~/Admin/css/styles.min.css" />
 </head>
 
 <body>
-   
+
     <!--  Sidebar End -->
     <!--  Main wrapper -->
     <div class="body-wrapper">
         <!--  Header Start -->
-        
         <!--  Movies  -->
         <div class="container-fluid">
             <div class="row">
@@ -32,15 +31,13 @@
                         <div class="card-body">
                             <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                                 <div class="mb-3 mb-sm-0">
-                                    <h5 class="card-title fw-semibold">Movies</h5>
+                                    <h5 class="card-title fw-semibold">Vouchers</h5>
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Poster</th>
-                                                <th>Movie Name</th>
-                                                <th>Total Cost</th>
+                                                <th>Voucher Name</th>
+                                                <th>End Date</th>
                                                 <th>Description</th>
-                                                <th>Genre</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -48,32 +45,20 @@
                                             @foreach (var product in Model)
                                             {
                                                 <tr>
-                                                    <td>
-                                                        @if (!string.IsNullOrEmpty(@product.Poster))
-                                                        {@* 
-                                                            var basePath = "/images";
-                                                            var fileName = product.Poster;
-                                                            var imagePath = basePath + "/" + fileName; *@
-                                                            var imagePath = Url.Content(product.Poster); // Use Url.Content
-
-                                                            <img src="@imagePath" alt="Movie Poster" style="max-width: 200px;" />
-                                                        }
-                                                    </td>
-                                                    <td>@product.MovieName</td>
-                                                    <td>@product.TotalCost</td>
+                                                    <td>@product.Code</td>
+                                                    <td>@product.EndDate</td>
                                                     <td>@product.Description</td>
-                                                    <td>@product.Genre?.GenreName</td>
                                                     <td>
 
-                                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Display", "Admin", new { id = @product.MovieId })'">View</button>
-                                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Update", "Admin", new { id = @product.MovieId })'">Edit</button>
-                                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Delete", "Admin", new { id = @product.MovieId })'">Delete</button>
+                                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DisplayVoucher", "Admin", new { id = @product.Id })'">View</button>
+                                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("UpdateVoucher", "Admin", new { id = @product.Id })'">Edit</button>
+                                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DeleteVoucher", "Admin", new { id = @product.Id })'">Delete</button>
                                                         @* <form asp-action="AddShowtime" asp-controller="Admin" method="post">
-                                                            <input type="hidden" asp-for="@product.MovieId" />
-                                                            <button type="submit" class="btn btn-primary">Add Show Time</button>
-                                                        </form> *@
-                                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("AddShowtime", "Admin", new { movieId = @product.MovieId })'">Add a showtime</button>
-
+                                                    <input type="hidden" asp-for="@product.MovieId" />
+                                                    <button type="submit" class="btn btn-primary">Add Show Time</button>
+                                                    </form> *@
+@*                                                         <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("AddShowtime", "Admin", new { movieId = @product.Id })'">Add a showtime</button>
+ *@
                                                     </td>
                                                 </tr>
                                             }

@@ -23,6 +23,8 @@ namespace WebCinema.Models
         public DbSet<Combo> Combos { get; set; }
         public DbSet<TicketCombo> TicketCombos { get; set; }
 
+        public DbSet<Voucher> Vouchers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Ticket>()
@@ -38,7 +40,24 @@ namespace WebCinema.Models
                 .HasMaxLength(450);
 
             //modelBuilder.Entity<IdentityUser>().Ignore(c => c.TwoFactorEnabled);//and so on...
+            modelBuilder.Entity<Voucher>()
+          .ToTable("Vouchers")  // Đặt tên bảng trong cơ sở dữ liệu
+          .HasKey(v => v.Id);  // Chỉ định khóa chính
 
+            modelBuilder.Entity<Voucher>()
+                .Property(v => v.Code)
+                .IsRequired()  // Mã voucher là bắt buộc
+                .HasMaxLength(50);  // Độ dài tối đa là 50 ký tự
+
+            modelBuilder.Entity<Voucher>()
+                .Property(v => v.ReleaseDate)
+                .IsRequired();  // Ngày phát hành là bắt buộc
+
+            modelBuilder.Entity<Voucher>()
+                .Property(v => v.EndDate)
+                .IsRequired();  // Ngày hết hạn là bắt buộc
+
+            
             //modelBuilder.Entity<IdentityUser>().ToTable("Users");//to change the name of table.
             base.OnModelCreating(modelBuilder);
 

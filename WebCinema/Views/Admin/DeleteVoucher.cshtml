@@ -1,9 +1,9 @@
-﻿@model WebCinema.Models.Movie
+﻿@model WebCinema.Models.Voucher
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = "Delete Movie";
+    ViewData["Title"] = "Delete Voucher";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <!doctype html>
@@ -19,12 +19,11 @@
 
 <body>
 
-    
+
     <!--  Sidebar End -->
     <!--  Main wrapper -->
     <div class="body-wrapper">
         <!--  Header Start -->
-       
         <!--  Movies  -->
         <div class="container-fluid">
             <div class="row">
@@ -33,10 +32,10 @@
                         <div class="card-body">
                             <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                                 <div class="mb-3 mb-sm-0">
-                                    <h2 class="card-title fw-semibold">Delete the Movie</h2>
-                                    <form asp-action="DeleteConfirmed" method="post">
-                                        <input type="hidden" asp-for="MovieId" />
-                                        <p>Are you sure you want to delete @Model.MovieName?</p>
+                                    <h2 class="card-title fw-semibold">Delete the Voucher</h2>
+                                    <form asp-action="DeleteVoucherConfirmed" method="post">
+                                        <input type="hidden" asp-for="Id" />
+                                        <p>Are you sure you want to delete @Model.Code?</p>
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </div>

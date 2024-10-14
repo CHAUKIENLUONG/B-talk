@@ -1,0 +1,54 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    display: inline-block;
+    width: calc(33.333% - 40px); /* Responsive design */
+}
+
+.offer-image {
+    width: 100%; /* Đặt chiều rộng hình ảnh để vừa với thẻ */
+    height: auto; /* Giữ tỷ lệ hình ảnh */
+    border-radius: 8px;
+    margin-bottom: 10px; /* Khoảng cách giữa hình và nội dung */
+}
+
+.offer {
+    font-size: 18px;
+    color: #e63946; /* Màu sắc cho tiêu đề ưu đãi */
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: calc(50% - 40px); /* Mobile view */
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 100%; /* Mobile view */
+    }
+}

@@ -25,7 +25,7 @@ builder.Services.AddScoped<IShowtimeRepo, EFShowtimeRepo>();
 builder.Services.AddScoped<IScreentimeRepo, EFScreentimeRepo>();
 builder.Services.AddScoped<IRoomRepo, EFRoomRepo>();
 builder.Services.AddScoped<ITicketRepo, EFTicketRepo>();
-
+builder.Services.AddScoped<IVoucherRepo, EFVoucherRepo>();
 builder.Services.AddSingleton<IVnPayService, VnPayService>();
 
 

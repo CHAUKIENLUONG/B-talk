@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using WebCinema.Models;
 using WebCinema.Repositories;
 
@@ -15,6 +16,9 @@ namespace WebCinema.Controllers
         private readonly IShowtimeRepo _showtimeRepo;
         private readonly IScreentimeRepo _screentimeRepo;
         private readonly IRoomRepo _roomRepo;
+        private readonly IVoucherRepo _voucherRepo;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly ApplicationDbContext _context;
         public IActionResult UpdateSelectedDate(string selectedDate)
         {
             // Xử lý logic để cập nhật ngày được chọn ở đây
@@ -24,14 +28,17 @@ namespace WebCinema.Controllers
         }
 
 
-        public AdminController(IMovieRepo movieRepo, IGenreRepo genreRepo, 
-            IShowtimeRepo showtimeRepo, IScreentimeRepo screentimeRepo, IRoomRepo roomRepo)
+        public AdminController(ApplicationDbContext context, IMovieRepo movieRepo, IGenreRepo genreRepo, 
+            IShowtimeRepo showtimeRepo, IScreentimeRepo screentimeRepo, IRoomRepo roomRepo, IVoucherRepo voucherRepo, IWebHostEnvironment hostingEnvironment)
         {
             _movieRepo = movieRepo;
             _genreRepo = genreRepo;
             _showtimeRepo = showtimeRepo;
             _screentimeRepo = screentimeRepo;
             _roomRepo = roomRepo;
+            _voucherRepo = voucherRepo;
+             _hostingEnvironment = hostingEnvironment;
+            _context = context;
         }
         // Hiển thị danh sách sản phẩm
         public async Task<IActionResult> Index()
@@ -252,6 +259,128 @@ namespace WebCinema.Controllers
                 return View(showtime);
             }
             
+        }
+
+        public async Task<IActionResult> IndexVoucher()
+        {
+            var vouchers = await _voucherRepo.GetAllAsync();
+            return View(vouchers);
+        }
+
+        // Hiển thị form thêm voucher mới
+        public async Task<IActionResult> AddVoucher()
+        {
+            var vouchers = await _voucherRepo.GetAllAsync();
+            ViewBag.Vouchers = new SelectList(vouchers, "Id", "Code");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddVoucher(Voucher voucher)
+        {
+            if (ModelState.IsValid)
+            {
+                await _voucherRepo.AddAsync(voucher);
+                return RedirectToAction(nameof(IndexVoucher));
+            }
+            else
+            {
+                // Nếu ModelState không hợp lệ, hiển thị form với dữ liệu đã nhập
+                var vouchers = await _voucherRepo.GetAllAsync();
+                ViewBag.Vouchers = new SelectList(vouchers, "Id", "Code");
+                return View(voucher);
+            }
+        }
+
+
+
+        //// Hàm lưu hình ảnh
+        //private async Task<string> SaveVoucherImage(IFormFile image)
+        //{
+        //    var savePath = Path.Combine("wwwroot/images", image.FileName); // Thay đổi đường dẫn theo cấu hình của bạn     
+        //    using (var fileStream = new FileStream(savePath, FileMode.Create))
+        //    {
+        //        await image.CopyToAsync(fileStream);
+        //    }
+        //    return "~/images/" + image.FileName; // Trả về đường dẫn tương đối
+        //}
+
+        public async Task<IActionResult> DisplayVoucher(int id)
+        {
+            var voucher = await _voucherRepo.GetByIdAsync(id);
+            if (voucher == null)
+            {
+                return NotFound();
+            }
+            return View(voucher);
+        }
+
+        // Hiển thị form cập nhật voucher
+        public async Task<IActionResult> UpdateVoucher(int id)
+        {
+            var voucher = await _voucherRepo.GetByIdAsync(id);
+            if (voucher == null)
+            {
+                return NotFound();
+            }
+            var vouchers = await _voucherRepo.GetAllAsync();
+            ViewBag.Vouchers = new SelectList(vouchers, "Id", "Code", voucher.Id);
+
+            return View(voucher);
+        }
+
+        // Xử lý cập nhật voucher
+        [HttpPost]
+        public async Task<IActionResult> UpdateVoucher(int id, Voucher voucher)
+        {
+            if (id != voucher.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var existingVoucher = await _voucherRepo.GetByIdAsync(id);
+
+                // Cập nhật các thông tin khác của voucher
+                existingVoucher.Code = voucher.Code;
+                existingVoucher.Description = voucher.Description;
+                existingVoucher.ReleaseDate = voucher.ReleaseDate;
+                existingVoucher.EndDate = voucher.EndDate;
+
+                await _voucherRepo.UpdateAsync(existingVoucher);
+                return RedirectToAction(nameof(IndexVoucher));
+            }
+            else
+            {
+                ModelState.AddModelError("Error", "Please correct the errors in the form.");
+                var vouchers = await _voucherRepo.GetAllAsync();
+                ViewBag.Vouchers = new SelectList(vouchers, "Id", "Code");
+                return View(voucher);
+            }
+        }
+
+        public async Task<IActionResult> DeleteVoucher(int id)
+        {
+            var voucher = await _voucherRepo.GetByIdAsync(id);
+            if (voucher == null)
+            {
+                return NotFound();
+            }
+            return View(voucher);
+        }
+        // Xử lý xóa sản phẩm
+        [HttpPost, ActionName("DeleteVoucherConfirmed")]
+        [ValidateAntiForgeryToken]  // Add this attribute
+
+        public async Task<IActionResult> DeleteVoucherConfirmed(int Id)
+        {
+            if (Id <= 0)  // Check for non-positive values
+            {
+                return BadRequest("Invalid Voucher ID");  // Handle invalid ID
+            }
+            await _voucherRepo.DeleteAsync(Id);
+            return RedirectToAction(nameof(IndexVoucher));
         }
     }
 }
