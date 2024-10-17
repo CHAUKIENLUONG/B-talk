@@ -28,6 +28,11 @@ namespace WebCinema.Repositories
             return await _context.Vouchers.FirstOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<Voucher> GetByCodeAsync(string code)
+        {
+            return await _context.Vouchers.FirstOrDefaultAsync(v => v.Code == code);
+        }
+
         public async Task UpdateAsync(Voucher voucher)
         {
             _context.Vouchers.Update(voucher);

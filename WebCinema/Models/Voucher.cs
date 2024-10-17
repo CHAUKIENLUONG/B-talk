@@ -10,8 +10,12 @@ namespace WebCinema.Models
         public string Description { get; set; } // Miêu tả
         public DateTime ReleaseDate { get; set; } // Ngày phát hành
         public DateTime EndDate { get; set; } // Ngày hết hạn
+        public decimal DiscountAmount { get; set; }
+        public bool IsActive { get; set; }
 
-        // Thêm trường lưu trữ đường dẫn hoặc URL của hình ảnh
-
+        public Voucher()
+        {
+            IsActive = true; // Khởi tạo voucher là hoạt động
+        }
     }
 }

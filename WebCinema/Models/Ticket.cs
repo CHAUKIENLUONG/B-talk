@@ -14,6 +14,11 @@ namespace WebCinema.Models
         public DateTime? ShowDate { get; set; }
         public int Total { get; set; }
 
+        public int? VoucherId { get; set; }
+        public Voucher Voucher { get; set; }
+
+        public int FinalTotal { get; set; }
+
         //public int? ComboId { get; set; }
         public int ShowId { get; set; }
         public string FullName { get; set; }

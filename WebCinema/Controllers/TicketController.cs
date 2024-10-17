@@ -16,9 +16,10 @@ namespace WebCinema.Controllers
         private readonly IShowtimeRepo _showtimeRepo;
         private readonly IScreentimeRepo _screentimeRepo;
         private readonly ITicketRepo _ticketRepo;
+        private readonly IVoucherRepo _voucherRepo;
 
         public TicketController(IMovieRepo movieRepo, IGenreRepo genreRepo, IShowtimeRepo showtimeRepo,
-            IScreentimeRepo screentimeRepo, ITicketRepo ticketRepo, ApplicationDbContext context, IVnPayService vnPayservice)
+            IScreentimeRepo screentimeRepo, ITicketRepo ticketRepo, ApplicationDbContext context, IVnPayService vnPayservice, IVoucherRepo voucherRepo)
         {
             _context = context;
             _movieRepo = movieRepo;
@@ -27,6 +28,7 @@ namespace WebCinema.Controllers
             _screentimeRepo = screentimeRepo;
             _ticketRepo = ticketRepo;
             _vnPayservice = vnPayservice;
+            _voucherRepo = voucherRepo;
         }
         public async Task<IActionResult> BookingSeat(int movieId, int showtimeId)
         {
@@ -62,7 +64,7 @@ namespace WebCinema.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> BookingSeat(string payment, TicketViewModel model, string selectedSeats, string selectedCombos)
+        public async Task<IActionResult> BookingSeat(string payment, TicketViewModel model, string selectedSeats, string selectedCombos, string voucherCode)
         {
             var bookingSeatViewModel = new BookingSeatViewModel
             {
@@ -74,6 +76,8 @@ namespace WebCinema.Controllers
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
             };
+
+            
             if (ModelState.IsValid)
             {
                 var ticket = new Ticket
@@ -89,6 +93,27 @@ namespace WebCinema.Controllers
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
                 };
+
+                if (!string.IsNullOrEmpty(voucherCode))
+                {
+                    var voucher = await _voucherRepo.GetByCodeAsync(voucherCode);
+                    if (voucher != null && voucher.EndDate >= DateTime.Now && voucher.IsActive) // Thêm điều kiện kiểm tra voucher.IsActive
+                    {
+                        ticket.VoucherId = voucher.Id;
+                        // Giảm giá dựa trên mã voucher
+                        ticket.FinalTotal = ticket.Total - (int)voucher.DiscountAmount;
+                        return Json(new { isValid = true, discountAmount = voucher.DiscountAmount }); // Chuyển đổi sang int
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Voucher", "Mã voucher không hợp lệ, đã hết hạn hoặc không hoạt động.");
+                        return Json(new { isValid = false });
+                    }
+                }
+                else
+                {
+                    ticket.FinalTotal = ticket.Total;
+                }
 
                 // Add the Ticket to the database
                 await _ticketRepo.AddTicketAsync(ticket);

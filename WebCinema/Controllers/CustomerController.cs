@@ -5,21 +5,57 @@ using WebCinema.Repositories;
 
 namespace WebCinema.Controllers
 {
-    public class ShowTimesController : Controller
+    public class CustomerController : Controller
     {
-        
-        private readonly IGenreRepo _genreRepo;
-        private readonly IMovieRepo _movieRepo;
         private readonly IShowtimeRepo _showtimeRepo;
         private readonly ApplicationDbContext _context;
-        
-        public ShowTimesController(IMovieRepo movieRepo, IGenreRepo genreRepo, 
-            ApplicationDbContext context, IShowtimeRepo showtimeRepo)
+        private readonly IGenreRepo _genreRepo;
+        private readonly IMovieRepo _movieRepo;
+
+        public CustomerController(IMovieRepo movieRepo, IGenreRepo genreRepo,
+           ApplicationDbContext context, IShowtimeRepo showtimeRepo)
         {
             _movieRepo = movieRepo;
             _genreRepo = genreRepo;
             _showtimeRepo = showtimeRepo;
             _context = context;
+        }
+        public IActionResult Uudai()
+        {
+            return View();
+        }
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        public IActionResult FAQs()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Movie()
+        {
+            var movies = await _movieRepo.GetAllAsync();
+            return View(movies);
+        }
+
+        public async Task<IActionResult> MovieDetails(int? movieId)
+        {
+
+            if (movieId == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Movies.Include(m => m.Genre)
+                                             .FirstOrDefaultAsync(m => m.MovieId == movieId);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
         }
 
         [HttpGet]
@@ -27,7 +63,7 @@ namespace WebCinema.Controllers
         {
             // Retrieve showtimes from the database based on the selected date
             var showtimes = _context.Showtimes.Where(s => s.ShowtimeDate.Date == selectedDate.Date)
-            .ToList(); 
+            .ToList();
 
             // Return a partial view with the updated showtimes
             return PartialView("_ShowtimesPartial", showtimes);
@@ -153,5 +189,4 @@ namespace WebCinema.Controllers
         //    return View(movies);
         //}
     }
-
 }

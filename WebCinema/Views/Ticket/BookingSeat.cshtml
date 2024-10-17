@@ -155,6 +155,9 @@
                         @Html.ValidationMessageFor(model => model.Email)
                         <input name="PhoneNumber" type="text" id="PhoneNumber" placeholder="Số điện thoại" style="color: white;">
                         @Html.ValidationMessageFor(model => model.PhoneNumber)
+                        <input name="VoucherCode" type="text" id="VoucherCode" placeholder="Nhập mã voucher" style="color: white;">
+                        <button id="applyVoucher">Áp dụng voucher</button>
+                        <span id="discountMessage" style="color: green;"></span>
                     </div>
                 </div>
                 <div class="box-pay">
@@ -229,3 +232,40 @@
         });
     });
 </script>  
+
+<script>
+    $(document).ready(function () {
+        var seatIds = @Html.Raw(Json.Serialize(Model.BookedSeats));
+        var totalAmount = @Model.TotalAmount; // Giả sử bạn đã có tổng tiền ở đây
+
+        // Cập nhật seat click logic như bạn đã làm trước đây...
+
+        // Logic để áp dụng voucher
+        $('#applyVoucher').click(function () {
+            event.preventDefault();
+            var voucherCode = $('#VoucherCode').val();
+            // Gọi đến backend để kiểm tra voucher (giả sử bạn có route cho việc này)
+            $.ajax({
+                url: '@Url.Action("ValidateVoucher", "Ticket")', // Route kiểm tra voucher
+                type: 'POST',
+                data: { voucherCode: voucherCode },
+                success: function (response) {
+                    if (response.isValid) {
+                        var discountAmount = response.discountAmount; // Giả sử bạn nhận được số tiền giảm giá từ backend
+                        totalAmount -= discountAmount; // Cập nhật tổng tiền
+                        $('#discountMessage').text('Voucher áp dụng thành công! Giảm giá: ' + discountAmount + ' VNĐ');
+                    } else {
+                        $('#discountMessage').text('Voucher không hợp lệ.');
+                    }
+                    $('#totalMoney').val(totalAmount); // Cập nhật giá trị vào input hidden
+                },
+                error: function () {
+                    $('#discountMessage').text('Đã có lỗi xảy ra khi áp dụng voucher.');
+                }
+            });
+        });
+    });
+</script>
+
+
+

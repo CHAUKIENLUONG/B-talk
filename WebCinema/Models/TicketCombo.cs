@@ -10,6 +10,6 @@ namespace WebCinema.Models
         public Ticket Ticket { get; set; }
 
         public int ComboId { get; set; }
-        public Combo Combo { get; set; }
+        public Combo? Combo { get; set; }
     }
 }
