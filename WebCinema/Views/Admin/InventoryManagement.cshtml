@@ -1,0 +1,223 @@
+﻿@model IEnumerable<WebCinema.Models.Inventory>
+
+
+@{
+    ViewData["Title"] = "Quản lý tồn kho";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="body-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 d-flex align-items-strech">
+                <div class="card w-100">
+                    <div class="card-body">
+                        <h2>Quản lý tồn kho</h2>
+
+
+
+                        <!-- Form nhập hàng -->
+                        <h3>Nhập hàng mới</h3>
+                        <form asp-action="AddInventoryEntry" method="post">
+                            <div class="form-group">
+                                <label for="comboId">Chọn sản phẩm:</label>
+                                <select name="comboId" id="comboId" class="form-control">
+                                    @foreach (var combo in ViewBag.Combos)
+                                    {
+                                        if (combo.ComboId != 1) // Bỏ qua comboId 1
+                                        {
+                                            <option value="@combo.ComboId">@combo.ComboName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">Số lượng:</label>
+                                <input type="number" name="quantity" id="quantity" class="form-control" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Nhập hàng</button>
+                        </form>
+
+
+
+
+                        <!-- Bảng quản lý tồn kho -->
+                        <h3>Danh sách tồn kho</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng đã nhập</th>
+                                    <th>Số lượng đã bán</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTableBody">
+                                @foreach (var inventory in Model)
+                                {
+                                    if (inventory.Combo.ComboId != 1) // Bỏ qua các dòng có ComboId = 1
+                                    {
+                                        <tr>
+                                            <td>@inventory.Combo.ComboName</td>
+                                            <td>@inventory.QuantityInStock</td>
+                                            <td>@inventory.QuantitySold</td>
+
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+
+                        <h3>Lịch sử tồn kho</h3>
+                        <div class="date-selector mb-3">
+                            <label>Chọn ngày:</label>
+                            <input type="date" id="remainingDate" class="form-control"
+                                onchange="filterRemainingByDate()" />
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng tồn</th>
+                                    <th>Ngày</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                @foreach (var history in ViewBag.InventoryHistories)
+                                {
+                                    if (history.Combo.ComboId != 1) // Bỏ qua các dòng có ComboId = 1
+                                    {
+                                        <tr data-date="@history.Date.ToString("yyyy-MM-dd")">
+                                            <td>@history.Combo.ComboName</td>
+                                            <td>@(history.QuantityInStock)</td>
+                                            <td>@history.Date.ToString("dd/MM/yyyy")</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <!-- Bảng số lượng còn lại -->
+                        @* <h3>Số lượng còn lại theo ngày</h3>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng còn lại</th>
+                                    <th>Ngày</th>
+                                </tr>
+                            </thead>
+                            <tbody id="remainingTableBody">
+                                @foreach (var inventory in ViewBag.InventoryData)
+                                {
+                                    if (inventory.ComboId != 1)
+                                    {
+                                        <tr data-date="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                            <td>@inventory.ComboName</td>
+                                            <td>@(inventory.QuantityInStock - (inventory.QuantitySold * 500))</td>
+                                            <td>@DateTime.Now.ToString("dd/MM/yyyy")</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table> *@
+
+                        <!-- Form tìm kiếm lịch sử nhập hàng -->
+                        <div class="mb-4">
+                            <label for="entryDate">Tìm kiếm theo Ngày nhập:</label>
+                            <input type="date" id="entryDate" class="form-control" onchange="filterEntryByDate()" />
+                        </div>
+
+                        <!-- Bảng lịch sử nhập hàng -->
+                        <h3>Lịch sử nhập hàng</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng nhập</th>
+                                    <th>Thời gian nhập</th>
+                                </tr>
+                            </thead>
+                            <tbody id="entryTableBody">
+                                @foreach (var entry in ViewBag.InventoryEntries)
+                                {
+                                    <tr data-date="@entry.EntryDate.ToString("yyyy-MM-dd")">
+                                        <td>@entry.Combo.ComboName</td>
+                                        <td>@entry.Quantity</td>
+                                        <td>@entry.EntryDate.ToString("dd/MM/yyyy / hh:mm:ss tt")</td>
+                                        <td>
+                                            <form asp-action="DeleteInventoryEntry" method="post">
+                                                <input type="hidden" name="entryId" value="@entry.InventoryEntryId" />
+                                                <button type="submit" class="btn btn-danger">Xóa</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <!-- Lịch sử tồn kho -->
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    document.getElementById("inventorySearchForm").addEventListener("submit", function (event) {
+        // Chặn hành vi mặc định (reload trang)
+        event.preventDefault();
+
+        // Lấy giá trị ngày từ ô tìm kiếm
+        var searchQuery = $("#searchQuery").val();
+
+        // Gửi yêu cầu AJAX đến server
+        $.ajax({
+            url: '@Url.Action("InventoryManagement", "Admin")', // Đường dẫn đến Controller
+            data: { searchQuery: searchQuery }, // Truyền dữ liệu ngày
+            type: 'GET',
+            success: function (data) {
+                // Cập nhật lại nội dung của bảng
+                $("#inventoryTable tbody").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert("Lỗi khi tìm kiếm: " + error);
+            }
+        });
+    });
+
+    function filterRemainingByDate() {
+        var selectedDate = document.getElementById('remainingDate').value;
+        var rows = document.querySelectorAll('#historyTableBody tr');
+
+        rows.forEach(function (row) {
+            var rowDate = row.getAttribute('data-date');
+            if (rowDate === selectedDate) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    function filterEntryByDate() {
+        var selectedDate = document.getElementById('entryDate').value;
+        var rows = document.querySelectorAll('#entryTableBody tr');
+
+        rows.forEach(function (row) {
+            var rowDate = row.getAttribute('data-date');
+            if (rowDate === selectedDate) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>

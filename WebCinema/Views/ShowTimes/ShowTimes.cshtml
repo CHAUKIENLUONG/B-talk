@@ -1,0 +1,200 @@
+﻿@model IEnumerable<WebCinema.Models.Movie>
+
+@{
+    ViewData["Title"] = "LichChieu";
+    Layout = "~/Views/Shared/_LayoutHeader2.cshtml";
+    DateTime currentDate = DateTime.Today;
+    DateTime selectedDate = ViewBag.SelectedDate ?? DateTime.Today; // Lấy giá trị SelectedDate từ ViewBag
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="~/css/showtimes.css" rel="stylesheet" />
+<link href="~/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/css/trailer.css" rel="stylesheet" />
+<body>
+    <!--Body begin-->
+    <div class="Title-span shar" style="font-weight: bold; padding-top: 170px;">
+        <a href="/">
+            <span>Trang Chủ</span>
+        </a>
+        >
+        <label>
+            <span id="ShowTimes.cshtml">Lịch Chiếu</span>
+            <span id="sublink"></span>
+        </label>
+    </div>
+    <div class="banner">
+        <span>Lịch Chiếu</span>
+    </div>
+
+    <!--Combo box-->
+    <div class="box-selected">
+        <div class="date-selector">
+            @for (int i = 0; i <= 3; i++)
+            {
+                DateTime date = currentDate.AddDays(i);
+                string cssClass = (date.Date == selectedDate.Date) ? "selected" : "";
+                <a href="#" class="date @cssClass" data-date="@date.ToString("yyyy-MM-dd")">@date.ToShortDateString()</a>
+            }
+        </div>
+    </div>
+    <div class="product-list">
+        <!--Add Film-->
+        @foreach (var movie in Model.Where(m => m.Showtimes.Any(s => s.ShowtimeDate.Date == selectedDate.Date)))
+        {
+            <div class="list-items">
+                <div class="item-left">
+                    <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
+                        <h4>@movie.MovieName</h4>
+                        <p>
+                            <td>
+                                @if (!string.IsNullOrEmpty(movie.Poster))
+                                {
+                                    var imagePath = Url.Content(movie.Poster); // Use Url.Content
+                                    <a href="@movie.Trailer" class="trailer-link">
+                                        <img src="@imagePath" alt="Movie Poster" style="max-width: 200px;" />
+                                    </a>
+                                }
+                            </td>
+
+                        </p>
+                    </a>
+                </div>
+                <div class="item-right container">
+                    <div class="span_time mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-clock me-2"></i>
+                            <span>Thời lượng:</span>
+                            <span class="ms-1">@movie.MovieLength</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-tags me-2"></i>
+                            <span>Thể loại:</span>
+                            <span class="ms-1">@movie.Genre.GenreName</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-calendar me-2"></i>
+                            <span>Khởi chiếu:</span>
+                            <span class="ms-1">@movie.ReleaseDate</span>
+                        </div>
+                    </div>
+
+                    <div class="showTimeCustom mb-4">
+                        <p class="mb-3">@movie.Description</p>
+                        <div class="type_movie mb-3">
+                            <a class="active btn btn-outline-primary">
+                                <span class="ganre">2D</span>
+                                <span class="viet_sub ms-2">Phụ đề / sub</span>
+                            </a>
+                        </div>
+                        <div class="showtime-buttons">
+                            <h5 class="mb-3">Lịch Chiếu:</h5>
+                            <div class="showtime-buttons-container d-flex flex-wrap gap-2">
+                                @foreach (var showtime in movie.Showtimes.Where(s => s.MovieId == movie.MovieId && s.ShowtimeDate.Date == selectedDate.Date))
+                                {
+                                    <form asp-action="SelectShowtime" method="post" class="d-inline">
+                                        <input type="hidden" name="movieId" value="@showtime.MovieId" />
+                                        <input type="hidden" name="showtimeId" value="@showtime.ShowId" />
+                                        <button type="submit" class="btn btn-primary btn-sm">@showtime.Screentime.ScreenTime</button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+
+    <div id="trailerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe id="trailerIframe" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Your JavaScript code -->
+    <script>
+        $(document).ready(function () {
+            // Lấy tất cả các liên kết ngày
+            var dateLinks = document.querySelectorAll('.date');
+
+            // Lặp qua từng liên kết ngày và thêm sự kiện click
+            dateLinks.forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+                    // Loại bỏ lớp 'selected' từ tất cả các liên kết ngày
+                    dateLinks.forEach(function (dateLink) {
+                        dateLink.classList.remove('selected');
+                    });
+
+                    // Thêm lớp 'selected' cho liên kết ngày được click
+                    this.classList.add('selected');
+
+                    // Lấy ngày từ thuộc tính dữ liệu 'data-date'
+                    var selectedDate = this.getAttribute('data-date');
+
+                    // Cập nhật query string trong URL với ngày được chọn
+                    var currentUrl = window.location.href;
+                    var newUrl;
+                    if (currentUrl.indexOf('?') !== -1) {
+                        newUrl = currentUrl.split('?')[0] + '?selectedDate=' + selectedDate;
+                    } else {
+                        newUrl = currentUrl + '?selectedDate=' + selectedDate;
+                    }
+
+                    // Làm mới trang với URL mới
+                    window.location.href = newUrl;
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('trailerModal');
+    var iframe = document.getElementById('trailerIframe');
+    var span = document.getElementsByClassName('close')[0];
+
+    // Tìm tất cả các poster phim và thêm sự kiện click
+    document.querySelectorAll('.trailer-link').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();  // Ngăn chặn hành động mặc định của thẻ a
+
+            var trailer = this.getAttribute('href');  // Lấy trailer URL từ thuộc tính href của poster
+            // Kiểm tra và chuyển đổi URL thành định dạng nhúng nếu cần
+            if (trailer.startsWith("https://www.youtube.com/watch?v=")) {
+                let videoId = trailer.split("v=")[1];
+                trailer = "https://www.youtube.com/embed/" + videoId;
+            }
+            else if (!trailer.startsWith("https://www.youtube.com/embed/")) {
+                trailer = "https://www.youtube.com/embed/" + trailer;
+            }
+
+            iframe.src = trailer;
+            modal.style.display = 'flex'; // Hiển thị modal
+        });
+    });
+
+    // Đóng modal khi nhấn vào nút đóng
+    span.onclick = function () {
+        modal.style.display = 'none';
+        iframe.src = ''; // Dừng video khi đóng modal
+    };
+
+    // Đóng modal khi nhấn vào khu vực ngoài modal
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+            iframe.src = ''; // Dừng video khi đóng modal
+        }
+    };
+});
+
+    </script>
+</body>

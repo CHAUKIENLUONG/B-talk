@@ -1,0 +1,111 @@
+﻿@model WebCinema.ViewModels.MovieIndexViewModel
+
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "All the Movies";
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index</title>
+    <link rel="shortcut icon" type="image/png" href="~/Admin/images/logos/Logo.png" />
+    <link rel="stylesheet" href="~/Admin/css/styles.min.css" />
+</head>
+
+<body>
+
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div class="d-flex justify-content-between mb-4">
+            <form method="get" class="d-flex">
+                <input type="text" name="searchTerm" class="form-control me-2" placeholder="Search movies..." value="@ViewData["SearchTerm"]" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Movies</h5>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Hình ảnh</th>
+                                        <th>Tên phim</th>
+                                        
+                                        <th>Mô tả</th>
+                                        <th>Thể loại</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var movie in Model.Movies)
+
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(movie.Poster))
+
+                                                {
+                                                    <img src="@Url.Content(movie.Poster)" alt="Movie Poster" style="max-width: 200px;" />
+                                                }
+                                            </td>
+                                            <td>@movie.MovieName</td>
+                                            <td>@movie.TotalCost</td>
+                                            <td>@movie.Description</td>
+                                            <td>@movie.Genre?.GenreName</td>
+                                            <td>
+                                                <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Display", "Admin", new { id = @movie.MovieId })'">View</button>
+                                                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Update", "Admin", new { id = @movie.MovieId })'">Sửa</button>
+                                                <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Admin", new { id = @movie.MovieId })'">Xóa</button>
+                                                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("AddShowtime", "Admin", new { movieId = @movie.MovieId })'">Thêm Lịch</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <!-- Pagination Controls -->
+                            <nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", "Admin", new { page = Model.CurrentPage - 1, searchTerm = Model.SearchTerm })" tabindex="-1">Previous</a>
+        </li>
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", "Admin", new { page = i, searchTerm = Model.SearchTerm })">@i</a>
+            </li>
+        }
+        <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", "Admin", new { page = Model.CurrentPage + 1, searchTerm = Model.SearchTerm })">Next</a>
+        </li>
+    </ul>
+</nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/js/sidebarmenu.js"></script>
+    <script src="~/Admin/js/app.min.js"></script>
+    <script src="~/Admin/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="~/Admin/libs/simplebar/dist/simplebar.js"></script>
+    <script src="~/Admin/js/dashboard.js"></script>
+</body>
+</html>

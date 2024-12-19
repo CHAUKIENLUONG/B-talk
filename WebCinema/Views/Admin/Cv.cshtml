@@ -1,0 +1,38 @@
+﻿@model WebCinema.Models.CvModel
+
+@{
+    ViewData["Title"] = "Curriculum Vitae";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <h2>@Model.FullName</h2>
+    <img src="@Model.ProfilePicture" alt="Profile Picture" style="width:150px;height:150px;" />
+    <p><strong>Ngày Sinh:</strong> @Model.DateOfBirth</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Số Điện Thoại:</strong> @Model.PhoneNumber</p>
+    <p><strong>Địa Chỉ:</strong> @Model.Address</p>
+    <h3>Tóm Tắt</h3>
+    <p>@Model.Summary</p>
+    <h3>Kỹ Năng</h3>
+    <ul>
+        @foreach (var skill in Model.Skills)
+        {
+            <li>@skill</li>
+        }
+    </ul>
+    <h3>Kinh Nghiệm Làm Việc</h3>
+    <ul>
+        @foreach (var experience in Model.Experience)
+        {
+            <li>@experience</li>
+        }
+    </ul>
+    <h3>Giáo Dục</h3>
+    <ul>
+        @foreach (var education in Model.Education)
+        {
+            <li>@education</li>
+        }
+    </ul>
+</div>

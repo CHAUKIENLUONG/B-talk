@@ -1,0 +1,116 @@
+﻿@model WebCinema.Models.Movie
+@{
+    ViewData["Title"] = "MovieDetails";
+    Layout = "~/Views/Shared/_LayoutHeader2.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="~/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/css/trailer.css" rel="stylesheet" />
+<div class="container mt-5 " style="padding-top: 170px;">
+        <!-- Breadcrumb -->
+        <div class="Title-span shar font-weight-bold">
+            <a href="/">
+                <span>Trang Chủ</span>
+            </a>
+            >
+            <label>
+                <span id="Movie.cshtml">Phim</span>
+                <span id="sublink"></span>
+            </label>
+            >
+        </div>
+
+        @if (Model != null)
+        {
+            <div class="banner mb-4">
+                <span></span>
+            </div>
+
+            <div class="row">
+                <!-- Movie Details Section -->
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                        <h2 style="font-size: 24px;" class="card-title">@Model.MovieName</h2>
+                            <p class="card-text">
+                                <i class="fas fa-clock"></i> Thời lượng: @Model.MovieLength
+                            </p>
+                            <p class="card-text">
+                                <i class="fas fa-tags"></i> Thể loại: @Model.Genre.GenreName
+                            </p>
+                            <p class="card-text">
+                                <i class="fas fa-calendar"></i> Khởi chiếu: @Model.ReleaseDate
+                            </p>
+                            <p class="font-weight-bold">
+                                Ngôn ngữ: <span>Phụ đề Tiếng Việt</span>
+                            </p>
+
+                            <div class="scroll-detail" style="overflow: hidden; width: 100%;">
+                                <div class="jspContainer" style="height: 140px;">
+                                    <div class="jspPane">
+                                        <p><span>@Model.Description</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="addthis_sharing_toolbox mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Movie Poster Section -->
+            <div class="dt-right clearfix col-md-4">
+                <div class="image">
+                    <img src="@Url.Content(Model.Poster)" alt="" height="405" width="305" class="movie-poster" data-trailer="@Model.Trailer" />
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+
+    <!-- Pop-up Modal -->
+    <div id="trailerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe id="trailerIframe" width="640" height="360" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = document.getElementById('trailerModal');
+            var iframe = document.getElementById('trailerIframe');
+            var closeBtn = document.getElementsByClassName('close')[0];
+
+            // Chạy khi nhấn vào poster phim
+            var moviePoster = document.querySelector('.movie-poster');
+            moviePoster.addEventListener('click', function () {
+                var trailerUrl = moviePoster.getAttribute('data-trailer');
+                // Kiểm tra và chuyển đổi URL thành định dạng nhúng nếu cần
+                if (trailerUrl.startsWith("https://www.youtube.com/watch?v=")) {
+                    var videoId = trailerUrl.split("v=")[1];
+                    trailerUrl = "https://www.youtube.com/embed/" + videoId;
+                }
+                iframe.src = trailerUrl;
+                modal.style.display = 'flex'; // Hiển thị modal
+            });
+
+            // Đóng modal khi nhấn vào dấu "x"
+            closeBtn.onclick = function () {
+                modal.style.display = 'none';
+                iframe.src = ''; // Dừng video khi đóng modal
+            };
+
+            // Đóng modal khi nhấn ra ngoài modal
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                    iframe.src = ''; // Dừng video khi đóng modal
+                }
+            };
+        });
+    </script>
+
+
+
+

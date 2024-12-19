@@ -1,0 +1,55 @@
+﻿@model WebCinema.Models.Movie
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Display Movie";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+    <!--  Body Wrapper -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+        <!-- Header Start -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 d-flex justify-content-center">
+                    <div class="card w-100 shadow-sm border-0">
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h5 class="card-title fw-semibold text-center mb-3">@Model.MovieName</h5>
+                                <div class="movie-details">
+                                    <div class="mb-3">
+                                        <p class="fs-5">Giá: <span class="text-primary">@Model.TotalCost</span></p>
+                                        <p class="fs-6 text-muted">@Model.Description</p>
+                                    </div>
+
+                                    <!-- Movie Poster -->
+                                    @if (!string.IsNullOrEmpty(Model.Poster))
+                                    {
+                                        var imagePath = Url.Content(Model.Poster); // Use Url.Content
+                                        <div class="text-center mb-4">
+                                            <img src="@imagePath" alt="Movie Poster" class="img-fluid" style="max-width: 300px;" />
+                                        </div>
+                                    }
+
+                                    <!-- Back Link -->
+                                    <div class="text-center">
+                                        <a asp-action="Index" class="btn btn-secondary btn-sm px-4 py-2">Back to List</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/js/sidebarmenu.js"></script>
+    <script src="~/Admin/js/app.min.js"></script>
+    <script src="~/Admin/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="~/Admin/libs/simplebar/dist/simplebar.js"></script>
+    <script src="~/Admin/js/dashboard.js"></script>

@@ -1,0 +1,41 @@
+﻿@model WebCinema.Models.Movie
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Delete Movie";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <!--  Movies  -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 d-flex align-items-strech">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                                <div class="mb-3 mb-sm-0">
+                                    <h2 class="card-title fw-semibold">Xóa Phim</h2>
+                                    <form asp-action="DeleteConfirmed" method="post">
+                                        <input type="hidden" asp-for="MovieId" />
+                                        <p>Bạn có chắc muốn xóa @Model.MovieName?</p>
+                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/js/sidebarmenu.js"></script>
+    <script src="~/Admin/js/app.min.js"></script>
+    <script src="~/Admin/libs/simplebar/dist/simplebar.js"></script>

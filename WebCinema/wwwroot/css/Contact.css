@@ -1,0 +1,51 @@
+﻿
+.details-wrapper p{
+    font-size:120%;
+}
+
+.col-md-8.col-sm-12 .title {
+    text-align: center; /* Căn giữa nội dung trong form */
+}
+
+
+#contact-form {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    #contact-form label {
+        font-weight: bold;
+    }
+
+    #contact-form input[type="text"],
+    #contact-form input[type="email"],
+    #contact-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box; /* Ensure that padding and border are included in the element's total width and height */
+    }
+
+    #contact-form textarea {
+        height: 150px;
+    }
+
+    #contact-form button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 16px;
+    }
+
+        #contact-form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }

@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+ <!-- Css-2 Styles -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/revolution/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="assets/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="assets/revolution/css/navigation.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mmenu.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.min.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+<style>
+    /* CSS for the login link */
+    .login-link {
+        color: white; /* Change text color to white */
+        border: 2px solid white; /* Add a white border */
+        padding: 5px 10px; /* Add padding for better appearance */
+        border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+        display: inline-block; /* Ensure the border wraps around the content */
+    }
+
+        /* Ensure the icon-user class also gets the white color */
+        .login-link .icon-user {
+            color: white; /* Change icon color to white */
+        }
+</style>
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+    </li>
+    <li class="nav-item">
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-light border-0">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    @* <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register"><span class="icon_search"></span></a>
+    </li> *@
+        <li class="nav-item">
+            <a class="nav-link text-light login-link" id="login" asp-area="Identity" asp-page="/Account/Login">
+                <span class="icon-user">Đăng Nhập/Đăng Ký</span>
+            </a>
+
+    </li>
+}
+</ul>

@@ -1,0 +1,51 @@
+﻿@model WebCinema.Models.EmployeeModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Delete Employee";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>- Admin</title>
+    <link rel="shortcut icon" type="image/png" href="~/Admin/images/logos/Logo.png" />
+    <link rel="stylesheet" href="~/Admin/css/styles.min.css" />
+</head>
+
+<body>
+    <div class="body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 d-flex align-items-strech">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                                <div class="mb-3 mb-sm-0">
+                                    <h2 class="card-title fw-semibold">Delete the Employee</h2>
+                                    <form asp-action="DeleteEmployeeConfirmed" method="post">
+                                        <input type="hidden" asp-for="EmployeeId" />
+                                        <p>Are you sure you want to delete @Model.FullName?</p>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <a href="~/Admin/IndexEmployee" class="btn btn-secondary">Cancel</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/js/sidebarmenu.js"></script>
+    <script src="~/Admin/js/app.min.js"></script>
+    <script src="~/Admin/libs/simplebar/dist/simplebar.js"></script>
+</body>
+</html>

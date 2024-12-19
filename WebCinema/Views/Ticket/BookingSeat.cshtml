@@ -1,0 +1,424 @@
+﻿@model WebCinema.ViewModels.BookingSeatViewModel
+
+@{
+    ViewData["Title"] = "BookingSeat";
+    Layout = "~/Views/Shared/_LayoutHeader2.cshtml";
+
+}
+<!-- Image Logo-->
+<link rel="shortcut icon" href="~/images/logo-2-no words.png" type="image/x-icon">
+<link rel="icon" sizes="192x192" href="~/images/logo-2-no words.png">
+<link rel="icon" sizes="128x128" href="~/images/logo-2-no words.png">
+<link href="~/css/booking.css" rel="stylesheet" />
+<style>
+    #paymentButton {
+        transition: all 0.3s ease;
+        margin-left: -10px;
+    }
+
+        #paymentButton:hover {
+            background-color: #0056b3;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        #paymentButton:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            margin-left: -10px;
+        }
+</style>
+<div class="content-item" style="padding-top: 170px;">
+    <div class="item-left">
+        <h3><span class="span_number">1</span><span></span><span>CHỌN VỊ TRÍ</span></h3>
+        <div class="content-select-ticket" style="margin">
+            <div id="divLegend" align="center">
+                <div class="Legend-item">
+                    <span>
+                        <img src="~/images/seat/seat_ischosen.png">
+                        &nbsp;
+                        <span class="Legend" style="color:black">Ghế của bạn</span>
+                    </span>
+                    <span>
+                        <img src="~/images/seat/seat_empty.png">
+                        &nbsp;
+                        <span class="Legend" style="color:black">Ghế Trống</span>
+                    </span>
+                    <span>
+                        <img src="~/images/seat/seat_booked.png">
+                        &nbsp;
+                        <span class="Legend" style="color:black">Đã Đặt</span>
+                    </span>
+                </div>
+                <div class="Seating-Screen">
+                    <img src="~/images/seat/SeatScreen.png" style="width: 90%">
+                </div>
+                <div class="Seats">
+                    <table>
+                        @for (char col = 'A'; col <= 'E'; col++)
+                        {
+                            <tr>
+                                @for (int row = 1; row <= 8; row++)
+                                {
+                                    <td>
+                                        @* Generate seat ID *@
+                                        @{
+                                            var seatId = $"{Model.Showtime.Room.RoomId}_{col}{row}";
+                                            var isBooked = Model.BookedSeats.Contains(seatId);
+                                        }
+                                        <p class="seat" data-seat-id="@seatId" @(isBooked ? "style='pointer-events: none;'" : "")>
+                                            <span class="seat-text" style="color: black;">@($"{col}{row}")</span>
+                                            @if (isBooked)
+                                            {
+                                                <img class="seat-pic" src="~/images/seat/seat_booked.png" alt="Booked Seat" style="display: block; margin: 0 auto;" />
+                                            }
+                                            else
+                                            {
+                                                <img class="seat-pic" src="~/images/seat/seat_empty.png" alt="Available Seat" style="display: block; margin: 0 auto;" />
+                                            }
+                                        </p>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <h3><span class="span_number">2</span><span>CHỌN ĐỒ ĂN &amp; THỨC UỐNG</span><span style="font-size: 20px;"> (tùy chọn)</span></h3>
+        <div class="combo-select">
+            <div class="combo-box">
+                <div class="combo" data-combo-id="1">
+                    <img src="https://cms.megagscinemas.vn//media/76070/combo-share.png" alt="">
+                    <div class="combo-info">
+                        <h4>Combo Bắp và Coca</h4>
+                        <div class="combo-number">
+                            <i class="fa fa-minus-circle decrease" style="color: black;"></i>
+                            <span><input style="color: black;" type="text" value="0" class="Qlty" readonly=""></span>
+                            <i class="fa fa-plus-circle increase" style="color: black;"></i>
+                            <span class="combo-price" style="color: black;">80000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combo" data-combo-id="2">
+                    <img src="https://cms.megagscinemas.vn//media/76090/popcorn-caramel-40oz.png" alt="">
+                    <div class="combo-info">
+                        <h4>Bắp Caramel</h4>
+                        <div class="combo-number">
+                            <i class="fa fa-minus-circle decrease" style="color: black;"></i>
+                            <span><input style="color: black;" type="text" value="0" class="Qlty" readonly=""></span>
+                            <i class="fa fa-plus-circle increase" style="color: black;"></i>
+                            <span class="combo-price" style="color: black;">45000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="combo" data-combo-id="3">
+                    <img src="https://i.pngimg.me/thumb/f/720/m2i8A0G6N4H7i8K9.jpg" alt="">
+                    <div class="combo-info">
+                        <h4>Coca</h4>
+                        <div class="combo-number">
+                            <i class="fa fa-minus-circle decrease" style="color: black;"></i>
+                            <span><input style="color: black;" type="text" value="0" class="Qlty" readonly=""></span>
+                            <i class="fa fa-plus-circle increase" style="color: black;"></i>
+                            <span class="combo-price" style="color: black;">40000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item-right">
+        <div class="section-item">
+            <div class="box-ticket-info">
+                <div class="movie-info">
+                    <div class="movie-info-item">
+                        <h3>@Model.Movie.MovieName</h3>
+                        <p>BTalk Cinema</p>
+                        <p>@Model.Showtime.ShowtimeDate.ToShortDateString() - @Model.Screentime.ScreenTime</p>
+                        <p>@Model.Showtime.Room.RoomName</p>
+                    </div>
+                    <div class="movie-image">
+                        <img src=@Url.Content(@Model.Movie.Poster) />
+                    </div>
+                </div>
+                <div class="box-tickets">
+                    <h5>Số vé:</h5>
+                    <table class="table">
+                        <tbody id="ticketTableBody">
+                            <!-- Table rows will be dynamically added here -->
+                        </tbody>
+                    </table>
+                    <h3 class="select-drink">CHỌN ĐỒ ĂN &amp; THỨC UỐNG</h3>
+                    <table class="table">
+                        <tbody id="comboTableBody">
+                            <!-- Table rows will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <form id="paymentForm" asp-action="BookingSeat" asp-controller="Ticket" method="post">
+                <div class="box-info-pay">
+                    <div class="head-title">
+                        <h3>THÔNG TIN THANH TOÁN</h3>
+                        <span class="span_number">3</span>
+                    </div>
+                    <div class="box-input">
+                        <div class="show-error err">
+                            <span></span>
+                        </div>
+                        <input name="FullName" type="text" id="FullName" placeholder="Họ và Tên" style="color: white;">
+                        @Html.ValidationMessageFor(model => model.FullName)
+
+                        <input name="Email" type="text" id="Email" placeholder="Email" style="color: white;">
+                        @Html.ValidationMessageFor(model => model.Email)
+
+                        <input name="PhoneNumber" type="text" id="PhoneNumber" placeholder="Số điện thoại" style="color: white;">
+                        @Html.ValidationMessageFor(model => model.PhoneNumber)
+                    </div>
+                </div>
+
+                <div class="box-pay">
+                    <span>
+                        <span class="img-loading" style="position: absolute; top: 45%">
+                            <img src="~/images/loading.gif" style="width: 25px" alt="loading" />
+                        </span>
+                        <!-- Hidden input fields to capture selected seat IDs and combo IDs -->
+                        <input type="hidden" id="movieName" name="movieName" value="@Model.Movie.MovieName" />
+                        <input type="hidden" id="roomName" name="roomName" value="@Model.Showtime.Room.RoomName" />
+                        <input type="hidden" id="screenTime" name="screenTime" value="@Model.Screentime.ScreenTime" />
+                        <input type="hidden" id="showId" name="showId" value="@Model.Showtime.ShowId" />
+                        <input type="hidden" id="purchaseDate" name="purchaseDate" value="@DateTime.Now" />
+                        <input type="hidden" id="showDate" name="showDate" value="@Model.Showtime.ShowtimeDate" />
+                        <input type="hidden" id="selectedSeats" name="selectedSeats" />
+                        <input type="hidden" id="selectedCombos" name="selectedCombos" />
+                        <input type="hidden" id="totalMoney" name="totalMoney" />
+                        <button id="paymentButton" type="submit" name="payment" value="Thanh Toán" class="btn btn-primary btn-lg w-100" disabled>
+                            Thanh Toán
+                        </button>
+
+
+                    </span>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<script>
+    // Global variable to store total money
+    var totalMoney = 0;
+    var totalTicketMoney = 0;
+    var selectedSeats = []; // Array to store selected seat IDs
+    var selectedCombos = []; // Array to store selected combo IDs
+
+    $(document).ready(function () {
+        // Gọi hàm để thiết lập trạng thái nút thanh toán ngay khi tài liệu đã sẵn sàng
+        updatePaymentButtonState();
+
+        setupComboButtons();
+        setupSeatSelection();
+        setupComboSelection();
+    });
+
+    function setupComboButtons() {
+        $('.increase').click(function () {
+            var input = $(this).closest('.combo-number').find('input');
+            var currentValue = parseInt(input.val());
+            input.val(currentValue + 1);
+            updateTable(); // Cập nhật bảng combo
+        });
+
+        $('.decrease').click(function () {
+            var input = $(this).closest('.combo-number').find('input');
+            var currentValue = parseInt(input.val());
+            if (currentValue > 0) {
+                input.val(currentValue - 1);
+                updateTable(); // Cập nhật bảng combo
+            }
+        });
+    }
+
+    function setupSeatSelection() {
+        $('.seat').click(function () {
+            var seatId = $(this).data('seat-id');
+            returnSeatValue(seatId); // Cập nhật lựa chọn ghế
+            updatePaymentButtonState(); // Cập nhật trạng thái nút thanh toán
+        });
+    }
+
+    function setupComboSelection() {
+        $('.combo').click(function () {
+            selectedCombos = []; // Xóa mảng selectedCombos
+            updateTable(); // Cập nhật bảng combo
+            // Không cần gọi updatePaymentButtonState ở đây
+        });
+    }
+
+    function updatePaymentButtonState() {
+        var paymentButton = $('#paymentButton');
+        // Chỉ kiểm tra số lượng ghế đã chọn
+        if (selectedSeats.length === 0) {
+            paymentButton.prop('disabled', true); // Vô hiệu hóa nút nếu không có ghế nào
+        } else {
+            paymentButton.prop('disabled', false); // Kích hoạt nút nếu có ít nhất một ghế
+        }
+    }
+
+    // Function to handle seat selection
+    function returnSeatValue(seatId) {
+        var index = selectedSeats.indexOf(seatId);
+        if (index === -1) {
+
+            selectedSeats.push(seatId);
+
+            $('[data-seat-id="' + seatId + '"] .seat-pic').attr('src', '/images/seat/seat_ischosen.png');
+            totalTicketMoney += 65000;
+
+            totalMoney += 65000;
+        } else {
+
+            selectedSeats.splice(index, 1);
+
+            $('[data-seat-id="' + seatId + '"] .seat-pic').attr('src', '/images/seat/seat_empty.png');
+            totalTicketMoney -= 65000;
+
+            totalMoney -= 65000;
+        }
+
+        updateTicketTable();
+    }
+
+
+    function updateTicketTable() {
+        var tableBody = $('#ticketTableBody');
+        tableBody.empty();
+
+
+        selectedSeats.forEach(function (seatId) {
+            var seatInfo = seatId.slice(4);
+            var seatRow = '<tr><td class="td-first" style="padding-right: 10px;">' + seatInfo + '</td><td class="td">x 65,000 VND</td></tr>';
+            tableBody.append(seatRow);
+        });
+
+        // Update total money in combo table
+        $('#comboTableBody .total-numb').text(totalMoney.toLocaleString());
+    }
+
+    // Function to update the table with selected combos
+    function updateTable() {
+        var tableBody = $('#comboTableBody');
+        tableBody.empty(); // Clear existing rows
+
+        // Initialize total price of selected combos
+        var totalPriceOfCombos = 0;
+
+        // Iterate over each combo
+        $('.combo').each(function () {
+            var comboId = $(this).data('combo-id');
+            var comboName = $(this).find('.combo-info h4').text();
+            var quantity = parseInt($(this).find('.Qlty').val());
+            var comboPrice = parseFloat($(this).find('.combo-price').text()); // Retrieve combo price from hidden input
+
+            // Add a row for each combo with non-zero quantity
+            if (quantity > 0) {
+                var totalPrice = quantity * comboPrice;
+                totalPriceOfCombos += totalPrice;
+
+                // Create and append table row
+                var comboRow = '<tr class="tr_first">' +
+                    '<td class="td-first"><span class="names">' + comboName + '</span></td>' +
+                    '<td></td>' + // Empty td element for space
+                    '<td class="td-second align-right"><span class="sol">' + quantity + '</span> x ' + comboPrice.toLocaleString() + ' VNĐ</td>'
+                '</tr>';
+
+                tableBody.append(comboRow);
+
+                // Add the combo ID to the selectedCombos array based on its quantity
+                for (var i = 0; i < quantity; i++) {
+                    selectedCombos.push(comboId); // Add combo ID to the array 'quantity' times
+                }
+            }
+        });
+
+        // Calculate the difference between the new total price and the old total price
+        var priceDifference = totalPriceOfCombos - (totalMoney - totalTicketMoney);
+
+        // Update totalMoney with the difference
+        totalMoney += priceDifference;
+
+        // Add total row
+        var totalRow = '<tr class="tr_second align-right">' +
+            '<td colspan="4"><span class="total-text-">Tổng giá tiền</span></td>' +
+            '</tr>' +
+            '<tr class="align-right">' +
+            '<td colspan="4"><span class="total-numb">' + totalMoney.toLocaleString() + '</span><span style="font-size: 24px; font-weight: bold;">VNĐ</span></td>' +
+            '</tr>';
+        tableBody.append(totalRow);
+
+        // Update hidden input fields with selected seat IDs and combo IDs
+        $('#selectedSeats').val(selectedSeats.join(',')); // Join selected seat IDs into a comma-separated string
+        $('#selectedCombos').val(selectedCombos.join(',')); // Join selected combo IDs into a comma-separated string
+        $('#totalMoney').val(parseInt(totalMoney));
+
+    }
+
+    // Initial table update
+    updateTable();
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var seatIds = @Html.Raw(Json.Serialize(Model.BookedSeats));
+
+        $('.seat').each(function () {
+            var seatId = $(this).data('seat-id');
+            if (seatIds.includes(seatId)) {
+                $(this).css('pointer-events', 'none');
+            }
+        });
+
+        var selectedSeats = [];
+        var selectedCombos = [];
+
+        var dateLinks = document.querySelectorAll('.date');
+
+        // Lặp qua từng liên kết ngày và thêm sự kiện click
+        dateLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+                // Loại bỏ lớp 'selected' từ tất cả các liên kết ngày
+                dateLinks.forEach(function (dateLink) {
+                    dateLink.classList.remove('selected');
+                });
+
+                // Thêm lớp 'selected' cho liên kết ngày được click
+                this.classList.add('selected');
+
+                // Lấy ngày từ thuộc tính dữ liệu 'data-date'
+                var selectedDate = this.getAttribute('data-date');
+
+                // Cập nhật query string trong URL với ngày được chọn
+                var currentUrl = window.location.href;
+                var newUrl;
+                if (currentUrl.indexOf('?') !== -1) {
+                    newUrl = currentUrl.split('?')[0] + '?selectedDate=' + selectedDate;
+                } else {
+                    newUrl = currentUrl + '?selectedDate=' + selectedDate;
+                }
+
+                // Làm mới trang với URL mới
+                window.location.href = newUrl;
+            });
+        });
+    });
+
+</script>
