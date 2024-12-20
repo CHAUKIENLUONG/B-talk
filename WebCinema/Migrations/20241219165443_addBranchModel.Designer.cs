@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebCinema.Models;
 
@@ -11,9 +12,11 @@ using WebCinema.Models;
 namespace WebCinema.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241219165443_addBranchModel")]
+    partial class addBranchModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -437,6 +440,12 @@ namespace WebCinema.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("TotalCost")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalRevenue")
+                        .HasColumnType("int");
+
                     b.Property<string>("Trailer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -507,9 +516,6 @@ namespace WebCinema.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShowId"));
 
-                    b.Property<int?>("BranchId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
@@ -530,8 +536,6 @@ namespace WebCinema.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ShowId");
-
-                    b.HasIndex("BranchId");
 
                     b.HasIndex("MovieId");
 
@@ -759,10 +763,6 @@ namespace WebCinema.Migrations
 
             modelBuilder.Entity("WebCinema.Models.Showtime", b =>
                 {
-                    b.HasOne("WebCinema.Models.Branch", "Branch")
-                        .WithMany()
-                        .HasForeignKey("BranchId");
-
                     b.HasOne("WebCinema.Models.Movie", "Movie")
                         .WithMany("Showtimes")
                         .HasForeignKey("MovieId")
@@ -780,8 +780,6 @@ namespace WebCinema.Migrations
                         .HasForeignKey("ScreenTimeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Branch");
 
                     b.Navigation("Movie");
 

@@ -30,6 +30,7 @@ namespace WebCinema.Models
 
         public DbSet<InventoryHistory> InventoryHistories { get; set; }
 
+        public DbSet<Branch> Branches { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Ticket>()

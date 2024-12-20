@@ -22,7 +22,7 @@ namespace WebCinema.Controllers
         private readonly IScreentimeRepo _screentimeRepo;
         private readonly IRoomRepo _roomRepo;
         //private readonly IBranchRepo _branchRepo;
-        public DbSet<Branch> Branches { get; set; }
+        /*public DbSet<Branch> Branches { get; set; }*/
 
         public AdminController(ApplicationDbContext context, IMovieRepo movieRepo, IGenreRepo genreRepo,
             IShowtimeRepo showtimeRepo, IScreentimeRepo screentimeRepo, IRoomRepo roomRepo)
@@ -35,13 +35,13 @@ namespace WebCinema.Controllers
             _roomRepo = roomRepo;
             //_branchRepo = branchRepo;
         }
-        [HttpGet]
-public async Task<IActionResult> GetMoviesByBranch(string branch)
-{
-    // Lấy danh sách phim theo chi nhánh
-    var movies = await _movieRepo.GetMoviesByBranchAsync(branch); // Giả sử bạn có phương thức này trong repo
-    return Json(movies); // Trả về danh sách phim dưới dạng JSON
-}
+        // [HttpGet]
+        // public async Task<IActionResult> GetMoviesByBranch(int branch)
+        // {
+        //     // Lấy danh sách phim theo chi nhánh
+        //     var movies = await _movieRepo.GetMoviesByBranchAsync(branch); // Giả sử bạn có phương thức này trong repo
+        //     return Json(movies); // Trả về danh sách phim dưới dạng JSON
+        // }
         public async Task<IActionResult> Index(int page = 1, string searchTerm = "")
         {
             int pageSize = 10; // Số phim mỗi trang
@@ -76,51 +76,52 @@ public async Task<IActionResult> GetMoviesByBranch(string branch)
 
             return View(model);
         }
- [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Add()
         {
             var genres = await _genreRepo.GetAllAsync();
             ViewBag.Genres = new SelectList(genres, "GenreId", "GenreName");
 
-            // Lấy danh sách chi nhánh từ repository
-            //var branches = await _branchRepo.GetAllAsync();
-            //ViewBag.Branches = new SelectList(branches, "BranchId", "BranchName");
+            var branches = await _context.Branches.ToListAsync();
+            ViewBag.Branches = new SelectList(branches, "BranchId", "BranchName");
 
             return View();
         }
- [HttpPost]
-public async Task<IActionResult> Add(Movie movie, IFormFile poster)
-{
-    if (ModelState.IsValid)
-    {
-        // Xử lý poster
-        if (poster != null)
+        [HttpPost]
+        public async Task<IActionResult> Add(Movie movie, IFormFile poster)
         {
-            // Kiểm tra định dạng và kích thước tệp
-            if (ValidateImageExtension(poster.FileName) && ValidatImageSize(poster, 5242880)) // 5MB
+            if (ModelState.IsValid)
             {
-                // Lưu hình ảnh và gán đường dẫn cho movie.Poster
-                movie.Poster = await SaveImage(poster);
+                if (movie.BranchId == 0)
+                {
+                    ModelState.AddModelError("BranchId", "Vui lòng chọn chi nhánh");
+                    return View(movie);
+                }
+
+                if (poster != null)
+                {
+                    if (ValidateImageExtension(poster.FileName) && ValidatImageSize(poster, 5242880))
+                    {
+                        movie.Poster = await SaveImage(poster);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Poster", "Định dạng hình ảnh không hợp lệ hoặc kích thước quá lớn.");
+                        return View(movie);
+                    }
+                }
+
+                await _movieRepo.AddAsync(movie);
+                TempData["Success"] = "Phim đã được thêm thành công!";
+                return RedirectToAction("Index");
             }
-            else
-            {
-                ModelState.AddModelError("Poster", "Định dạng hình ảnh không hợp lệ hoặc kích thước quá lớn.");
-                return View(movie);
-            }
+
+            var genres = await _genreRepo.GetAllAsync();
+            ViewBag.Genres = new SelectList(genres, "GenreId", "GenreName");
+            var branches = await _context.Branches.ToListAsync();
+            ViewBag.Branches = new SelectList(branches, "BranchId", "BranchName");
+            return View(movie);
         }
-
-        // Lưu vào cơ sở dữ liệu
-        await _movieRepo.AddAsync(movie);
-        TempData["Success"] = "Phim đã được thêm thành công!";
-        return RedirectToAction("Index"); // Chuyển hướng đến danh sách phim hoặc trang khác
-    }
-
-    // Nếu có lỗi, trả về lại view với dữ liệu đã nhập
-    var genres = await _genreRepo.GetAllAsync();
-    ViewBag.Genres = new SelectList(genres, "GenreId", "GenreName");
-    //ViewBag.Branches = new SelectList(await _branchRepo.GetAllAsync(), "BranchId", "BranchName"); // Đảm bảo bạn có danh sách chi nhánh
-    return View(movie);
-}
         private async Task<string> SaveImage(IFormFile image)
         {
             var savePath = Path.Combine("wwwroot/images", image.FileName); // Thay đổi đường dẫn theo cấu hình của bạn     
@@ -150,6 +151,8 @@ public async Task<IActionResult> Add(Movie movie, IFormFile poster)
             }
             var Genre = await _genreRepo.GetAllAsync();
             ViewBag.Genres = new SelectList(Genre, "GenreId", "GenreName", movie.GenreId);
+            var branches = await _context.Branches.ToListAsync();
+            ViewBag.Branches = new SelectList(branches, "BranchId", "BranchName", movie.BranchId);
 
             return View(movie);
         }
@@ -199,11 +202,11 @@ public async Task<IActionResult> Add(Movie movie, IFormFile poster)
                 // Cập nhật các thông tin khác của phim
                 existingMovie.MovieName = movie.MovieName;
                 existingMovie.GenreId = movie.GenreId;
+                existingMovie.BranchId = movie.BranchId;
                 existingMovie.MovieLength = movie.MovieLength;
                 existingMovie.Description = movie.Description;
                 existingMovie.ReleaseDate = movie.ReleaseDate;
                 existingMovie.EndDate = movie.EndDate;
-                existingMovie.TotalCost = movie.TotalCost;
                 existingMovie.Trailer = movie.Trailer;
                 existingMovie.Poster = movie.Poster;
 
@@ -401,44 +404,86 @@ public async Task<IActionResult> Add(Movie movie, IFormFile poster)
         {
             return file.Length <= maximumSize;
         }
-        public async Task<IActionResult> AddShowtime(Showtime showtime, int movieId) // Use the Showtime model as the parameter
+        [HttpGet]
+        public async Task<IActionResult> AddShowtime(int movieId)
         {
-            //showtime.MovieId = movieId;
-            var movies = await _movieRepo.GetAllShowAsync(movieId);
-            ViewBag.Movies = new SelectList(movies, "MovieId", "MovieName");
+            // Lấy thông tin phim đã chọn
+            var selectedMovie = await _context.Movies
+                .Include(m => m.Branch)
+                .FirstOrDefaultAsync(m => m.MovieId == movieId);
+
+            if (selectedMovie == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new AddShowtimeViewModel
+            {
+                MovieId = movieId,
+                ShowtimeDate = DateTime.Now,
+                Branch = selectedMovie.Branch?.BranchName // Lấy tên chi nhánh của phim
+            };
+
+            // Chỉ lấy danh sách phòng của chi nhánh đó
+            var rooms = await _roomRepo.GetAllAsync();
+            ViewBag.Rooms = new SelectList(rooms, "RoomId", "RoomName");
 
             var screentimes = await _screentimeRepo.GetAllAsync();
             ViewBag.Screentimes = new SelectList(screentimes, "ScreenTimeId", "ScreenTime");
 
-            var rooms = await _roomRepo.GetAllAsync();
-            ViewBag.Rooms = new SelectList(rooms, "RoomId", "RoomName");
+            // Truyền thông tin phim để hiển thị
+            ViewBag.SelectedMovie = selectedMovie;
 
-            return View(showtime); // Re-render the view with populated showtime object (for validation errors)
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMovieDetails(int movieId)
+        {
+            var movie = await _context.Movies
+                .Include(m => m.Branch)
+                .Include(m => m.Genre)
+                .FirstOrDefaultAsync(m => m.MovieId == movieId);
+
+            if (movie == null)
+                return NotFound();
+
+            return Json(movie);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddShowtime(Showtime showtime, int movieId, string roomId)
+        public async Task<IActionResult> AddShowtime(AddShowtimeViewModel model)
         {
-            // Kiểm tra nếu dữ liệu đầu vào hợp lệ
             if (ModelState.IsValid)
             {
-                // Gọi hàm kiểm tra trùng lặp
-                bool isDuplicate = await _showtimeRepo.IsShowtimeDuplicateAsync(movieId, roomId, showtime.ShowtimeDate, showtime.ScreenTimeId);
+                var showtime = new Showtime
+                {
+                    MovieId = model.MovieId,
+                    RoomId = model.RoomId,
+                    ShowtimeDate = model.ShowtimeDate,
+                    ScreenTimeId = model.ScreenTimeId
+                };
+
+                // Kiểm tra trùng lặp
+                bool isDuplicate = await _showtimeRepo.IsShowtimeDuplicateAsync(
+                    showtime.MovieId, 
+                    showtime.RoomId, 
+                    showtime.ShowtimeDate, 
+                    showtime.ScreenTimeId);
+
                 if (isDuplicate)
                 {
-                    // Nếu trùng lặp, thêm lỗi vào ModelState
-                    TempData["ErrorMessage"] = "";
+                    TempData["ErrorMessage"] = "Lịch chiếu này đã tồn tại!";
                 }
                 else
                 {
-                    // Thêm vào cơ sở dữ liệu
                     await _showtimeRepo.AddAsync(showtime);
                     return RedirectToAction(nameof(Index));
                 }
             }
 
-            // Nếu ModelState không hợp lệ hoặc bị trùng, render lại View với dữ liệu đã nhập
-            var movies = await _movieRepo.GetAllShowAsync(movieId);
+            // Nếu có lỗi, load lại các SelectList
+            var movies = await _movieRepo.GetAllShowAsync(model.MovieId);
             ViewBag.Movies = new SelectList(movies, "MovieId", "MovieName");
 
             var screentimes = await _screentimeRepo.GetAllAsync();
@@ -447,7 +492,7 @@ public async Task<IActionResult> Add(Movie movie, IFormFile poster)
             var rooms = await _roomRepo.GetAllAsync();
             ViewBag.Rooms = new SelectList(rooms, "RoomId", "RoomName");
 
-            return View(showtime);
+            return View(model);
         }
 
 
@@ -807,7 +852,7 @@ public async Task<IActionResult> Add(Movie movie, IFormFile poster)
             var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Employee List");
 
-            // Đặt tiêu đề cho các cột
+            // ặt tiêu đề cho các cột
             worksheet.Cell(1, 1).Value = "Mã Nhân Viên";
             worksheet.Cell(1, 2).Value = "Họ và Tên";
             worksheet.Cell(1, 3).Value = "Ngày Sinh";
@@ -893,7 +938,87 @@ public async Task<IActionResult> Add(Movie movie, IFormFile poster)
             // Xử lý lưu trữ thông tin CV
             return RedirectToAction("Index");
         }
-    } 
 
-    
+        // Hiển thị danh sách chi nhánh
+        public async Task<IActionResult> BranchIndex()
+        {
+            var branches = await _context.Branches.ToListAsync();
+            return View(branches);
+        }
+
+        // Hiển thị form thêm chi nhánh
+        [HttpGet]
+        public IActionResult AddBranch()
+        {
+            return View();
+        }
+
+        // Xử lý thêm chi nhánh
+        [HttpPost]
+        public async Task<IActionResult> AddBranch(Branch branch)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Branches.Add(branch);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(BranchIndex));
+            }
+            return View(branch);
+        }
+
+        // Hiển thị form sửa chi nhánh
+        [HttpGet]
+        public async Task<IActionResult> EditBranch(int id)
+        {
+            var branch = await _context.Branches.FindAsync(id);
+            if (branch == null)
+            {
+                return NotFound();
+            }
+            return View(branch);
+        }
+
+        // Xử lý sửa chi nhánh
+        [HttpPost]
+        public async Task<IActionResult> EditBranch(Branch branch)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Branches.Update(branch);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(BranchIndex));
+            }
+            return View(branch);
+        }
+
+        // Xóa chi nhánh
+        [HttpPost]
+        public async Task<IActionResult> DeleteBranch(int id)
+        {
+            var branch = await _context.Branches.FindAsync(id);
+            if (branch != null)
+            {
+                _context.Branches.Remove(branch);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(BranchIndex));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMoviesByBranch(int branchId)
+        {
+            var movies = await _context.Movies
+                .Include(m => m.Genre)
+                .Where(m => m.BranchId == branchId)
+                .Select(m => new { 
+                    movieId = m.MovieId, 
+                    movieName = m.MovieName 
+                })
+                .ToListAsync();
+
+            return Json(movies);
+        }
+    }
+
+
 }

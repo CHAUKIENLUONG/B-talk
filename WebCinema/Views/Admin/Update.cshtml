@@ -30,7 +30,13 @@
                                             <select asp-for="GenreId" asp-items="ViewBag.Genres"
                                                     class="form-control"></select>
                                             @Html.ValidationMessageFor(m => m.Genre, "", new { @class = "text-danger" })
-
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="BranchId">Chi Nhánh</label>
+                                            <select asp-for="BranchId" class="form-control" asp-items="ViewBag.Branches">
+                                                <option value="">-- Chọn Chi Nhánh --</option>
+                                            </select>
+                                            <span asp-validation-for="BranchId" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
                                             <label asp-for="MovieLength">Thời Lượng</label>

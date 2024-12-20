@@ -8,226 +8,149 @@
         Model.DateOfBirth = new DateTime(2000, 1, 1); // Thiết lập ngày sinh mặc định
     }
 }
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> - Admin</title>
-    <link rel="stylesheet" href="~/Admin/css/styles.min.css" />
-    <link rel="shortcut icon" type="image/png" href="~/Admin/images/logos/Logo.png" />
-</head>
 
-<body>
+<link rel="stylesheet" href="~/Admin/css/styles.min.css" />
+<link rel="shortcut icon" type="image/png" href="~/Admin/images/logos/Logo.png" />
+
+<div class="page-wrapper">
     <div class="container-fluid">
-        <!-- Sidebar -->
-        <aside class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="/" class="text-nowrap logo-img">
-                        <img src="~/images/logo.png" width="180" alt="123" />
-                    </a>
-                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                        <i class="ti ti-x fs-8"></i>
-                    </div>
-                </div>
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                    <ul id="sidebarnav">
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Statistic</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="~/Admin/DashBoard" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-layout-dashboard"></i>
-                                </span>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Movie</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="~/Admin/Add" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-file-description"></i>
-                                </span>
-                                <span class="hide-menu">Add Movie</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="~/Admin/Index" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-file-description"></i>
-                                </span>
-                                <span class="hide-menu">Show all the movies</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="~/Admin/Addemployee" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-file-description"></i>
-                                </span>
-                                <span class="hide-menu">Employee</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="~/Admin/IndexEmployee" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-file-description"></i>
-                                </span>
-                                <span class="hide-menu">EmployeeList</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+            }
+
+            form {
+                max-width: 700px;
+                margin: 50px auto;
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            h2 {
+                text-align: center;
+                color: #333;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #555;
+            }
+
+            input,
+            select,
+            textarea {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            button {
+                background-color: #28a745;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            button:hover {
+                background-color: #218838;
+            }
+        </style>
+
+        <form asp-action="AddEmployee" method="post" onsubmit="return validateDateOfBirth();">
+            <h2>Thông Tin Nhân Viên Rạp Chiếu Phim</h2>
+
+            <input type="hidden" asp-for="EmployeeId" />
+
+            <div class="form-group">
+                <label asp-for="FullName">Họ và tên</label>
+                <input type="text" asp-for="FullName" placeholder="Nhập họ và tên" required />
             </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!-- End Sidebar -->
-        <!-- Main Content -->
-        <div class="page-wrapper">
-            <div class="container-fluid">
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        background-color: #f9f9f9;
-                    }
 
-                    form {
-                        max-width: 700px;
-                        margin: 50px auto;
-                        background-color: #ffffff;
-                        padding: 20px;
-                        border-radius: 10px;
-                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                    }
-
-                    h2 {
-                        text-align: center;
-                        color: #333;
-                    }
-
-                    .form-group {
-                        margin-bottom: 15px;
-                    }
-
-                    label {
-                        display: block;
-                        margin-bottom: 5px;
-                        font-weight: bold;
-                        color: #555;
-                    }
-
-                    input, select, textarea {
-                        width: 100%;
-                        padding: 8px;
-                        border: 1px solid #ccc;
-                        border-radius: 5px;
-                        font-size: 16px;
-                    }
-
-                    button {
-                        background-color: #28a745;
-                        color: white;
-                        padding: 10px 15px;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        font-size: 16px;
-                    }
-
-                        button:hover {
-                            background-color: #218838;
-                        }
-                </style>
-
-                <form asp-action="AddEmployee" method="post" onsubmit="return validateDateOfBirth();">
-                    <h2>Thông Tin Nhân Viên Rạp Chiếu Phim</h2>
-
-                    <input type="hidden" asp-for="EmployeeId" />
-
-                    <div class="form-group">
-                        <label asp-for="FullName"></label>
-                        <input type="text" asp-for="FullName" placeholder="Nhập họ và tên" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="DateOfBirth"></label>
-                        <input type="date" asp-for="DateOfBirth" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Gender"></label>
-                        <select asp-for="Gender" required>
-                            <option value="">Chọn giới tính</option>
-                            <option value="nam">Nam</option>
-                            <option value="nu">Nữ</option>
-                            <option value="khac">Khác</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Position"></label>
-                        <select asp-for="Position" required>
-                            <option value="">Chọn bộ phận</option>
-                            <option value="ban ve">Bán vé</option>
-                            <option value="soat ve">Soát vé</option>
-                            <option value="ho tro khach hang">Hỗ trợ khách hàng</option>
-                            <option value="ve sinh">Vệ sinh</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Shift"></label>
-                        <select asp-for="Shift" required>
-                            <option value="">Chọn ca làm việc</option>
-                            <option value="sang">Sáng</option>
-                            <option value="chieu">Chiều</option>
-                            <option value="toi">Tối</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Status"></label>
-                        <select asp-for="Status" required>
-                            <option value="">Chọn trạng thái</option>
-                            <option value="toan thoi gian">Toàn thời gian</option>
-                            <option value="ban thoi gian">Bán thời gian</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Email"></label>
-                        <input type="email" asp-for="Email" placeholder="Nhập email" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="PhoneNumber"></label>
-                        <input type="tel" asp-for="PhoneNumber" placeholder="Nhập số điện thoại" required pattern="\d{10}" title="Số điện thoại phải có 10 chữ số." />
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Salary"></label>
-                        <input type="number" asp-for="Salary" placeholder="Nhập mức lương" required />
-                        <span>VND</span> <!-- Hiển thị đuôi VND -->
-                    </div>
-
-                    <button type="submit">Lưu thông tin</button>
-                </form>
+            <div class="form-group">
+                <label asp-for="DateOfBirth">Ngày sinh</label>
+                <input type="date" asp-for="DateOfBirth" required />
             </div>
-        </div>
-        <!-- End Main Content -->
+
+            <div class="form-group">
+                <label asp-for="Gender">Giới tính</label>
+                <select asp-for="Gender" required>
+                    <option value="">Chọn giới tính</option>
+                    <option value="male">Nam</option>
+                    <option value="female">Nữ</option>
+                    <option value="other">Khác</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Position">Bộ phận</label>
+                <select asp-for="Position" required>
+                    <option value="">Chọn bộ phận</option>
+                    <option value="ticket_selling">Bán vé</option>
+                    <option value="ticket_checking">Soát vé</option>
+                    <option value="customer_support">Hỗ trợ khách hàng</option>
+                    <option value="cleaning">Vệ sinh</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Shift">Ca làm việc</label>
+                <select asp-for="Shift" required>
+                    <option value="">Chọn ca làm việc</option>
+                    <option value="morning">Sáng</option>
+                    <option value="afternoon">Chiều</option>
+                    <option value="evening">Tối</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Status">Trạng thái</label>
+                <select asp-for="Status" required>
+                    <option value="">Chọn trạng thái</option>
+                    <option value="full_time">Toàn thời gian</option>
+                    <option value="part_time">Bán thời gian</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input type="email" asp-for="Email" placeholder="Nhập email" required />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PhoneNumber">Số điện thoại</label>
+                <input type="tel" asp-for="PhoneNumber" placeholder="Nhập số điện thoại" required pattern="\d{10}"
+                    title="Số điện thoại phải có 10 chữ số." />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Salary">Mức lương</label>
+                <input type="number" asp-for="Salary" placeholder="Nhập mức lương" required />
+                <span>VND</span> <!-- Hiển thị đuôi VND -->
+            </div>
+
+            <button type="submit">Lưu thông tin</button>
+        </form>
     </div>
+</div>
+<!-- End Main Content -->
+</div>
 
-    <!-- Scripts -->
-    <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
-    <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Admin/js/sidebarmenu.js"></script>
-    <script src="~/Admin/js/app.min.js"></script>
-</body>
-
-</html>
+<!-- Scripts -->
+<script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
+<script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/Admin/js/sidebarmenu.js"></script>
+<script src="~/Admin/js/app.min.js"></script>

@@ -7,7 +7,7 @@ namespace WebCinema.Repositories
         Task<IEnumerable<Movie>> GetAllAsync();
         Task<Movie> GetByIdAsync(int id);
         Task<Showtime> GetByMovieIdAsync(int id);
-        Task<IEnumerable<Movie>> GetMoviesByBranchAsync(string branch);
+
         Task AddAsync(Movie movie);
         Task AddShowtimeAsync(Showtime showtime);
         Task UpdateAsync(Movie movie);

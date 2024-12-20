@@ -9,7 +9,6 @@ namespace WebCinema.Repositories
     public class EFMovieRepo : IMovieRepo
     {
 
-
         private readonly ApplicationDbContext _context;
         public EFMovieRepo(ApplicationDbContext context)
         {
@@ -36,12 +35,6 @@ namespace WebCinema.Repositories
                 .FirstOrDefaultAsync(p => p.MovieId == id);
 
         }
-public async Task<IEnumerable<Movie>> GetMoviesByBranchAsync(string branchId)
-{
-    return await _context.Movies
-        .Where(m => m.BranchId == branchId) // Đảm bảo rằng BranchId tồn tại trong mô hình
-        .ToListAsync();
-}
         public async Task AddAsync(Movie movie)
         {
             _context.Movies.Add(movie);

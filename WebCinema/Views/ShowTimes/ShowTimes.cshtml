@@ -11,6 +11,41 @@
 <link href="~/css/showtimes.css" rel="stylesheet" />
 <link href="~/css/font-awesome.min.css" rel="stylesheet" />
 <link href="~/css/trailer.css" rel="stylesheet" />
+<style>
+    .branch-btn {
+        margin: 0 5px;
+        margin-bottom: 10px;
+    }
+
+    .branch-btn.active {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .btn-secondary.active {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .movie-item {
+        transition: all 0.3s ease;
+    }
+
+    .no-movies {
+        padding: 2rem;
+        margin: 2rem 0;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .no-movies h4 {
+        color: #6c757d;
+        font-weight: 500;
+    }
+</style>
+
 <body>
     <!--Body begin-->
     <div class="Title-span shar" style="font-weight: bold; padding-top: 170px;">
@@ -27,6 +62,17 @@
         <span>Lịch Chiếu</span>
     </div>
 
+    <div class="branch-selector text-center mt-4 mb-4 d-flex justify-content-center align-items-center flex-row">
+        @foreach (var branch in ViewBag.Branches)
+        {
+            <button type="button" class="btn btn-primary branch-btn mx-2" data-branch-id="@branch.BranchId"
+                onclick="filterMoviesByBranch(@branch.BranchId)">
+                @branch.BranchName
+            </button>
+        }
+        <button type="button" class="btn btn-secondary branch-btn active mx-2" onclick="filterMoviesByBranch(0)">Tất
+            cả</button>
+    </div>
     <!--Combo box-->
     <div class="box-selected">
         <div class="date-selector">
@@ -37,12 +83,15 @@
                 <a href="#" class="date @cssClass" data-date="@date.ToString("yyyy-MM-dd")">@date.ToShortDateString()</a>
             }
         </div>
+
+        <!-- Thêm phần nút chọn chi nhánh -->
+
     </div>
     <div class="product-list">
         <!--Add Film-->
         @foreach (var movie in Model.Where(m => m.Showtimes.Any(s => s.ShowtimeDate.Date == selectedDate.Date)))
         {
-            <div class="list-items">
+            <div class="list-items movie-item" data-branch="@(movie.Branch?.BranchId ?? 0)">
                 <div class="item-left">
                     <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
                         <h4>@movie.MovieName</h4>
@@ -90,12 +139,14 @@
                         <div class="showtime-buttons">
                             <h5 class="mb-3">Lịch Chiếu:</h5>
                             <div class="showtime-buttons-container d-flex flex-wrap gap-2">
-                                @foreach (var showtime in movie.Showtimes.Where(s => s.MovieId == movie.MovieId && s.ShowtimeDate.Date == selectedDate.Date))
+                                @foreach (var showtime in movie.Showtimes.Where(s => s.MovieId == movie.MovieId &&
+                               s.ShowtimeDate.Date == selectedDate.Date))
                                 {
                                     <form asp-action="SelectShowtime" method="post" class="d-inline">
                                         <input type="hidden" name="movieId" value="@showtime.MovieId" />
                                         <input type="hidden" name="showtimeId" value="@showtime.ShowId" />
-                                        <button type="submit" class="btn btn-primary btn-sm">@showtime.Screentime.ScreenTime</button>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-sm">@showtime.Screentime.ScreenTime</button>
                                     </form>
                                 }
                             </div>
@@ -157,44 +208,96 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-    var modal = document.getElementById('trailerModal');
-    var iframe = document.getElementById('trailerIframe');
-    var span = document.getElementsByClassName('close')[0];
+            var modal = document.getElementById('trailerModal');
+            var iframe = document.getElementById('trailerIframe');
+            var span = document.getElementsByClassName('close')[0];
 
-    // Tìm tất cả các poster phim và thêm sự kiện click
-    document.querySelectorAll('.trailer-link').forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();  // Ngăn chặn hành động mặc định của thẻ a
+            // Tìm tất cả các poster phim và thêm sự kiện click
+            document.querySelectorAll('.trailer-link').forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();  // Ngăn chặn hành động mặc định của thẻ a
 
-            var trailer = this.getAttribute('href');  // Lấy trailer URL từ thuộc tính href của poster
-            // Kiểm tra và chuyển đổi URL thành định dạng nhúng nếu cần
-            if (trailer.startsWith("https://www.youtube.com/watch?v=")) {
-                let videoId = trailer.split("v=")[1];
-                trailer = "https://www.youtube.com/embed/" + videoId;
-            }
-            else if (!trailer.startsWith("https://www.youtube.com/embed/")) {
-                trailer = "https://www.youtube.com/embed/" + trailer;
-            }
+                    var trailer = this.getAttribute('href');  // Lấy trailer URL từ thuộc tính href của poster
+                    // Kiểm tra và chuyển đổi URL thành định dạng nhúng nếu cần
+                    if (trailer.startsWith("https://www.youtube.com/watch?v=")) {
+                        let videoId = trailer.split("v=")[1];
+                        trailer = "https://www.youtube.com/embed/" + videoId;
+                    }
+                    else if (!trailer.startsWith("https://www.youtube.com/embed/")) {
+                        trailer = "https://www.youtube.com/embed/" + trailer;
+                    }
 
-            iframe.src = trailer;
-            modal.style.display = 'flex'; // Hiển thị modal
+                    iframe.src = trailer;
+                    modal.style.display = 'flex'; // Hiển thị modal
+                });
+            });
+
+            // Đóng modal khi nhấn vào nút đóng
+            span.onclick = function () {
+                modal.style.display = 'none';
+                iframe.src = ''; // Dừng video khi đóng modal
+            };
+
+            // Đóng modal khi nhấn vào khu vực ngoài modal
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                    iframe.src = ''; // Dừng video khi đóng modal
+                }
+            };
         });
-    });
 
-    // Đóng modal khi nhấn vào nút đóng
-    span.onclick = function () {
-        modal.style.display = 'none';
-        iframe.src = ''; // Dừng video khi đóng modal
-    };
+    </script>
+    <script>
+        function filterMoviesByBranch(branchId) {
+            // Highlight nút được chọn
+            $('.branch-btn').removeClass('active');
+            $(`[data-branch-id="${branchId}"]`).addClass('active');
+            if (branchId === 0) {
+                $('[onclick="filterMoviesByBranch(0)"]').addClass('active');
+            }
 
-    // Đóng modal khi nhấn vào khu vực ngoài modal
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-            iframe.src = ''; // Dừng video khi đóng modal
+            // Xóa thông báo "không có phim" cũ nếu có
+            $('.no-movies').remove();
+
+            // Ẩn tất cả phim
+            $('.movie-item').hide();
+
+            if (branchId === 0) {
+                // Nếu chọn "Tất cả", hiện tất cả phim
+                $('.movie-item').show();
+            } else {
+                // Hiện chỉ những phim thuộc chi nhánh được chọn
+                $(`.movie-item[data-branch="${branchId}"]`).show();
+            }
+
+            // Kiểm tra nếu không có phim nào được hiển thị
+            if ($('.movie-item:visible').length === 0) {
+                // Kiểm tra xem đã có thông báo chưa
+                if ($('.no-movies').length === 0) {
+                    $('.product-list').append(`
+                        <div class="no-movies text-center p-3">
+                            <h4 class="text-muted">Không có phim nào trong chi nhánh này</h4>
+                        </div>
+                    `);
+                }
+            }
         }
-    };
-});
 
+        $(document).ready(function () {
+            // Kích hoạt "Tất cả" mặc định
+            filterMoviesByBranch(0);
+
+            // Lưu trạng thái chi nhánh đã chọn khi chuyển ngày
+            $('.date').on('click', function () {
+                localStorage.setItem('selectedBranchId', $('.branch-btn.active').data('branch-id') || 0);
+            });
+
+            // Khôi phục trạng thái chi nhánh sau khi load trang
+            var savedBranchId = localStorage.getItem('selectedBranchId');
+            if (savedBranchId) {
+                filterMoviesByBranch(parseInt(savedBranchId));
+            }
+        });
     </script>
 </body>

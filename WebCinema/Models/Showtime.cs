@@ -21,6 +21,8 @@ namespace WebCinema.Models
         public Screentime? Screentime { get; set; }
         //public SelectList Screentimes { get; set; }
 
+        public Branch? Branch { get; set; }
+
 
         public ICollection<Ticket>? Tickets { get; set; }
     }

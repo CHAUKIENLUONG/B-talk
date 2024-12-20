@@ -10,109 +10,100 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>- Admin</title>
-    <link rel="shortcut icon" type="image/png" href="~/Admin/images/logos/Logo.png" />
-    <link rel="stylesheet" href="~/Admin/css/styles.min.css" />
-</head>
 
-<body>
-    <!--  Body Wrapper -->
-    <!--  Main wrapper -->
-    <div class="body-wrapper">
-        <!--  Movies  -->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body">
-                            <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-                                <div class="mb-3 mb-sm-0">
-                                    <h5>@(isEditMode ? "Edit Employee" : "Add Employee")</h5>
+<link rel="shortcut icon" type="image/png" href="~/Admin/images/logos/Logo.png" />
+<link rel="stylesheet" href="~/Admin/css/styles.min.css" />
+<div class="body-wrapper">
+    <!--  Movies  -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 d-flex align-items-stretch">
+                <div class="card w-100">
+                    <div class="card-body">
+                        <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                            <div class="mb-3 mb-sm-0">
+                                <h5>@(isEditMode ? "Edit Employee" : "Add Employee")</h5>
 
-                                    <form asp-action="UpdateEmployee" method="post" enctype="multipart/form-data">
-                                        <input type="hidden" asp-for="EmployeeId" />
+                                <form asp-action="UpdateEmployee" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" asp-for="EmployeeId" />
 
-                                        <div class="form-group">
-                                            <label asp-for="FullName"></label>
-                                            <input asp-for="FullName" class="form-control" required />
-                                            <span asp-validation-for="FullName" class="text-danger"></span>
-                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="FullName">Họ và tên</label>
+                                        <input asp-for="FullName" class="form-control" required />
+                                        <span asp-validation-for="FullName" class="text-danger"></span>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label asp-for="DateOfBirth"></label>
-                                            <input type="date" asp-for="DateOfBirth" class="form-control" required />
-                                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="DateOfBirth">Ngày sinh</label>
+                                        <input type="date" asp-for="DateOfBirth" class="form-control" required />
+                                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label asp-for="Gender"></label>
-                                            <select asp-for="Gender" class="form-control" required>
-                                                <option value="">Chọn giới tính</option>
-                                                <option value="male">Nam</option>
-                                                <option value="female">Nữ</option>
-                                                <option value="other">Khác</option>
-                                            </select>
-                                            <span asp-validation-for="Gender" class="text-danger"></span>
-                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="Gender">Giới tính</label>
+                                        <select asp-for="Gender" class="form-control" required>
+                                            <option value="">Chọn giới tính</option>
+                                            <option value="male" selected="@(Model?.Gender == "male")">Nam</option>
+                                            <option value="female" selected="@(Model?.Gender == "female")">Nữ</option>
+                                            <option value="other" selected="@(Model?.Gender == "other")">Khác</option>
+                                        </select>
+                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label asp-for="Position"></label>
-                                            <select asp-for="Position" class="form-control" required>
-                                                <option value="">Chọn bộ phận</option>
-                                                <option value="ticket_selling">Bán vé</option>
-                                                <option value="ticket_checking">Soát vé</option>
-                                                <option value="customer_support">Hỗ trợ khách hàng</option>
-                                                <option value="cleaning">Vệ sinh</option>
-                                            </select>
-                                            <span asp-validation-for="Position" class="text-danger"></span>
-                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="Position">Bộ phận</label>
+                                        <select asp-for="Position" class="form-control" required>
+                                            <option value="">Chọn bộ phận</option>
+                                            <option value="ticket_selling" selected="@(Model?.Position == "ticket_selling")">Bán vé</option>
+                                            <option value="ticket_checking" selected="@(Model?.Position == "ticket_checking")">Soát vé</option>
+                                            <option value="customer_support" selected="@(Model?.Position == "customer_support")">Hỗ trợ khách hàng</option>
+                                            <option value="cleaning" selected="@(Model?.Position == "cleaning")">Vệ sinh</option>
+                                        </select>
+                                        <span asp-validation-for="Position" class="text-danger"></span>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label asp-for="Shift"></label>
-                                            <select asp-for="Shift" class="form-control" required>
-                                                <option value="">Chọn ca làm việc</option>
-                                                <option value="morning">Sáng</option>
-                                                <option value="afternoon">Chiều</option>
-                                                <option value="evening">Tối</option>
-                                            </select>
-                                            <span asp-validation-for="Shift" class="text-danger"></span>
-                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="Shift">Ca làm việc</label>
+                                        <select asp-for="Shift" class="form-control" required>
+                                            <option value="">Chọn ca làm việc</option>
+                                            <option value="morning" selected="@(Model?.Shift == "morning")">Sáng</option>
+                                            <option value="afternoon" selected="@(Model?.Shift == "afternoon")">Chiều</option>
+                                            <option value="evening" selected="@(Model?.Shift == "evening")">Tối</option>
+                                        </select>
+                                        <span asp-validation-for="Shift" class="text-danger"></span>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label asp-for="Status"></label>
-                                            <select asp-for="Status" class="form-control" required>
-                                                <option value="">Chọn trạng thái</option>
-                                                <option value="full_time">Toàn thời gian</option>
-                                                <option value="part_time">Bán thời gian</option>
-                                            </select>
-                                            <span asp-validation-for="Status" class="text-danger"></span>
-                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="Status">Trạng thái</label>
+                                        <select asp-for="Status" class="form-control" required>
+                                            <option value="">Chọn trạng thái</option>
+                                            <option value="full_time" selected="@(Model?.Status == "full_time")">Toàn thời gian</option>
+                                            <option value="part_time" selected="@(Model?.Status == "part_time")">Bán thời gian</option>
+                                        </select>
+                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label asp-for="Email"></label>
-                                            <input asp-for="Email" class="form-control" required />
-                                            <span asp-validation-for="Email" class="text-danger"></span>
-                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="Email">Email</label>
+                                        <input asp-for="Email" class="form-control" required />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label asp-for="PhoneNumber"></label>
-                                            <input asp-for="PhoneNumber" class="form-control" required />
-                                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber">Số điện thoại</label>
+                                        <input asp-for="PhoneNumber" class="form-control" required />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label asp-for="Salary"></label>
-                                            <input asp-for="Salary" class="form-control" required />
-                                            <span asp-validation-for="Salary" class="text-danger"></span>
-                                        </div>
+                                    <div class="form-group">
+                                        <label asp-for="Salary">Mức lương</label>
+                                        <input asp-for="Salary" class="form-control" required />
+                                        <span asp-validation-for="Salary" class="text-danger"></span>
+                                    </div>
 
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </form>
+                                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                </form>
 
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -120,18 +111,17 @@
             </div>
         </div>
     </div>
+</div>
 
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
-    <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Admin/js/sidebarmenu.js"></script>
-    <script src="~/Admin/js/app.min.js"></script>
-    <script src="~/Admin/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="~/Admin/libs/simplebar/dist/simplebar.js"></script>
-    <script src="~/Admin/js/dashboard.js"></script>
-</body>
-    
+}
+<script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
+<script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/Admin/js/sidebarmenu.js"></script>
+<script src="~/Admin/js/app.min.js"></script>
+<script src="~/Admin/libs/apexcharts/dist/apexcharts.min.js"></script>
+<script src="~/Admin/libs/simplebar/dist/simplebar.js"></script>
+<script src="~/Admin/js/dashboard.js"></script>

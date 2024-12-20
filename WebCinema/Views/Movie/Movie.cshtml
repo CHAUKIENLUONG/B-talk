@@ -4,16 +4,118 @@
     Layout = "~/Views/Shared/_LayoutHeader2.cshtml";
 
     // Lọc phim đang chiếu
-    var phimDangChieu = Model.Where(movie => movie.MovieState.Contains("Đang Chiếu")).ToList();
+    var phimDangChieu = Model.Where(movie => movie.MovieState.Contains("1")).ToList();
 
     // Lọc phim sắp chiếu
-    var phimSapChieu = Model.Where(movie => movie.MovieState.Contains("Sắp Chiếu")).ToList();
+    var phimSapChieu = Model.Where(movie => movie.MovieState.Contains("2")).ToList();
 }
 <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
 <link href="~/css/movie.css" rel="stylesheet" />
 <link href="~/css/font-awesome.min.css" rel="stylesheet" />
 <script src="~/js/movie.js"></script>
 <link rel="stylesheet" href="~/css/Movie.css">
+
+<style>
+    .branch-btn.active {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+    
+    .btn-secondary.active {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .text-center.p-3 {
+        padding: 1rem;
+        font-style: italic;
+        color: #666;
+    }
+
+    /* Style cho navigation tabs */
+    .tab-movie-item {
+        border-bottom: 2px solid #e9ecef;
+        margin-bottom: 30px;
+    }
+
+    .nav-item {
+        margin: 0 15px;
+    }
+
+    .nav-link {
+        position: relative;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: 500;
+        color: #6c757d;
+        border: none;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        background: transparent;
+    }
+
+    .nav-link:hover {
+        color: #007bff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,123,255,0.1);
+    }
+
+    .nav-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(to right, #007bff, #00c6ff);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.5s ease;
+    }
+
+    .nav-link:hover::before {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    .nav-link.active {
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .nav-link.active::before {
+        transform: scaleX(1);
+    }
+
+    .span-tab-all {
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover .span-tab-all {
+        transform: scale(1.05);
+    }
+
+    /* Animation cho tab active */
+    .tab-pane.fade {
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .tab-pane.fade.show {
+        opacity: 1;
+    }
+
+    /* Mobile styles */
+    .nav-item-mobile {
+        margin: 0 8px;
+    }
+    
+    .nav-link-mobile {
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+</style>
 
 <body>
     <div class="Title-span shar" style="font-weight: bold; padding-top: 170px;">
@@ -29,47 +131,53 @@
 
     <div class="Wrapper-main">
         <div id="btalk-contents">
-            <!-- Nút chọn chi nhánh -->
+            <!-- Nút chọn chi nhánh động từ ViewBag -->
             <div class="text-center mb-4">
-                <button class="btn btn-primary" onclick="filterMoviesByBranch('Hồ Chí Minh')">Hồ Chí Minh</button>
-                <button class="btn btn-primary" onclick="filterMoviesByBranch('Hà Nội')">Hà Nội</button>
-                <button class="btn btn-primary" onclick="filterMoviesByBranch('Đà Nẵng')">Đà Nẵng</button>
-                <button class="btn btn-secondary" onclick="filterMoviesByBranch('Tất cả')">Tất cả</button> <!-- Nút để hiển thị tất cả phim -->
+                @foreach (var branch in ViewBag.Branches)
+                {
+                    <button class="btn btn-primary branch-btn" 
+                            data-branch-id="@branch.BranchId" 
+                            onclick="filterMoviesByBranch(@branch.BranchId)">
+                        @branch.BranchName
+                    </button>
+                }
+                <button class="btn btn-secondary branch-btn active" onclick="filterMoviesByBranch(0)">Tất cả</button>
             </div>
 
             <div class="tab-movie">
-                <ul class="tab-movie-item nav nav-tabs justify-content-center" style="width:auto">
-                    @if (phimDangChieu != null)
-                    {
-                        <li class="active li-pdc">
-                            <a class="movie-custom-tab" data-toggle="tab" href="#movie-dc-all" aria-expanded="true">
-                                <span class="span-tab-all">Phim Đang Chiếu</span>
-                            </a>
-                        </li>
-                    }
-                    @if (phimSapChieu != null)
-                    {
-                        <li class="active">
-                            <a class="movie-custom-tab li-psc" data-toggle="tab" href="#movie-sc-all" aria-expanded="false">
-                                <span class="span-tab-all">Phim Sắp Chiếu</span>
-                            </a>
-                        </li>
-                    }
+                <ul class="tab-movie-item nav nav-tabs justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link active movie-custom-tab" data-toggle="tab" href="#movie-dc-all">
+                            <span class="span-tab-all">     
+                                Phim Đang Chiếu
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link movie-custom-tab" data-toggle="tab" href="#movie-sc-all">
+                            <span class="span-tab-all">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                Phim Sắp Chiếu
+                            </span>
+                        </a>
+                    </li>
                 </ul>
-                <!-- Tab Contents Movies -->
+
                 <div class="tab-content tab-content-custom">
                     <!-- Phim Đang Chiếu -->
-                    <div id="movie-dc-all" class="tab-pane fade active in" style="min-height: 218px">
+                    <div id="movie-dc-all" class="tab-pane fade show active">
                         <div class="movie-hot clearfix" id="movie-list">
-                            @foreach (var movie in Model.Where(m => m.MovieState.Contains("1")))
+                            @foreach (var movie in Model.Where(m => m.MovieState == "1"))
                             {
-                                <div class="list-items movie-item" data-branch="@movie.BranchId">
+                                <div class="list-items movie-item" 
+                                     data-branch="@(movie.Branch?.BranchId ?? 0)"
+                                     data-state="1">
                                     <div class="item-left">
                                         <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
                                             <div class="episode-all">
                                                 @if (!string.IsNullOrEmpty(movie.Poster))
                                                 {
-                                                    var imagePath = Url.Content(movie.Poster); // Use Url.Content
+                                                    var imagePath = Url.Content(movie.Poster);
                                                     <img src="@imagePath" alt="Movie Poster" />
                                                 }
                                             </div>
@@ -81,7 +189,7 @@
                                             <h4 class="movie-color">@movie.MovieName</h4>
                                         </a>
                                         <p class="icon-clock">Thời lượng: <span>@movie.MovieLength</span></p>
-                                        <p class="icon-type">Thể Loại: <span>@movie.Genre.GenreName</span></p>
+                                        <p class="icon-type">Thể Loại: <span>@(movie.Genre?.GenreName ?? "Chưa phân loại")</span></p>
                                         <p class="icon-calendar">Khởi Chiếu: <span>@movie.ReleaseDate.ToShortDateString()</span></p>
                                         <a class="active">
                                             <span class="ganre">2D</span>
@@ -105,20 +213,25 @@
                                 </div>
                             }
                         </div>
+                        <div class="no-movies-message text-center p-3" style="display: none;">
+                            Không có phim nào trong chi nhánh này
+                        </div>
                     </div>
 
                     <!-- Phim Sắp Chiếu -->
-                    <div id="movie-sc-all" class="tab-pane fade" style="min-height: 218px">
+                    <div id="movie-sc-all" class="tab-pane fade">
                         <div class="movie-hot clearfix">
-                            @foreach (var movie in Model.Where(m => m.MovieState.Contains("2")))
+                            @foreach (var movie in Model.Where(m => m.MovieState == "2"))
                             {
-                                <div class="list-items movie-item" data-branch="@movie.BranchId">
+                                <div class="list-items movie-item" 
+                                     data-branch="@(movie.Branch?.BranchId ?? 0)"
+                                     data-state="2">
                                     <div class="item-left">
                                         <a href="/MovieDetails/MovieDetails/?movieId=@movie.MovieId">
                                             <div class="episode-all">
                                                 @if (!string.IsNullOrEmpty(movie.Poster))
                                                 {
-                                                    var imagePath = Url.Content(movie.Poster); // Use Url.Content
+                                                    var imagePath = Url.Content(movie.Poster);
                                                     <img src="@imagePath" alt="Movie Poster" />
                                                 }
                                             </div>
@@ -130,7 +243,7 @@
                                             <h4 class="movie-color">@movie.MovieName</h4>
                                         </a>
                                         <p class="icon-clock">Thời lượng: <span>@movie.MovieLength</span></p>
-                                        <p class="icon-type">Thể Loại: <span>@movie.Genre.GenreName</span></p>
+                                        <p class="icon-type">Thể Loại: <span>@(movie.Genre?.GenreName ?? "Chưa phân loại")</span></p>
                                         <p class="icon-calendar">Khởi Chiếu: <span>@movie.ReleaseDate.ToShortDateString()</span></p>
                                         <a class="active">
                                             <span class="ganre">2D</span>
@@ -153,6 +266,9 @@
                                     </div>
                                 </div>
                             }
+                        </div>
+                        <div class="no-movies-message text-center p-3" style="display: none;">
+                            Không có phim nào trong chi nhánh này
                         </div>
                     </div>
                 </div>
@@ -161,31 +277,68 @@
     </div>
 
     <script>
-        window.onload = function () {
-            var tabPDC = document.querySelector('.li-pdc a');
-            tabPDC.click(); // Kích hoạt sự kiện click trên tab "Phim Đang Chiếu"
-        };
-
         function filterMoviesByBranch(branchId) {
-            // Ẩn tất cả các phim
-            var allMovies = document.querySelectorAll('.movie-item');
-            allMovies.forEach(function(movie) {
-                movie.style.display = 'none'; // Ẩn tất cả
-            });
+            // Highlight nút được chọn
+            $('.branch-btn').removeClass('active');
+            $(`[data-branch-id="${branchId}"]`).addClass('active');
+            if(branchId === 0) {
+                $('[onclick="filterMoviesByBranch(0)"]').addClass('active');
+            }
 
-            if (branchId === 'Tất cả') {
-                // Hiển thị tất cả phim nếu chọn "Tất cả"
-                allMovies.forEach(function(movie) {
-                    movie.style.display = 'block'; // Hiển thị tất cả
-                });
+            // Lấy trạng thái tab hiện tại
+            var activeTab = $('.nav-link.active').attr('href');
+            var movieState = activeTab === '#movie-dc-all' ? "1" : "2";
+
+            // Xóa thông báo "không có phim" cũ
+            $('.no-movies-message').hide();
+            $('.movie-hot').show();
+
+            // Ẩn tất cả phim
+            $('.movie-item').hide();
+
+            var visibleMovies;
+            if (branchId === 0) {
+                // Nếu chọn "Tất cả", hiện tất cả phim theo trạng thái hiện tại
+                visibleMovies = $(`.movie-item[data-state="${movieState}"]`);
             } else {
-                // Hiển thị phim theo chi nhánh đã chọn
-                var filteredMovies = document.querySelectorAll('.movie-item[data-branch="' + branchId + '"]');
-                filteredMovies.forEach(function(movie) {
-                    movie.style.display = 'block'; // Hiển thị phim theo chi nhánh
-                });
+                // Hiện những phim thuộc chi nhánh được chọn và đúng trạng thái
+                visibleMovies = $(`.movie-item[data-branch="${branchId}"][data-state="${movieState}"]`);
+            }
+
+            if (visibleMovies.length > 0) {
+                visibleMovies.show();
+                $(`${activeTab} .movie-hot`).show();
+                $(`${activeTab} .no-movies-message`).hide();
+            } else {
+                $(`${activeTab} .movie-hot`).hide();
+                $(`${activeTab} .no-movies-message`).show();
             }
         }
+
+        // Xử lý sự kiện khi chuyển tab
+        $('.nav-link').on('click', function(e) {
+            e.preventDefault();
+            $('.nav-link').removeClass('active');
+            $(this).addClass('active');
+            
+            var target = $(this).attr('href');
+            $('.tab-pane').removeClass('show active');
+            $(target).addClass('show active');
+
+            // Cập nhật lại hiển thị phim theo chi nhánh hiện tại
+            var activeButton = $('.branch-btn.active');
+            if (activeButton.length) {
+                var branchId = parseInt(activeButton.data('branch-id') || 0);
+                filterMoviesByBranch(branchId);
+            }
+        });
+
+        // Khi trang được load
+        $(document).ready(function() {
+            // Kích hoạt tab đầu tiên và hiển thị tất cả phim
+            $('.nav-link.active').trigger('click');
+            filterMoviesByBranch(0);
+        });
     </script>
 </body>
 

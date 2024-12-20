@@ -5,7 +5,9 @@
 @{
     ViewData["Title"] = "Add ShowTime";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var selectedMovie = ViewBag.SelectedMovie as WebCinema.Models.Movie;
 }
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -18,38 +20,47 @@
                         <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                             <div class="mb-3 mb-sm-0">
                                 <div class="text-center mb-4">
-                                    <form method="post" enctype="multipart/form-data">
+                                    <form asp-action="AddShowtime" method="post">
                                         <div class="form-group">
-                                            <label for="Branch">Chi Nhánh</label>
-                                            <select id="Branch" name="Branch" class="form-control" onchange="loadMoviesByBranch(this.value)">
-                                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                                                <option value="Hà Nội">Hà Nội</option>
-                                                <option value="Đà Nẵng">Đà Nẵng</option>
-                                            </select>
+                                            <label>Phim</label>
+                                            <input type="text" class="form-control" value="@selectedMovie.MovieName" readonly />
+                                            <input type="hidden" asp-for="MovieId" value="@selectedMovie.MovieId" />
                                         </div>
 
                                         <div class="form-group">
-                                            <label asp-for="MovieId">Tên Phim</label>
-                                            <select asp-for="MovieId" asp-items="ViewBag.Movies" class="form-control" id="MovieSelect"></select>
-                                            @Html.ValidationMessageFor(m => m.MovieId, "", new { @class = "text-danger" })
+                                            <label>Chi Nhánh</label>
+                                            <input type="text" class="form-control" value="@selectedMovie.Branch?.BranchName" readonly />
+                                            <input type="hidden" asp-for="Branch" value="@selectedMovie.Branch?.BranchName" />
                                         </div>
 
                                         <div class="form-group">
                                             <label asp-for="RoomId">Phòng</label>
-                                            <select asp-for="RoomId" asp-items="ViewBag.Rooms" class="form-control"></select>
-                                            @Html.ValidationMessageFor(m => m.RoomId, "", new { @class = "text-danger" })
+                                            <select asp-for="RoomId" asp-items="ViewBag.Rooms" class="form-control">
+                                                <option value="">-- Chọn phòng --</option>
+                                            </select>
+                                            <span asp-validation-for="RoomId" class="text-danger"></span>
                                         </div>
 
                                         <div class="form-group">
                                             <label asp-for="ShowtimeDate">Lịch Chiếu</label>
-                                            <input type="date" asp-for="ShowtimeDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                            <input asp-for="ShowtimeDate" class="form-control" type="date" />
+                                            <span asp-validation-for="ShowtimeDate" class="text-danger"></span>
                                         </div>
 
                                         <div class="form-group">
                                             <label asp-for="ScreenTimeId">Thời Gian Chiếu</label>
-                                            <select asp-for="ScreenTimeId" asp-items="ViewBag.Screentimes" class="form-control"></select>
-                                            @Html.ValidationMessageFor(m => m.ScreenTimeId, "", new { @class = "text-danger" })
+                                            <select asp-for="ScreenTimeId" asp-items="ViewBag.Screentimes" class="form-control">
+                                                <option value="">-- Chọn giờ chiếu --</option>
+                                            </select>
+                                            <span asp-validation-for="ScreenTimeId" class="text-danger"></span>
                                         </div>
+
+                                        @if (TempData["ErrorMessage"] != null)
+                                        {
+                                            <div class="alert alert-danger">
+                                                @TempData["ErrorMessage"]
+                                            </div>
+                                        }
 
                                         <button type="submit" class="btn btn-primary">Thêm</button>
                                     </form>
@@ -61,32 +72,8 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function loadMoviesByBranch(branch) {
-            $.ajax({
-                url: '/Admin/GetMoviesByBranch', // Đường dẫn đến action để lấy phim theo chi nhánh
-                type: 'GET',
-                data: { branch: branch },
-                success: function (data) {
-                    var movieSelect = $('#MovieSelect');
-                    movieSelect.empty(); // Xóa các tùy chọn hiện tại
-                    $.each(data, function (index, movie) {
-                        movieSelect.append($('<option></option>').val(movie.MovieId).html(movie.MovieName));
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error loading movies: " + error);
-                }
-            });
-        }
-    </script>
-
-    <script src="~/Admin/libs/jquery/dist/jquery.min.js"></script>
-    <script src="~/Admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Admin/js/sidebarmenu.js"></script>
-    <script src="~/Admin/js/app.min.js"></script>
-    <script src="~/Admin/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="~/Admin/libs/simplebar/dist/simplebar.js"></script>
-    <script src="~/Admin/js/dashboard.js"></script>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

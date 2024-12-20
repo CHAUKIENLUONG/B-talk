@@ -33,19 +33,22 @@ namespace WebCinema.Controllers
             return PartialView("_ShowtimesPartial", showtimes);
         }
 
-        public async Task<IActionResult> ShowTimes()
+        public async Task<IActionResult> ShowTimes(DateTime? selectedDate)
         {
-            DateTime selectedDate = DateTime.Today;
-            if (Request.Query.ContainsKey("selectedDate"))
-            {
-                DateTime.TryParse(Request.Query["selectedDate"], out selectedDate);
-            }
-            var movies = await _movieRepo.GetAllAsync();
-            // Use selectedDate if needed for further processing
+            selectedDate = selectedDate ?? DateTime.Today;
+            ViewBag.SelectedDate = selectedDate;
 
-            ViewBag.SelectedDate = selectedDate; // Optional: Set ViewBag here
-            var moviesWithShowtimes = await _movieRepo.GetAllWithShowtimesAndScreentimesAsync();
-            return View(moviesWithShowtimes);
+            var movies = await _context.Movies
+                .Include(m => m.Genre)
+                .Include(m => m.Branch)
+                .Include(m => m.Showtimes)
+                    .ThenInclude(s => s.Screentime)
+                .ToListAsync();
+
+            // Thêm danh sách chi nhánh vào ViewBag
+            ViewBag.Branches = await _context.Branches.ToListAsync();
+
+            return View(movies);
         }
 
         [HttpPost]

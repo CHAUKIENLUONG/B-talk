@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebCinema.Models.Branch>
+
+@{
+    ViewData["Title"] = "Danh sách Chi nhánh";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .content-wrapper {
+        margin-left: 250px; /* Khoảng cách từ sidebar */
+        padding: 20px;
+    }
+</style>
+
+<div class="content-wrapper">
+    <h2>Danh sách chi nhánh</h2>
+    <a href="/Admin/AddBranch" class="btn btn-primary">Thêm Chi Nhánh</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên Chi Nhánh</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var branch in Model)
+            {
+                <tr>
+                    <td>@branch.BranchName</td>
+                    <td>
+                        <a href="/Admin/EditBranch/@branch.BranchId" class="btn btn-warning">Sửa</a>
+                        <form action="/Admin/DeleteBranch/@branch.BranchId" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa chi nhánh này?');">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,25 @@
+@model WebCinema.Models.Branch
+
+@{
+    ViewData["Title"] = "Thêm Chi nhánh";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .content-wrapper {
+        margin-left: 250px;
+        /* Đảm bảo nội dung cách sidebar một khoảng */
+        padding: 20px;
+    }
+</style>
+
+<div class="content-wrapper">
+    <h2>Thêm Chi Nhánh</h2>
+    <form asp-action="AddBranch" method="post">
+        <div class="form-group">
+            <label asp-for="BranchName"></label>
+            <input asp-for="BranchName" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </form>
+</div>
